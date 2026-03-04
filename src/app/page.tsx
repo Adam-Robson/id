@@ -40,7 +40,7 @@ export default function Home() {
             <p className="section-text">
               Founded in 2019 in Portland, Oregon, LE FOG is the brainchild of Adam Robson.
             </p>
-f          </div><dd></dd>
+          </div><dd></dd>
 
           <div id="work">
             <h2 className="section-label">Works</h2>
