@@ -38,7 +38,7 @@ export default function Home() {
           <div id="about">
             <h2 className="section-label">About</h2>
             <p className="section-text">
-              Founded in 2019 in Portland, Oregon, LE FOG is the brainchild of Adam Robson.ax
+              Founded in 2019 in Portland, Oregon, LE FOG is the brainchild of Adam Robson.
             </p>
 f          </div><dd></dd>
 
