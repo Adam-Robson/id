@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Special_Elite, Crimson_Pro } from "next/font/google";
+import { Barlow, Changa_One } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { ThemeProvider } from "./theme-provider";
 import type { Theme } from '@/types/theme';
 
-const specialElite = Special_Elite({
-  variable: "--font-special-elite",
+const barlow = Barlow({
+  variable: "--font-barlow",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
-const crimsonPro = Crimson_Pro({
-  variable: "--font-crimson-pro",
+const changaOne = Changa_One({
+  variable: "--font-changa-one",
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={theme === "dark" ? "dark" : ""}>
       <body
-        className={`${specialElite.variable} ${crimsonPro.variable} antialiased`}
+        className={`${barlow.variable} ${changaOne.variable} antialiased`}
       >
         <ThemeProvider initialTheme={theme}>
           {children}
