@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
+@variant dark (&:is(.dark *));
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --jet: #151618ff;
+  --forest: #3d4648ff;
+  --stone: #7a827aff;
+  --brick: #854227ff;
+  --clay: #966b5aff;
+  --mustard: #bdad44ff;
+  --sand: #aeb69eff;
+  --cream: #f9e9dbff;
+  --whip: #f6f2edff;
+  --background: var(--whip);
+  --foreground: var(--jet);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-title: var(--font-changa-one);
+  --font-serif: var(--font-barlow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: var(--jet);
+  --foreground: var(--whip);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-barlow), serif;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+}
+
+.page-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+/* Home page */
+.home-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  z-index: -1;
+  opacity: 0.5;
+
 }
