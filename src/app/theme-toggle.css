@@ -1,8 +1,4 @@
-
 .theme-toggle-wrapper {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,13 +15,13 @@
   width: 2.8rem;
   height: 1.5rem;
   border-radius: 1rem;
-  background: var(--stone);
+  background: var(--cream);
   position: relative;
-  transition: background 0.3s;
+  transition: background 0.4s;
 }
 
 .theme-toggle.is-dark {
-  background: var(--mustard);
+  background: var(--stone);
 }
 
 .theme-toggle-knob {
@@ -35,8 +31,8 @@
   width: calc(1.5rem - 6px);
   height: calc(1.5rem - 6px);
   border-radius: 50%;
-  background: var(--whip);
-  transition: transform 0.3s;
+  background: var(--background);
+  transition: transform 0.4s;
 }
 
 .theme-toggle.is-dark .theme-toggle-knob {
@@ -44,8 +40,8 @@
 }
 
 .theme-toggle-label {
-  font-size: .7rem;
-  letter-spacing: .03em;
+  font-size: .9rem;
+  letter-spacing: .04em;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.2s, visibility 0.2s;

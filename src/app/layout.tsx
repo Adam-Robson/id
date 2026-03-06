@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Barlow, Changa_One } from "next/font/google";
+import { Barlow } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { ThemeProvider } from "./theme-provider";
@@ -11,7 +11,6 @@ const barlow = Barlow({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-
 
 export const metadata: Metadata = {
   title: "LE FOG",

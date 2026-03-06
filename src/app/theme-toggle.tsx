@@ -1,5 +1,5 @@
 'use client';
-import '@/components/theme-toggle.css';
+import './theme-toggle.css';
 
 import { useState } from 'react';
 
