@@ -1,7 +1,7 @@
 'use client';
-import type { Theme } from '@/types/theme';
-import type { ResolvedTheme } from '@/types/resolved-theme';
-import type { ThemeContextValue } from '@/types/theme-context-value';
+import type { Theme } from '@@/types/theme';
+import type { ResolvedTheme } from '@@/types/resolved-theme';
+import type { ThemeContextValue } from '@@/types/theme-context-value';
 import { createContext, useContext, useEffect, useLayoutEffect, useState } from 'react';
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
