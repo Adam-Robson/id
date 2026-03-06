@@ -1,8 +1,11 @@
 import Image from "next/image";
-import ThemeToggle from './theme-toggle'
+import ThemeToggle from './components/theme-toggle';
+import AudioPlayer from "./components/audio-player";
+import { getSongs } from "@/lib/r2";
 
+export default async function Home() {
+  const songs = await getSongs();
 
-export default function Home() {
   return (
     <div className="page-wrapper">
       <header className="site-header site-header--end">
@@ -18,6 +21,7 @@ export default function Home() {
             className="logo"
           />
         </div>
+        <AudioPlayer songs={songs} />
       </main>
     </div>
   );

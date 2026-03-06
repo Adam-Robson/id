@@ -3,8 +3,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { Barlow } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
-import { ThemeProvider } from "./theme-provider";
-import type { Theme } from '@/types/theme';
+import { ThemeProvider } from "./contexts/theme-provider";
+import { AudioProvider } from "./contexts/audio-provider";
+import type { Theme } from '@@/types/theme';
 
 const barlow = Barlow({
   variable: "--font-barlow",
@@ -31,7 +32,9 @@ export default async function RootLayout({
         className={`${barlow.variable} antialiased`}
       >
         <ThemeProvider initialTheme={theme}>
-          {children}
+          <AudioProvider>
+            {children}
+          </AudioProvider>
           <Analytics />
         </ThemeProvider>
       </body>
