@@ -12,11 +12,6 @@ const barlow = Barlow({
   weight: ["400", "500", "600", "700"],
 });
 
-const changaOne = Changa_One({
-  variable: "--font-changa-one",
-  subsets: ["latin"],
-  weight: "400",
-});
 
 export const metadata: Metadata = {
   title: "LE FOG",
@@ -34,7 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={theme === "dark" ? "dark" : ""}>
       <body
-        className={`${barlow.variable} ${changaOne.variable} antialiased`}
+        className={`${barlow.variable} antialiased`}
       >
         <ThemeProvider initialTheme={theme}>
           {children}

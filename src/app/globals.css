@@ -12,6 +12,9 @@
   --jet: #151618ff;
   --forest: #3d4648ff;
   --stone: #7a827aff;
+  --brick: #854227ff;
+  --clay: #966b5aff;
+  --mustard: #bdad44ff;
   --sand: #aeb69eff;
   --cream: #f9e9dbff;
   --whip: #f6f2edff;
@@ -35,9 +38,18 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-barlow);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-barlow), serif;
 }
 
 .page-wrapper {
+  width: 100%;
+  max-width: 1000px;
   position: relative;
   min-height: 100dvh;
   display: flex;
@@ -45,138 +57,27 @@ body {
   justify-content: center;
 }
 
-.page-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background-image: url('/blur.webp');
-  background-size: cover;
-  background-position: top center;
+.logo {
+  z-index: -1;
 }
 
-.page-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  /* background-size: 180px; */
-  opacity: 0.25;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
-.plate {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  max-width: 48rem;
-  padding: 3rem;
-  background: color-mix(in srgb, var(--background) 87%, transparent);
-  backdrop-filter: blur(24px) saturate(1.1);
-  -webkit-backdrop-filter: blur(24px) saturate(1.1);
-  border: 1px solid color-mix(in srgb, var(--foreground) 7%, transparent);
-}
-
-.logo-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
-
-.page-title {
-  font-size: 5rem;
-  font-family: var(--font-changa-one);
-  text-align: center;
-  letter-spacing: 0.3em;
-}
-
-.divider {
-  border: none;
-  border-top: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
-  margin-bottom: 4rem;
-}
-
-.nav-container {
-  padding: 3rem;
+.nav {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
 }
 
-.nav-link {
-  font-family: var(--font-changa-one);
-  font-size: 1.5rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--foreground) 40%, transparent);
+.navlink {
+  font-size: 1.6rem;
   text-decoration: none;
-  transition: color 0.2s ease;
+  color: var(--clay);
 }
 
-.nav-link:hover {
-  color: var(--foreground);
+.navlink:hover {
+  color: var(--brick);
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-.caption {
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
-  font-weight: 300;
-  line-height: 1.6;
-  color: color-mix(in srgb, var(--foreground) 75%, transparent);
-}
 
-.section-label {
-  font-family: var(--font-changa-one);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--foreground) 35%, transparent);
-  margin-bottom: 1.25rem;
-}
-
-.section-text {
-  font-size: 0.875rem;
-  line-height: 1.75;
-  color: color-mix(in srgb, var(--foreground) 65%, transparent);
-}
-
-.section-link {
-  color: color-mix(in srgb, var(--foreground) 65%, transparent);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.section-link:hover {
-  color: var(--foreground);
-}
-
-.section-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-}
-
-.about-nav {
-  margin-bottom: 2rem;
-}
-
-.about-photo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-}
-
-.about-photo-img {
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.about-section {
-  margin-bottom: 2rem;
-}
