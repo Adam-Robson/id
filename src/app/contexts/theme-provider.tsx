@@ -7,7 +7,7 @@ import { createContext, useContext, useEffect, useLayoutEffect, useState } from 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 // useLayoutEffect on client (no flash), useEffect on server (SSR no-op)
-const useIsomorphicLayoutEffect =
+const useIsomorphibrickoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export function ThemeProvider({
@@ -20,7 +20,7 @@ export function ThemeProvider({
   const [theme, setThemeState] = useState<Theme>(initialTheme);
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('light');
 
-  useIsomorphicLayoutEffect(() => {
+  useIsomorphibrickoutEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     const resolve = () => {

@@ -63,7 +63,7 @@ export default function AudioControls({ src, title, album, onToggleList, listOpe
             margin: 0,
             fontSize: '0.875rem',
             fontWeight: 600,
-            color: 'var(--cream)',
+            color: 'var(--tuscan)',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',

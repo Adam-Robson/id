@@ -9,7 +9,7 @@
 
 .seek {
   width: 100%;
-  accent-color: var(--mustard);
+  accent-color: var(--burnt);
   display: block;
   margin-bottom: 0.85rem;
 }
@@ -31,30 +31,30 @@
   margin: 0;
   font-size: 0.85rem;
   white-space: nowrap;
-  color: var(--stone);
+  color: var(--dry);
   text-transform: uppercase; 
   letter-spacing: 0.05em;
 }
 
 .song-album {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   white-space: nowrap;
-  color: var(--stone);
+  color: var(--linen);
 }
 
 .song-duration {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   white-space: nowrap;
-  color: var(--stone);
+  color: var(--linen);
 }
 
 .play-pause {
   padding: 0.4rem 1.1rem;
   border-radius: 9999px;
-  background: var(--mustard);
-  color: var(--jet);
+  background: var(--wheat);
+  color: var(--ink);
   font-size: 0.875rem;
   font-weight: 700;
   border: none;
@@ -64,7 +64,7 @@
 }
 
 .play-pause:hover {
-  background: color-mix(in srgb, var(--mustard) 85%, white);
+  background: color-mix(in srgb, var(--wheat) 85%, var(--linen));
 }
 
 .play-pause:active {
@@ -75,7 +75,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--stone);
+  color: var(--linen);
   font-size: 1rem;
   line-height: 1;
   padding: 0.25rem;
@@ -88,6 +88,6 @@
 }
 
 .toggle-list:hover {
-  color: var(--sand);
+  color: var(--tuscan);
 }
 
