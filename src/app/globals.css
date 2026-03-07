@@ -62,10 +62,65 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 6rem;
+}
+
+@keyframes logo-fade-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 0.5; transform: scale(1); }
 }
 
 .logo {
   z-index: -1;
   opacity: 0.5;
+  animation: logo-fade-in 1s ease both;
+}
 
+/* Header */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+}
+
+.about-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stone);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.about-link:hover {
+  color: var(--foreground);
+}
+
+/* About section */
+.about-section {
+  min-height: 100dvh;
+  padding: 5rem 1.25rem 10rem;
+  border-top: 1px solid var(--forest);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mustard);
+  margin: 0;
+}
+
+.about-body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--foreground);
+  max-width: 60ch;
+  margin: 0;
 }

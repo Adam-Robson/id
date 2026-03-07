@@ -12,6 +12,20 @@ const r2 = new S3Client({
 
 const AUDIO_EXTENSIONS = /\.(mp3|wav|flac|ogg|m4a|aac)$/i;
 
+function parseSongMeta(key: string): { title: string; album: string } {
+  const slashIdx = key.lastIndexOf('/');
+  if (slashIdx !== -1) {
+    const dirPath = key.slice(0, slashIdx);
+    const album = (dirPath.split('/').filter(Boolean).pop() ?? dirPath).replace(/[-_]/g, ' ');
+    const filename = key.slice(slashIdx + 1).replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+    return { album, title: filename };
+  }
+  return {
+    album: 'Singles',
+    title: key.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '),
+  };
+}
+
 export async function getSongs() {
   const list = await r2.send(
     new ListObjectsV2Command({ Bucket: process.env.BUCKET_NAME })
@@ -24,7 +38,7 @@ export async function getSongs() {
   return Promise.all(
     keys.map(async (key) => ({
       key,
-      title: key.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '),
+      ...parseSongMeta(key),
       url: await getSignedUrl(
         r2,
         new GetObjectCommand({ Bucket: process.env.BUCKET_NAME, Key: key }),

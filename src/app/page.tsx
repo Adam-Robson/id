@@ -8,7 +8,8 @@ export default async function Home() {
 
   return (
     <div className="page-wrapper">
-      <header className="site-header site-header--end">
+      <header className="site-header">
+        <a href="#about" className="about-link">About</a>
         <ThemeToggle />
       </header>
       <main className="home-main">
@@ -23,6 +24,12 @@ export default async function Home() {
         </div>
         <AudioPlayer songs={songs} />
       </main>
+      <section id="about" className="about-section">
+        <h2 className="about-heading">About</h2>
+        <p className="about-body">
+          LE FOG is a band based in the Pacific Northwest.
+        </p>
+      </section>
     </div>
   );
 }
