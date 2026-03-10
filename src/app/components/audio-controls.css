@@ -4,14 +4,15 @@
 }
 
 .audio-controls {
-  padding: 1.25rem 1.25rem 1rem;
+  padding: 1.1rem 1.5rem 1rem;
 }
 
 .seek {
   width: 100%;
-  accent-color: var(--burnt);
+  accent-color: var(--marigold);
   display: block;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.9rem;
+  cursor: pointer;
 }
 
 .controls {
@@ -26,68 +27,79 @@
   animation: song-info-in 0.3s ease both;
 }
 
-
 .song-title {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   white-space: nowrap;
-  color: var(--dry);
-  text-transform: uppercase; 
-  letter-spacing: 0.05em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--marigold);
+  text-transform: uppercase;
 }
 
 .song-album {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 300;
   white-space: nowrap;
-  color: var(--linen);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(232, 237, 223, 0.9);
+  letter-spacing: 0.02em;
 }
 
 .song-duration {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.75rem;
+  font-weight: 400;
   white-space: nowrap;
-  color: var(--linen);
+  color: rgba(232, 237, 223, 0.4);
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
 }
 
 .play-pause {
-  padding: 0.4rem 1.1rem;
+  padding: 0.45rem 1.25rem;
   border-radius: 9999px;
-  background: var(--wheat);
-  color: var(--ink);
-  font-size: 0.875rem;
-  font-weight: 700;
-  border: none;
+  background: transparent;
+  color: var(--linen);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(232, 237, 223, 0.25);
   cursor: pointer;
   flex-shrink: 0;
-  transition: transform 0.1s ease, background 0.15s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
 }
 
 .play-pause:hover {
-  background: color-mix(in srgb, var(--wheat) 85%, var(--linen));
+  border-color: rgba(232, 237, 223, 0.6);
 }
 
 .play-pause:active {
-  transform: scale(0.93);
+  transform: scale(0.94);
 }
 
 .toggle-list {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--linen);
+  color: rgba(232, 237, 223, 0.35);
   font-size: 1rem;
   line-height: 1;
   padding: 0.25rem;
   flex-shrink: 0;
-  transition: transform 0.35s ease, color 0.15s ease;
+  transition: transform 0.35s ease, color 0.2s ease;
 }
 
 .toggle-list.open {
   transform: rotate(180deg);
+  color: var(--marigold);
 }
 
 .toggle-list:hover {
-  color: var(--tuscan);
+  color: rgba(232, 237, 223, 0.7);
 }
-
