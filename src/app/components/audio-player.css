@@ -17,8 +17,8 @@
 }
 
 .audio-player-list {
-  background: var(--forest);
-  border-top: 1px solid var(--stone);
+  background: var(--olive);
+  border-top: 1px solid var(--dry);
   max-height: 0;
   overflow: hidden;
   padding: 0 1.25rem;
@@ -57,7 +57,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--mustard);
+  color: var(--tuscan);
 }
 
 .audio-player-album-songs {
@@ -74,7 +74,7 @@
   margin-bottom: 0.1rem;
   border-radius: 0.4rem;
   background: transparent;
-  color: var(--sand);
+  color: var(--linen);
   font-size: 0.875rem;
   border: none;
   cursor: pointer;
@@ -88,13 +88,13 @@
 }
 
 .audio-player-album-song.active {
-  background: var(--clay);
-  color: var(--cream);
+  background: var(--brick);
+  color: var(--linen);
   font-weight: 600;
 }
 
 .audio-player-controls {
   border-radius: .5rem;
-  background: var(--jet);
-  border-top: 1px solid var(--forest);
+  background: rgba(36, 30, 30, 0.6);
+  border-top: 1px solid var(--olive);
 }

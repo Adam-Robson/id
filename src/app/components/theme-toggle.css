@@ -16,13 +16,13 @@
   width: 2.8rem;
   height: 1.5rem;
   border-radius: 1rem;
-  background: var(--clay);
+  background: var(--brick);
   position: relative;
   transition: background 0.4s;
 }
 
 .theme-toggle.is-dark {
-  background: var(--stone);
+  background: var(--dry);
 }
 
 .theme-toggle-knob {
