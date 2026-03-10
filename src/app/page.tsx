@@ -3,6 +3,8 @@ import ThemeToggle from './components/theme-toggle';
 import AudioPlayer from "./components/audio-player";
 import { getSongs } from "@/lib/r2";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const songs = await getSongs();
 
