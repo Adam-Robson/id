@@ -27,7 +27,7 @@ export default function AboutPage() {
          Over six years, their work has ranged across post-rock,
          psychedelic, and ambient territory without settling into
          any one of them. The music shifts in weight and intensity
-         — not out-right punk-rock, but the same restless & rebellious
+         — not outright punk-rock, but the same restless & rebellious
          spirit shows up in LE FOG's music. 
         </p>
       </main>
