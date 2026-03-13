@@ -26,11 +26,19 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  await saveContact({
-    name: name.trim(),
-    email: email.trim(),
-    message: message.trim(),
-  });
+  try {
+    await saveContact({
+      name: name.trim(),
+      email: email.trim(),
+      message: message.trim(),
+    });
+  } catch (error) {
+    console.error('Failed to save contact', error);
+    return NextResponse.json(
+      { error: 'Failed to save contact' },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }
