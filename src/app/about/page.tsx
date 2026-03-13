@@ -1,7 +1,7 @@
 import ThemeToggle from '@/app/components/theme-toggle';
 
 export const metadata = {
-  title: 'About — LE FOG',
+  title: 'About',
 };
 
 export default function AboutPage() {
