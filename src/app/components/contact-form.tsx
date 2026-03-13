@@ -19,18 +19,24 @@ export default function ContactForm() {
       message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
     };
 
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
 
-    if (res.ok) {
-      setStatus('success');
-      form.reset();
-    } else {
-      const json = await res.json().catch(() => ({}));
-      setErrorMsg(json.error ?? 'Something went wrong. Try again.');
+      if (res.ok) {
+        setStatus('success');
+        form.reset();
+      } else {
+        const json = await res.json().catch(() => ({}));
+        setErrorMsg(json.error ?? 'Something went wrong. Try again.');
+        setStatus('error');
+      }
+    } catch (err) {
+      // Handle network-level or unexpected errors
+      setErrorMsg('Something went wrong. Try again.');
       setStatus('error');
     }
   }
