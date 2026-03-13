@@ -9,22 +9,18 @@
 }
 
 :root {
-  --linen: #ece8df;
-  --eggshell: #efe8d5;
-  --wheat: #efd6ac;
-  --marigold: #c9993c;
-  --clay: #b54232;
-  --brick: #854227;
-  --alabaster: #cfdbd5;
-  --dry: #b4b8ab;
-  --slate: #7a7d74;
-  --olive: #677b7b;
-  --carbon: #3a3733;
-  --ink: #2e2b28;
+  --charcoal: #515052ff;
+  --black: #000103ff;
+  --graphite: #333138ff;
+  --jet: #1c2826ff;
+  --slate: #70798cff;
+  --ash: #a5ae9eff;
+  --snow: #f7fefdff;
+  --ember: #ba5c12ff;
 
-  --background: var(--linen);
-  --foreground: var(--ink);
-  --accent: var(--marigold);
+  --background: var(--snow);
+  --foreground: var(--black);
+  --accent: var(--ember);
   --muted: var(--slate);
 }
 
@@ -36,9 +32,9 @@
 }
 
 .dark {
-  --background: var(--ink);
-  --foreground: var(--linen);
-  --muted: var(--dry);
+  --background: var(--black);
+  --foreground: var(--snow);
+  --muted: var(--ash);
 }
 
 body {
