@@ -1,4 +1,6 @@
 import ThemeToggle from '@/app/components/theme-toggle';
+import ContactForm from '@/app/components/contact-form';
+import '@/app/contact/contact.css';
 
 export const metadata = {
   title: 'Contact — LE FOG',
@@ -6,7 +8,7 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper page-wrapper--interior">
       <header className="site-header">
         <a href="/" className="back-link">← LE FOG</a>
         <ThemeToggle />
@@ -21,6 +23,7 @@ export default function ContactPage() {
             </a>
           </div>
         </div>
+        <ContactForm />
       </main>
     </div>
   );

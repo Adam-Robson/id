@@ -31,7 +31,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-serif: var(--font-barlow);
+  --font-sans: var(--font-barlow);
+  --font-serif: var(--font-crimson);
 }
 
 .dark {
@@ -60,6 +61,72 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  isolation: isolate;
+}
+
+/* ── Blur image background (interior pages) ── */
+.page-wrapper--interior::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/blur.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark .page-wrapper--interior::before {
+  opacity: 0.1;
+}
+
+/* ── Blur image hint (home page) ── */
+.page-wrapper--home::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/blur.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 55% 55% at center, transparent 0%, black 100%);
+  -webkit-mask-image: radial-gradient(ellipse 55% 55% at center, transparent 0%, black 100%);
+}
+
+.dark .page-wrapper--home::before {
+  opacity: 0.12;
+}
+
+/* ── Noise overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ── Background word ── */
+.bg-word {
+  position: fixed;
+  bottom: -0.16em;
+  left: -0.02em;
+  font-family: var(--font-crimson), serif;
+  font-size: 28vw;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(26, 23, 20, 0.05);
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.dark .bg-word {
+  -webkit-text-stroke: 1px rgba(237, 232, 220, 0.04);
 }
 
 /* ── Header ── */
@@ -154,38 +221,4 @@ body {
 
 .page-body:last-child {
   margin-bottom: 0;
-}
-
-/* ── Contact ── */
-.contact-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 0.5rem;
-}
-
-.contact-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.contact-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.contact-value {
-  font-size: 0.95rem;
-  font-weight: 300;
-  color: var(--foreground);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-a.contact-value:hover {
-  color: var(--accent);
 }

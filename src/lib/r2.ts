@@ -1,4 +1,4 @@
-import { S3Client, ListObjectsV2Command, GetObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, ListObjectsV2Command, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 const r2 = new S3Client({
@@ -24,6 +24,33 @@ function parseSongMeta(key: string): { title: string; album: string } {
     album: 'Singles',
     title: key.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' '),
   };
+}
+
+export interface ContactSubmission {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  submittedAt: string;
+}
+
+export async function saveContact(data: Omit<ContactSubmission, 'id' | 'submittedAt'>) {
+  const submission: ContactSubmission = {
+    id: crypto.randomUUID(),
+    ...data,
+    submittedAt: new Date().toISOString(),
+  };
+
+  await r2.send(
+    new PutObjectCommand({
+      Bucket: process.env.BUCKET_NAME,
+      Key: `contacts/${submission.submittedAt}_${submission.id}.json`,
+      Body: JSON.stringify(submission),
+      ContentType: 'application/json',
+    })
+  );
+
+  return submission;
 }
 
 export async function getSongs() {

@@ -1,17 +1,12 @@
-import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Barlow } from "next/font/google";
+import { barlow, crimsonPro } from "@/app/fonts";
+
 import { cookies } from "next/headers";
 import "./globals.css";
-import { ThemeProvider } from "./contexts/theme-provider";
-import { AudioProvider } from "./contexts/audio-provider";
-import type { Theme } from '@@/types/theme';
-
-const barlow = Barlow({
-  variable: "--font-barlow",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
+import { ThemeProvider } from "../contexts/theme-provider";
+import { AudioProvider } from "../contexts/audio-provider";
+import type { Theme } from '@/types/theme';
+import type { Metadata, Viewport } from "next";
 
 export const viewport: Viewport = {
   themeColor: "#333333ff",
@@ -84,6 +79,7 @@ export const metadata: Metadata = {
   },
 };
 
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -100,7 +96,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="//lefog.me/" />
         <link rel="preconnect" href="https://lefog.me/" />
       </head>
-      <body className={`${barlow.variable} antialiased`}>
+      <body className={`${barlow.variable} ${crimsonPro.variable} antialiased`}>
         <ThemeProvider initialTheme={theme}>
           <AudioProvider>
             {children}
