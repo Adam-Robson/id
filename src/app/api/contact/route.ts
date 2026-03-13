@@ -14,23 +14,37 @@ export async function POST(req: NextRequest) {
 
   const { name, email, message } = body;
 
+  const trimmedName = typeof name === 'string' ? name.trim() : '';
+   const trimmedEmail = typeof email === 'string' ? email.trim() : '';
+   const trimmedMessage = typeof message === 'string' ? message.trim() : '';
+   if (!trimmedName || !trimmedEmail || !trimmedMessage) {
+     return NextResponse.json({
+       error: 'All fields are required'
+     }, {
+       status: 400
+     });
+   }
+   const MAX_NAME_LENGTH = 200;
+   const MAX_EMAIL_LENGTH = 320;
+   const MAX_MESSAGE_LENGTH = 5000;
+
   if (
-    typeof name !== 'string' || !name.trim() ||
-    typeof email !== 'string' || !email.trim() ||
-    typeof message !== 'string' || !message.trim()
+     trimmedName.length > MAX_NAME_LENGTH ||
+     trimmedEmail.length > MAX_EMAIL_LENGTH ||
+     trimmedMessage.length > MAX_MESSAGE_LENGTH
   ) {
-    return NextResponse.json({ 
-      error: 'All fields are required'
-     }, { 
-      status: 400 
+     return NextResponse.json({
+       error: 'One or more fields are too long'
+     }, {
+       status: 400
     });
   }
 
   try {
     await saveContact({
-      name: name.trim(),
-      email: email.trim(),
-      message: message.trim(),
+      name: trimmedName,
+      email: trimmedEmail,
+      message: trimmedMessage,
     });
   } catch (error) {
     console.error('Failed to save contact', error);
