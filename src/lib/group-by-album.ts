@@ -1,4 +1,4 @@
-import type { Song } from '@@/types/song';
+import type { Song } from '@/types/song';
 
 export function groupByAlbum(songs: Song[]): Record<string, Song[]> {
   return songs.reduce<Record<string, Song[]>>((acc, song) => {
