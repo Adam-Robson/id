@@ -71,11 +71,11 @@ export const metadata: Metadata = {
     rating: "general",
     // MS Application tiles
     "msapplication-TileColor": "#333333ff",
-    "msapplication-square70x70logo": "/mstile-70x70.png",
-    "msapplication-TileImage": "/mstile-144x144.png",
-    "msapplication-square150x150logo": "/mstile-150x150.png",
-    "msapplication-wide310x150logo": "/mstile-310x150.png",
-    "msapplication-square310x310logo": "/mstile-310x310.png",
+    "msapplication-square70x70logo": "/favicon/mstile-70x70.png",
+    "msapplication-TileImage": "/favicon/mstile-144x144.png",
+    "msapplication-square150x150logo": "/favicon/mstile-150x150.png",
+    "msapplication-wide310x150logo": "/favicon/mstile-310x150.png",
+    "msapplication-square310x310logo": "/favicon/mstile-310x310.png",
   },
 };
 
