@@ -3,7 +3,7 @@ import ContactForm from '@/app/components/contact-form';
 import '@/app/contact/contact.css';
 
 export const metadata = {
-  title: 'Contact — LE FOG',
+  title: 'Contact',
 };
 
 export default function ContactPage() {
