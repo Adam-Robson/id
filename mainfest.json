@@ -1,0 +1,9 @@
+{
+  "name": "My App",
+  "short_name": "App",
+  "start_url": "/?home=true",
+  "theme_color": "#000000",
+  "background_color": "#FFFFFF",
+  "display": "fullscreen",
+  "orientation": "portrait"
+}

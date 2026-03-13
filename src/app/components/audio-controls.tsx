@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react';
-import { useAudio } from '@/app/contexts/audio-provider';
-import type { AudioControlsProps } from '@@/types/audio-controls';
+import { useAudio } from '@/contexts/audio-provider';
+import type { AudioControlsProps } from '@/types/audio-controls';
 import '@/app/components/audio-controls.css';
 
 export default function AudioControls({ src, title, album, onToggleList, listOpen }: AudioControlsProps) {

@@ -1,9 +1,9 @@
 'use client'
 import { useState } from 'react';
 import AudioControls from '@/app/components/audio-controls';
-import type { Song } from '@@/types/song';
+import type { Song } from '@/types/song';
 import '@/app/components/audio-player.css';
-import { groupByAlbum } from '@@/group-by-album';
+import { groupByAlbum } from '@/lib/group-by-album';
 
 export default function AudioPlayer({ songs }: { songs: Song[] }) {
   const [current, setCurrent] = useState(0);

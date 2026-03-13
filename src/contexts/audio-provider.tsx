@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useRef } from 'react';
-import type { AudioProviderType } from '@@/types/audio-provider';
+import type { AudioProviderType } from '@/types/audio-provider';
 
 
 const AudioContext = createContext<AudioProviderType | null>(null);

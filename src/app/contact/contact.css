@@ -1,0 +1,116 @@
+
+/* ── Contact ── */
+.contact-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 0.5rem;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.contact-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact-value {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--foreground);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a.contact-value:hover {
+  color: var(--accent);
+}
+
+/* ── Contact form ── */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-input {
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+  border-radius: 2px;
+  color: var(--foreground);
+  font-family: var(--font-barlow), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  padding: 0.6rem 0.75rem;
+  transition: border-color 0.2s;
+  outline: none;
+  width: 100%;
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+}
+
+.form-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--foreground);
+  border-radius: 2px;
+  color: var(--foreground);
+  cursor: pointer;
+  font-family: var(--font-barlow), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  padding: 0.55rem 1.5rem;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+
+.form-submit:hover:not(:disabled) {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.form-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-feedback {
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.form-feedback--error {
+  color: var(--clay);
+}
+
+.form-feedback--success {
+  color: var(--accent);
+}

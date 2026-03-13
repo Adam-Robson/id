@@ -9,9 +9,13 @@ export default async function Home() {
   const songs = await getSongs();
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper page-wrapper--home">
+      <span className="bg-word" aria-hidden="true">FOG</span>
       <header className="site-header">
-        <a href="#about" className="about-link">About</a>
+        <nav className="site-nav">
+          <a href="/about" className="nav-link">About</a>
+          <a href="/contact" className="nav-link">Contact</a>
+        </nav>
         <ThemeToggle />
       </header>
       <main className="home-main">
@@ -26,12 +30,6 @@ export default async function Home() {
         </div>
         <AudioPlayer songs={songs} />
       </main>
-      <section id="about" className="about-section">
-        <h2 className="about-heading">About</h2>
-        <p className="about-body">
-          LE FOG is a band based in the Pacific Northwest.
-        </p>
-      </section>
     </div>
   );
 }
