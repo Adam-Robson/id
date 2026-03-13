@@ -24,7 +24,7 @@ export default function AboutPage() {
          & on the surface, and the next, diving deep and
          confronting aspects of life that puzzle many of us.
          
-         Over six years, their work has ranged across post-drock,
+         Over six years, their work has ranged across post-rock,
          psychedelic, and ambient territory without settling into
          any one of them. The music shifts in weight and intensity
          — not out-right punk-rock, but the same restless & rebellious
