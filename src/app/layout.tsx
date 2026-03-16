@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
-import { barlow, crimsonPro } from "@/app/fonts";
+import { Aleo, Anaheim } from 'next/font/google';
 
 import { cookies } from "next/headers";
 import "./globals.css";
@@ -79,6 +79,17 @@ export const metadata: Metadata = {
   },
 };
 
+export const aleo = Aleo({
+  subsets: ["latin"],
+  display: "swap",
+  variable:"--font-aleo"
+})
+
+export const anaheim = Anaheim({
+  subsets: ["latin"],
+  display: "swap",
+  variable:"--font-anaheim"
+})
 
 export default async function RootLayout({
   children,
@@ -91,12 +102,12 @@ export default async function RootLayout({
   return (
     <html lang="en" className={theme === "dark" ? "dark" : ""}>
       <head>
-        {/* DNS prefetch control — not in Metadata API, must be inline */}
+        {/* DNS prefetch is not available via Metadata API */}
         <meta httpEquiv="x-dns-prefetch-control" content="off" />
         <link rel="dns-prefetch" href="//lefog.me/" />
         <link rel="preconnect" href="https://lefog.me/" />
       </head>
-      <body className={`${barlow.variable} ${crimsonPro.variable} antialiased`}>
+      <body className={`antialiased ${aleo.variable} ${anaheim.variable}`}>
         <ThemeProvider initialTheme={theme}>
           <AudioProvider>
             {children}

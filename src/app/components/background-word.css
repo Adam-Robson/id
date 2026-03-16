@@ -1,0 +1,52 @@
+
+/* ── word ── */
+.bg-word {
+  position: fixed;
+  font-family: var(--font-anaheim), serif;
+  font-weight: 100;
+  line-height: 1;
+  color: var(--foreground);
+  -webkit-text-stroke: 4px var(--foreground);
+  opacity: 0.2;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  z-index: -99;
+  /* Mobile */
+  writing-mode: vertical-rl;
+  font-size: 25vw;
+  right: -0.05em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.dark .bg-word {
+  color: var(--accent);
+  -webkit-text-stroke: 4px var(--accent);
+}
+
+/* Medium: horizontal, centered */
+@media (min-width: 640px) {
+  .bg-word {
+    writing-mode: horizontal-tb;
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Desktop: horizontal, centered */
+@media (min-width: 1024px) {
+  .bg-word {
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: 0.16em;
+    padding-left: 0.16em;
+  }
+}

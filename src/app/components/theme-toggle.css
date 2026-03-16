@@ -16,13 +16,13 @@
   width: 2.8rem;
   height: 1.5rem;
   border-radius: 1rem;
-  background: var(--brick);
+  background: var(--accent);
   position: relative;
   transition: background 0.4s;
 }
 
 .theme-toggle.is-dark {
-  background: var(--dry);
+  background: var(--muted);
 }
 
 .theme-toggle-knob {
@@ -38,6 +38,7 @@
 
 .theme-toggle.is-dark .theme-toggle-knob {
   transform: translateX(1.3rem);
+  background: var(--foreground);
 }
 
 .theme-toggle-label {
