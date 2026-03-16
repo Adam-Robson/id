@@ -41,7 +41,6 @@
 /* Desktop: horizontal, centered */
 @media (min-width: 1024px) {
   .bg-word {
-    writing-mode: horizontal-lr;
     bottom: auto;
     left: 50%;
     right: auto;

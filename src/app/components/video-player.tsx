@@ -2,8 +2,8 @@ export default function VideoPlayer() {
   return (
     <div className="player">
       <video controls>
-        <source src='./juggle.mp4' type='video/mp4' />
-        <source src='./juggle.webm' type='video/webm' />
+        <source src='/video/juggle.mp4' type='video/mp4' />
+        <source src='/video/juggle.webm' type='video/webm' />
       </video>
       
       <div className="controls">
