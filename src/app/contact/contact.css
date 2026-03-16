@@ -1,5 +1,20 @@
+.page-wrapper--interior:has(.contact-interior)::before {
+  display: none;
+}
 
-/* ── Contact ── */
+.page-wrapper--interior:has(.contact-interior)::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/images/blur.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .contact-grid {
   display: flex;
   flex-direction: column;
@@ -33,7 +48,6 @@ a.contact-value:hover {
   color: var(--accent);
 }
 
-/* ── Contact form ── */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -52,7 +66,7 @@ a.contact-value:hover {
   border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
   border-radius: 2px;
   color: var(--foreground);
-  font-family: var(--font-barlow), sans-serif;
+  font-family: var(--font-serif), sans-serif;
   font-size: 0.9rem;
   font-weight: 300;
   padding: 0.6rem 0.75rem;
@@ -82,7 +96,7 @@ a.contact-value:hover {
   border-radius: 2px;
   color: var(--foreground);
   cursor: pointer;
-  font-family: var(--font-barlow), sans-serif;
+  font-family: var(--font-serif), sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.15em;
@@ -108,7 +122,7 @@ a.contact-value:hover {
 }
 
 .form-feedback--error {
-  color: var(--clay);
+  color: var(--muted);
 }
 
 .form-feedback--success {

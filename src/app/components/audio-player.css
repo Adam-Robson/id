@@ -3,12 +3,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index:999;
 }
 
 .audio-player-inner {
   max-width: 900px;
   margin: 0 auto;
+  border-radius: 0.65rem 0.65rem 0 0;
+  overflow: hidden;
 }
 
 @keyframes list-item-in {
@@ -17,7 +19,7 @@
 }
 
 .audio-player-list {
-  background: color-mix(in srgb, var(--ink) 92%, var(--olive));
+  background: color-mix(in srgb, var(--background) 75%, transparent);
   border-top: 1px solid rgba(255,255,255,0.06);
   max-height: 0;
   overflow: hidden;
@@ -56,7 +58,7 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--marigold);
+  color: var(--accent);
 }
 
 .audio-player-album-songs {
@@ -73,7 +75,7 @@
   margin-bottom: 0.05rem;
   border-radius: 0.25rem;
   background: transparent;
-  color: rgba(232, 237, 223, 0.65);
+  color: var(--muted);
   font-size: 0.85rem;
   font-weight: 300;
   border: none;
@@ -83,24 +85,24 @@
 }
 
 .audio-player-album-song:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--linen);
+  background: var(--background);
+  color: var(--muted);
   transform: translateX(3px);
 }
 
 .audio-player-album-song.active {
-  color: var(--linen);
+  color: var(--accent);
   font-weight: 500;
 }
 
 .audio-player-album-song.active::before {
   content: '▸ ';
-  color: var(--marigold);
+  color: var(--accent);
 }
 
 .audio-player-controls {
-  background: rgba(18, 18, 18, 0.88);
+  background: var(--background);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid var(--muted);
 }

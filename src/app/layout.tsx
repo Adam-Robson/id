@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
-import { barlow, crimsonPro } from "@/app/fonts";
+import { Aleo, Anaheim } from 'next/font/google';
 
 import { cookies } from "next/headers";
 import "./globals.css";
@@ -7,6 +7,8 @@ import { ThemeProvider } from "../contexts/theme-provider";
 import { AudioProvider } from "../contexts/audio-provider";
 import type { Theme } from '@/types/theme';
 import type { Metadata, Viewport } from "next";
+import AudioPlayer from "./components/audio-player";
+import { getSongs } from "@/lib/r2";
 
 export const viewport: Viewport = {
   themeColor: "#333333ff",
@@ -79,27 +81,40 @@ export const metadata: Metadata = {
   },
 };
 
+export const aleo = Aleo({
+  subsets: ["latin"],
+  display: "swap",
+  variable:"--font-aleo"
+})
+
+export const anaheim = Anaheim({
+  subsets: ["latin"],
+  display: "swap",
+  variable:"--font-anaheim"
+})
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const songs = await getSongs();
   const cookieStore = await cookies();
   const theme = (cookieStore.get("theme")?.value ?? "system") as Theme;
 
   return (
     <html lang="en" className={theme === "dark" ? "dark" : ""}>
       <head>
-        {/* DNS prefetch control — not in Metadata API, must be inline */}
+        {/* DNS prefetch is not available via Metadata API */}
         <meta httpEquiv="x-dns-prefetch-control" content="off" />
         <link rel="dns-prefetch" href="//lefog.me/" />
         <link rel="preconnect" href="https://lefog.me/" />
       </head>
-      <body className={`${barlow.variable} ${crimsonPro.variable} antialiased`}>
+      <body className={`antialiased ${aleo.variable} ${anaheim.variable}`}>
         <ThemeProvider initialTheme={theme}>
           <AudioProvider>
             {children}
+            <AudioPlayer songs={songs} />
           </AudioProvider>
           <Analytics />
         </ThemeProvider>

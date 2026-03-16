@@ -1,0 +1,51 @@
+.interior-main.about-interior {
+  max-width: 1200px;
+}
+
+.page-wrapper--interior:has(.about-interior)::before {
+  display: none;
+}
+
+.page-wrapper--interior:has(.about-interior)::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/images/blur.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.about-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-video {
+  width: 100%;
+  display: block;
+  border-radius: 0.65rem;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .about-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+
+  .about-layout .page-body {
+    flex: 1;
+    margin: 0;
+  }
+
+  .about-video {
+    width: 42%;
+    flex-shrink: 0;
+  }
+}

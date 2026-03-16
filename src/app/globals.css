@@ -9,10 +9,8 @@
 }
 
 :root {
-  --charcoal: #515052ff;
   --black: #000103ff;
-  --graphite: #333138ff;
-  --jet: #1c2826ff;
+  --jet: #333333ff;
   --slate: #70798cff;
   --ash: #a5ae9eff;
   --snow: #f7fefdff;
@@ -27,21 +25,22 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-barlow);
-  --font-serif: var(--font-crimson);
+  --font-serif: var(--font-aleo);
+  --font-sans: var(--font-anaheim);
 }
 
 .dark {
   --background: var(--black);
   --foreground: var(--snow);
+  --accent: var(--ember);
   --muted: var(--ash);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-barlow), sans-serif;
-  font-weight: 400;
+  font-family: var(--font-serif), serif;
+  font-weight: 300;
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -51,24 +50,24 @@ body {
 
 .page-wrapper {
   width: 100%;
-  max-width: 1000px;
+  max-width: 900px;
+  margin: 0 auto;
   position: relative;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
   isolation: isolate;
 }
 
-/* ── Blur image background (interior pages) ── */
 .page-wrapper--interior::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url('/blur.webp');
+  background-image: url('/images/background.svg');
   background-size: cover;
   background-position: center;
-  opacity: 0.18;
+  background-repeat:repeat-x;
+  opacity: 0.1;
   pointer-events: none;
   z-index: 0;
 }
@@ -77,55 +76,34 @@ body {
   opacity: 0.1;
 }
 
-/* ── Blur image hint (home page) ── */
+
 .page-wrapper--home::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url('/blur.webp');
-  background-size: cover;
+  background-image: url('/images/background.svg');
+  background-size: 90vh;
   background-position: center;
-  opacity: 0.18;
+  background-repeat: no-repeat;
+  opacity: 0.4;
   pointer-events: none;
-  z-index: 0;
-  mask-image: radial-gradient(ellipse 55% 55% at center, transparent 0%, black 100%);
-  -webkit-mask-image: radial-gradient(ellipse 55% 55% at center, transparent 0%, black 100%);
+  z-index: -1;
 }
 
 .dark .page-wrapper--home::before {
-  opacity: 0.12;
+  opacity: 0.3;
 }
 
-/* ── Noise overlay ── */
+
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 100;
+  z-index: 991;
 }
 
-/* ── Background word ── */
-.bg-word {
-  position: fixed;
-  bottom: -0.16em;
-  left: -0.02em;
-  font-family: var(--font-crimson), serif;
-  font-size: 28vw;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(26, 23, 20, 0.05);
-  user-select: none;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.dark .bg-word {
-  -webkit-text-stroke: 1px rgba(237, 232, 220, 0.04);
-}
-
-/* ── Header ── */
 .site-header {
   display: flex;
   align-items: center;
@@ -167,7 +145,6 @@ body::after {
   color: var(--foreground);
 }
 
-/* ── Home page ── */
 .home-main {
   flex: 1;
   display: flex;
@@ -179,42 +156,11 @@ body::after {
 
 @keyframes logo-fade-in {
   from { opacity: 0; transform: scale(0.97); }
-  to   { opacity: 0.45; transform: scale(1); }
+  to   { opacity: 0.85; transform: scale(1); }
 }
 
 .logo {
-  z-index: -1;
-  opacity: 0.45;
+  z-index: 9;
+  opacity: 0.85;
   animation: logo-fade-in 1.2s ease both;
-}
-
-/* ── Interior pages (About, Contact) ── */
-.interior-main {
-  flex: 1;
-  padding: 5rem 1.5rem 10rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  max-width: 640px;
-}
-
-.page-eyebrow {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 2rem;
-}
-
-.page-body {
-  font-size: 1.05rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--foreground);
-  margin: 0 0 1rem;
-}
-
-.page-body:last-child {
-  margin-bottom: 0;
 }
