@@ -7,8 +7,6 @@ import { ThemeProvider } from "../contexts/theme-provider";
 import { AudioProvider } from "../contexts/audio-provider";
 import type { Theme } from '@/types/theme';
 import type { Metadata, Viewport } from "next";
-import AudioPlayer from "./components/audio-player";
-import { getSongs } from "@/lib/r2";
 
 export const viewport: Viewport = {
   themeColor: "#333333ff",
@@ -98,7 +96,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const songs = await getSongs();
   const cookieStore = await cookies();
   const theme = (cookieStore.get("theme")?.value ?? "system") as Theme;
 
@@ -114,7 +111,6 @@ export default async function RootLayout({
         <ThemeProvider initialTheme={theme}>
           <AudioProvider>
             {children}
-            <AudioPlayer songs={songs} />
           </AudioProvider>
           <Analytics />
         </ThemeProvider>
