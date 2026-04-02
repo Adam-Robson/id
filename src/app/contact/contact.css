@@ -3,10 +3,10 @@
 }
 
 .page-wrapper--interior:has(.contact-interior)::after {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
-  background-image: url('/images/blur.webp');
+  background-image: url("/images/blur.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -102,7 +102,9 @@ a.contact-value:hover {
   letter-spacing: 0.15em;
   padding: 0.55rem 1.5rem;
   text-transform: uppercase;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .form-submit:hover:not(:disabled) {

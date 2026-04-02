@@ -1,7 +1,7 @@
-'use client';
-import './theme-toggle.css';
+"use client";
+import "./theme-toggle.css";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
@@ -14,8 +14,9 @@ export default function ThemeToggle() {
   return (
     <div className="theme-toggle-wrapper">
       <button
+        type="button"
         onClick={handleToggle}
-        className={`theme-toggle${isDark ? ' is-dark' : ''}`}
+        className={`theme-toggle${isDark ? " is-dark" : ""}`}
         aria-label="Toggle theme"
       >
         <span className="theme-toggle-knob" />

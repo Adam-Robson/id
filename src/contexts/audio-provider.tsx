@@ -1,17 +1,24 @@
-'use client'
+"use client";
 
-import { createContext, useContext, useState, useRef, useEffect, useCallback } from 'react';
-import type { AudioProviderType } from '@/types/audio-provider';
-import type { Song } from '@/types/song';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import type { AudioProviderType } from "@/types/audio-provider";
+import type { Song } from "@/types/song";
 
 const AudioContext = createContext<AudioProviderType | null>(null);
 
 export const useAudio = () => {
   if (!AudioContext || AudioContext === null) {
-    throw new Error('useAudio must be used within an AudioProvider');
+    throw new Error("useAudio must be used within an AudioProvider");
   }
   return useContext(AudioContext);
-}
+};
 
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const songRef = useRef<HTMLAudioElement | null>(null);
@@ -22,22 +29,22 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [current, setCurrent] = useState(0);
   const songsLoaded = songs.length > 0;
 
-  const currentSrc = songs[current]?.url ?? '';
+  const currentSrc = songs[current]?.url ?? "";
 
   // Only set songs if not already loaded (prevents resetting on re-mount of home page)
   const setSongs = useCallback((incoming: Song[]) => {
-    setSongsState(prev => {
+    setSongsState((prev) => {
       if (prev.length > 0) return prev;
       return incoming;
     });
   }, []);
 
   const prev = useCallback(() => {
-    setCurrent(i => (i - 1 + songs.length) % songs.length);
+    setCurrent((i) => (i - 1 + songs.length) % songs.length);
   }, [songs.length]);
 
   const next = useCallback(() => {
-    setCurrent(i => (i + 1) % songs.length);
+    setCurrent((i) => (i + 1) % songs.length);
   }, [songs.length]);
 
   const togglePlay = useCallback(() => {
@@ -74,17 +81,17 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     const onEnded = () => {
       setIsPlaying(false);
       // Auto-advance to next track
-      setCurrent(i => (i + 1) % songs.length);
+      setCurrent((i) => (i + 1) % songs.length);
     };
 
-    audio.addEventListener('timeupdate', onTimeUpdate);
-    audio.addEventListener('loadedmetadata', onLoadedMetadata);
-    audio.addEventListener('ended', onEnded);
+    audio.addEventListener("timeupdate", onTimeUpdate);
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    audio.addEventListener("ended", onEnded);
 
     return () => {
-      audio.removeEventListener('timeupdate', onTimeUpdate);
-      audio.removeEventListener('loadedmetadata', onLoadedMetadata);
-      audio.removeEventListener('ended', onEnded);
+      audio.removeEventListener("timeupdate", onTimeUpdate);
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audio.removeEventListener("ended", onEnded);
     };
   }, [currentSrc, songs.length]);
 
@@ -108,9 +115,14 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         songsLoaded,
         prev,
         next,
-      }}>
-      {currentSrc && <audio ref={songRef} src={currentSrc} preload="metadata" />}
+      }}
+    >
+      {currentSrc && (
+        <audio ref={songRef} src={currentSrc} preload="metadata">
+          <track kind="captions" />
+        </audio>
+      )}
       {children}
     </AudioContext.Provider>
-  )
-}
+  );
+};

@@ -1,6 +1,12 @@
 @keyframes song-info-in {
-  from { opacity: 0; transform: translateY(3px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .audio-controls {
@@ -97,7 +103,9 @@
   color: var(--muted);
   padding: 0.35rem;
   border-radius: 9999px;
-  transition: color 0.2s ease, transform 0.1s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.1s ease;
   flex-shrink: 0;
 }
 
@@ -127,26 +135,22 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  transition: transform 0.35s ease, color 0.2s ease;
+  transition:
+    transform 0.35s ease,
+    color 0.2s ease;
 }
 
 .toggle-list.open {
   color: var(--accent);
 }
 
-.toggle-list.open .toggle-list-label {
-  opacity: 0;
-  width: 0;
-  overflow: hidden;
+.toggle-list > :last-child {
+  display: inline-block;
+  transition: transform 0.35s ease;
 }
 
 .toggle-list.open > :last-child {
   transform: rotate(180deg);
-}
-
-.toggle-list > :last-child {
-  display: inline-block;
-  transition: transform 0.35s ease;
 }
 
 .toggle-list:hover {
@@ -158,7 +162,15 @@
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  transition: opacity 0.2s ease, width 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    width 0.2s ease;
+}
+
+.toggle-list.open .toggle-list-label {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
 }
 
 /* ── minimized state ── */

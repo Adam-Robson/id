@@ -1,1 +1,1 @@
-export type Status = 'idle' | 'submitting' | 'success' | 'error';
+export type Status = "idle" | "submitting" | "success" | "error";

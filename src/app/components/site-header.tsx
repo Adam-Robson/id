@@ -1,17 +1,19 @@
-import ThemeToggle from '@/app/components/theme-toggle';
-import Navigation from '@/app/components/navigation'
+import Navigation from "@/app/components/navigation";
+import ThemeToggle from "@/app/components/theme-toggle";
 
 type Props = {
-  variant: 'home' | 'interior';
+  variant: "home" | "interior";
 };
 
 export default function SiteHeader({ variant }: Props) {
   return (
     <header className="site-header">
-      {variant === 'home' ? (
+      {variant === "home" ? (
         <Navigation />
       ) : (
-        <a href="/" className="back-link">← LE FOG</a>
+        <a href="/" className="back-link">
+          ← LE FOG
+        </a>
       )}
       <ThemeToggle />
     </header>

@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from 'react';
+import type { ElementType, ReactNode } from "react";
 
 export interface NavlinkProps {
   href: string;
@@ -7,4 +7,4 @@ export interface NavlinkProps {
   icon?: ElementType;
   value?: string;
   children?: ReactNode;
-};
+}
