@@ -55,3 +55,13 @@
   visibility: visible;
   opacity: 1;
 }
+
+@media (max-width: 480px) {
+  .theme-toggle-wrapper {
+    position: fixed;
+    top: 0.85rem;
+    right: 1rem;
+    margin: 0;
+    z-index: 100;
+  }
+}

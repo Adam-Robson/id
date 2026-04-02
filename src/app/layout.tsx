@@ -3,8 +3,7 @@ import { Aleo, Anaheim } from 'next/font/google';
 
 import { cookies } from "next/headers";
 import "./globals.css";
-import { ThemeProvider } from "../contexts/theme-provider";
-import { AudioProvider } from "../contexts/audio-provider";
+import GlobalProvider from "../contexts/global-provider";
 import type { Theme } from '@/types/theme';
 import type { Metadata, Viewport } from "next";
 
@@ -100,20 +99,21 @@ export default async function RootLayout({
   const theme = (cookieStore.get("theme")?.value ?? "system") as Theme;
 
   return (
-    <html lang="en" className={theme === "dark" ? "dark" : ""}>
+    <html lang="en" className={theme === "dark" ? "dark" : theme === "light" ? "light" : ""}>
       <head>
+        {/* Preload background images so they're ready on first paint */}
+        <link rel="preload" href="/images/background.svg" as="image" />
+        <link rel="preload" href="/images/blur.webp" as="image" type="image/webp" />
         {/* DNS prefetch is not available via Metadata API */}
         <meta httpEquiv="x-dns-prefetch-control" content="off" />
         <link rel="dns-prefetch" href="//lefog.me/" />
         <link rel="preconnect" href="https://lefog.me/" />
       </head>
       <body className={`antialiased ${aleo.variable} ${anaheim.variable}`}>
-        <ThemeProvider initialTheme={theme}>
-          <AudioProvider>
-            {children}
-          </AudioProvider>
+        <GlobalProvider>
+          {children}
           <Analytics />
-        </ThemeProvider>
+        </GlobalProvider>
       </body>
     </html>
   );

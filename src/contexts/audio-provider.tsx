@@ -1,8 +1,8 @@
 'use client'
 
-import { createContext, useContext, useState, useRef } from 'react';
+import { createContext, useContext, useState, useRef, useEffect, useCallback } from 'react';
 import type { AudioProviderType } from '@/types/audio-provider';
-
+import type { Song } from '@/types/song';
 
 const AudioContext = createContext<AudioProviderType | null>(null);
 
@@ -18,8 +18,29 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [songs, setSongsState] = useState<Song[]>([]);
+  const [current, setCurrent] = useState(0);
+  const songsLoaded = songs.length > 0;
 
-  const togglePlay = () => {
+  const currentSrc = songs[current]?.url ?? '';
+
+  // Only set songs if not already loaded (prevents resetting on re-mount of home page)
+  const setSongs = useCallback((incoming: Song[]) => {
+    setSongsState(prev => {
+      if (prev.length > 0) return prev;
+      return incoming;
+    });
+  }, []);
+
+  const prev = useCallback(() => {
+    setCurrent(i => (i - 1 + songs.length) % songs.length);
+  }, [songs.length]);
+
+  const next = useCallback(() => {
+    setCurrent(i => (i + 1) % songs.length);
+  }, [songs.length]);
+
+  const togglePlay = useCallback(() => {
     if (!songRef.current) return;
     if (isPlaying) {
       songRef.current.pause();
@@ -27,32 +48,68 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       songRef.current.play();
     }
     setIsPlaying(!isPlaying);
-  }
+  }, [isPlaying]);
 
-  const seek = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const seek = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (!songRef.current) return;
     songRef.current.currentTime = Number(e.target.value);
     setProgress(Number(e.target.value));
-  }
+  }, []);
 
-  const fmt = (s: number) => {
+  const fmt = useCallback((s: number) => {
     return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
-  }
+  }, []);
+
+  // Wire up audio event listeners
+  useEffect(() => {
+    const audio = songRef.current;
+    if (!audio || !currentSrc) return;
+
+    setProgress(0);
+    setIsPlaying(false);
+    audio.load();
+
+    const onTimeUpdate = () => setProgress(audio.currentTime);
+    const onLoadedMetadata = () => setDuration(audio.duration);
+    const onEnded = () => {
+      setIsPlaying(false);
+      // Auto-advance to next track
+      setCurrent(i => (i + 1) % songs.length);
+    };
+
+    audio.addEventListener('timeupdate', onTimeUpdate);
+    audio.addEventListener('loadedmetadata', onLoadedMetadata);
+    audio.addEventListener('ended', onEnded);
+
+    return () => {
+      audio.removeEventListener('timeupdate', onTimeUpdate);
+      audio.removeEventListener('loadedmetadata', onLoadedMetadata);
+      audio.removeEventListener('ended', onEnded);
+    };
+  }, [currentSrc, songs.length]);
 
   return (
-    <AudioContext.Provider 
+    <AudioContext.Provider
       value={{
-         songRef, 
-         isPlaying,
-         setIsPlaying,
-         togglePlay,
-         seek, 
-         progress, 
-         setProgress,
-         duration,
-         setDuration,
-         fmt 
+        songRef,
+        isPlaying,
+        setIsPlaying,
+        togglePlay,
+        seek,
+        progress,
+        setProgress,
+        duration,
+        setDuration,
+        fmt,
+        songs,
+        setSongs,
+        current,
+        setCurrent,
+        songsLoaded,
+        prev,
+        next,
       }}>
+      {currentSrc && <audio ref={songRef} src={currentSrc} preload="metadata" />}
       {children}
     </AudioContext.Provider>
   )

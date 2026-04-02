@@ -12,6 +12,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "3.1003.0",
     "@aws-sdk/s3-request-presigner": "3.1003.0",
+    "@phosphor-icons/react": "2.1.10",
     "@vercel/analytics": "1.6.1",
     "next": "16.1.6",
     "react": "19.2.3",

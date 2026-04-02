@@ -1,7 +1,8 @@
 export interface AudioControlsProps {
-  src: string;
-  title: string;
-  album: string;
   onToggleList: () => void;
   listOpen: boolean;
+  onPrev: () => void;
+  onNext: () => void;
+  minimized: boolean;
+  onExpand: () => void;
 }

@@ -35,6 +35,16 @@
   opacity: 1;
 }
 
+@media (max-width: 480px) {
+  .audio-player-list {
+    padding: 0 1rem;
+  }
+
+  .audio-player-list.open {
+    padding: 1rem 1rem 0.5rem;
+  }
+}
+
 .audio-player-list.open li {
   animation: list-item-in 0.35s ease both;
 }

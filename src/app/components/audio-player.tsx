@@ -1,13 +1,34 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AudioControls from '@/app/components/audio-controls';
 import type { Song } from '@/types/song';
 import '@/app/components/audio-player.css';
 import { groupByAlbum } from '@/lib/group-by-album';
+import { useAudio } from '@/contexts/audio-provider';
 
 export default function AudioPlayer({ songs }: { songs: Song[] }) {
-  const [current, setCurrent] = useState(0);
   const [listOpen, setListOpen] = useState(false);
+  const [minimized, setMinimized] = useState(false);
+  const audioContext = useAudio();
+
+  const current = audioContext?.current ?? 0;
+  const setCurrent = audioContext?.setCurrent ?? (() => {});
+  const isPlaying = audioContext?.isPlaying ?? false;
+  const prev = audioContext?.prev ?? (() => {});
+  const next = audioContext?.next ?? (() => {});
+
+  // Push songs into context on mount
+  useEffect(() => {
+    audioContext?.setSongs(songs);
+  }, [songs, audioContext?.setSongs]);
+
+  // Auto-minimize when playback starts
+  useEffect(() => {
+    if (isPlaying) {
+      setMinimized(true);
+      setListOpen(false);
+    }
+  }, [isPlaying]);
 
   if (!songs.length) return null;
 
@@ -46,11 +67,12 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
         {/* Controls bar */}
         <div className="audio-player-controls">
           <AudioControls
-            src={songs[current].url}
-            title={songs[current].title}
-            album={songs[current].album}
             onToggleList={() => setListOpen(o => !o)}
             listOpen={listOpen}
+            onPrev={prev}
+            onNext={next}
+            minimized={minimized}
+            onExpand={() => setMinimized(false)}
           />
         </div>
 

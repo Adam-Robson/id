@@ -28,6 +28,7 @@ export function ThemeProvider({
         theme === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : theme;
       setResolvedTheme(resolved);
       document.documentElement.classList.toggle('dark', resolved === 'dark');
+      document.documentElement.classList.toggle('light', theme === 'light');
     };
 
     resolve();
