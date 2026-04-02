@@ -4,7 +4,7 @@ import MiniPlayer from "@/app/components/mini-player";
 import { AudioProvider } from "@/contexts/audio-provider";
 import { IconProvider } from "@/contexts/icon-provider";
 import { ThemeProvider } from "@/contexts/theme-provider";
-import type { Theme } from "../types/theme.js";
+import type { Theme } from "@/types/theme";
 
 export default async function GlobalProvider({
   children,
