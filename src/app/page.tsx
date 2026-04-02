@@ -1,7 +1,7 @@
-import SiteHeader from './components/site-header';
-import AudioPlayer from "./components/audio-player";
 import { getSongs } from "@/lib/r2";
+import AudioPlayer from "./components/audio-player";
 import BackgroundWord from "./components/background-word";
+import SiteHeader from "./components/site-header";
 
 export default async function Home() {
   const songs = await getSongs();

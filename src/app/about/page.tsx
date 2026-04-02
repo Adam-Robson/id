@@ -1,9 +1,9 @@
-import SiteHeader from '@/app/components/site-header';
-import '@/app/about/about.css';
-import '@/app/components/interior-pages.css';
+import SiteHeader from "@/app/components/site-header";
+import "@/app/about/about.css";
+import "@/app/components/interior-pages.css";
 
 export const metadata = {
-  title: 'About',
+  title: "About",
 };
 
 export default function AboutPage() {
@@ -11,24 +11,35 @@ export default function AboutPage() {
     <div className="page-wrapper page-wrapper--interior">
       <SiteHeader variant="interior" />
       <main className="interior-main about-interior">
-        <p className="page-eyebrow">About</p>
+        <h1 className="page-eyebrow">About</h1>
         <div className="about-layout">
           <p className="page-body">
-           At home in the Pacific Northwest, LE FOG is the love-labor of
-           a musician named Adam Robson. Their songs move on a melodic,
-           understated foundation — drums and bass that anchor the music
-           and ground it in this world. The fuzz of electrified guitars
-           and alien synthesizers sounds layer on top, extending the
-           suite of possible worlds. What surfaces from that interplay
-           are lyrics that are intimate and honest — one moment playful
-           & on the surface, and the next, diving deep and
-           confronting aspects of life that puzzle many of us.
-
-           Over six years, their work has ranged across post-rock,
-           psychedelic, and ambient territory without settling into
-           any one of them. The music shifts in weight and intensity
-           — not outright punk-rock, but the same restless & rebellious
-           spirit shows up in LE FOG's music.
+            There is a kind of music that does not try to convince you of
+            anything. LE FOG is that kind of music. The sound LE FOG creates is
+            honest and spontaneous. Their songs move on a foundation grounded in
+            this world, and layered on top is fuzz from electric guitars and
+            alien synthesizers. The effect increases the number of possible
+            worlds.
+            <br />
+            An ambient introduction, a dive into an electronic ensemble that
+            compels you to move your hips, or a groove that leans in to the
+            acoustics of live drums and electric bass — the music is alive, and
+            like life it is confronting and understated. The layers are not
+            decorative - each sound is placed for a reason. It draws you in the
+            way an unexpected and easy conversation does, captivating you in the
+            moment, and will have you involuntarily revisiting it as you walk
+            away.
+            <br />
+            The lyrics do not lead you anywhere in particular, because that is
+            not their purpose. They are there to remind you of yourself. They
+            surface and linger, because they are reminiscent of one's own
+            inner-monologue, a fond and distant memory, or an overheard phrase
+            that stays with you longer than you anticipated. Like something you
+            thought you knew, but forgot along the way. Existential without
+            theatrics; rebellious without the noise. The catalog stands on its
+            own, with plenty to explore.
+            <br />
+            As always, there is more where that came from.
           </p>
           <video
             controls
@@ -38,9 +49,9 @@ export default function AboutPage() {
             muted
             playsInline
           >
-              <source src="/video/juggle.mp4" type="video/mp4" />
-              <source src="/video/juggle.webm" type="video/webm" />
-            </video>
+            <source src="/video/juggle.mp4" type="video/mp4" />
+            <source src="/video/juggle.webm" type="video/webm" />
+          </video>
         </div>
       </main>
     </div>

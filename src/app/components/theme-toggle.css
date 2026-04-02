@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .35rem;
+  gap: 0.35rem;
   margin: 1rem 0;
 }
 
@@ -42,11 +42,13 @@
 }
 
 .theme-toggle-label {
-  font-size: .9rem;
-  letter-spacing: .04em;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.2s, visibility 0.2s;
+  transition:
+    opacity 0.2s,
+    visibility 0.2s;
   color: var(--foreground);
   user-select: none;
 }
@@ -54,4 +56,14 @@
 .theme-toggle-wrapper:hover .theme-toggle-label {
   visibility: visible;
   opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .theme-toggle-wrapper {
+    position: fixed;
+    top: 0.85rem;
+    right: 1rem;
+    margin: 0;
+    z-index: 100;
+  }
 }

@@ -1,10 +1,10 @@
-import SiteHeader from '@/app/components/site-header';
-import ContactForm from '@/app/components/contact-form';
-import '@/app/contact/contact.css';
-import '@/app/components/interior-pages.css';
+import ContactForm from "@/app/components/contact-form";
+import SiteHeader from "@/app/components/site-header";
+import "@/app/contact/contact.css";
+import "@/app/components/interior-pages.css";
 
 export const metadata = {
-  title: 'Contact',
+  title: "Contact",
 };
 
 export default function ContactPage() {
