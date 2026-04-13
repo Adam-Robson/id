@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
-import { Aleo, Anaheim } from "next/font/google";
+import { Barlow } from "next/font/google";
 
 import { cookies } from "next/headers";
 import "./globals.css";
@@ -78,16 +78,11 @@ export const metadata: Metadata = {
   },
 };
 
-export const aleo = Aleo({
+export const barlow = Barlow({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-aleo",
-});
-
-export const anaheim = Anaheim({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-anaheim",
+  variable: "--font-barlow",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export default async function RootLayout({
@@ -117,7 +112,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="//lefog.me/" />
         <link rel="preconnect" href="https://lefog.me/" />
       </head>
-      <body className={`antialiased ${aleo.variable} ${anaheim.variable}`}>
+      <body className={`antialiased ${barlow.variable}`}>
         <GlobalProvider>
           {children}
           <Analytics />
