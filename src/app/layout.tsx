@@ -3,15 +3,25 @@ import { Barlow } from "next/font/google";
 
 import { cookies } from "next/headers";
 import "./globals.css";
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 import type { Theme } from "@/types/theme";
 import GlobalProvider from "../contexts/global-provider";
+import JsonLd from "./components/json-ld";
+import { sharedOgImage } from "./components/shared-metadata";
+import type { Metadata } from 'next';
 
 export const viewport: Viewport = {
   themeColor: "#333333ff",
   width: "device-width",
   initialScale: 1,
 };
+
+export const barlow = Barlow({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-barlow",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   applicationName: "LE FOG",
@@ -22,19 +32,17 @@ export const metadata: Metadata = {
   description: "Website for LE FOG; Portland, Oregon, US",
   generator: "none",
   referrer: "no-referrer",
-
+  metadataBase: new URL("https://lefog.me"),
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
   },
-
   appleWebApp: {
     title: "LE FOG",
     capable: true,
     statusBarStyle: "black",
   },
-
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -54,11 +62,24 @@ export const metadata: Metadata = {
       { url: "/favicon/apple-touch-icon-152x152.png", sizes: "152x152" },
     ],
   },
-
   alternates: {
     canonical: "https://lefog.me/",
   },
-
+  openGraph: {
+    type: "website",
+    siteName: "LE FOG",
+    title: "HOME | LE FOG",
+    description: "LE FOG is the pseudonym of Adam Robson since 2020 — a songwriter and producer based in Portland, Oregon. Available everywhere to stream.",
+    url: "https://lefog.me/",
+    locale: "en_US",
+    images: sharedOgImage,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LE FOG",
+    description: "LE FOG is the pseudonym of Adam Robson since 2020 — a songwriter and producer based in Portland, Oregon. Available everywhere to stream.",
+    images: ["https://lefog.me/images/og-image.jpg"],
+  },
   other: {
     // Geo tags
     icbm: "45.5152, -122.6784",
@@ -77,13 +98,6 @@ export const metadata: Metadata = {
     "msapplication-square310x310logo": "/favicon/mstile-310x310.png",
   },
 };
-
-export const barlow = Barlow({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-barlow",
-  weight: ["300", "400", "500", "600", "700"],
-});
 
 export default async function RootLayout({
   children,
@@ -111,6 +125,7 @@ export default async function RootLayout({
         <meta httpEquiv="x-dns-prefetch-control" content="off" />
         <link rel="dns-prefetch" href="//lefog.me/" />
         <link rel="preconnect" href="https://lefog.me/" />
+        <JsonLd />
       </head>
       <body className={`antialiased ${barlow.variable}`}>
         <GlobalProvider>

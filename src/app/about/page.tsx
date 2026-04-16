@@ -1,9 +1,18 @@
 import SiteHeader from "@/app/components/site-header";
 import "@/app/about/about.css";
 import "@/app/components/interior-pages.css";
+import { sharedOgImage } from "@/app/components/shared-metadata";
+import { Metadata } from 'next';
 
-export const metadata = {
+
+export const metadata: Metadata = {
   title: "About",
+  openGraph: {
+    type: "website",
+    title: "About | LE FOG",
+    description: "About LE FOG, bio, other projects, & more...",
+    images: sharedOgImage,
+  },
 };
 
 export default function AboutPage() {
