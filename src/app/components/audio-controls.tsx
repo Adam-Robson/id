@@ -32,17 +32,19 @@ export default function AudioControls({
   return (
     <section
       className={`audio-controls${minimized ? " audio-controls--minimized" : ""}`}
-      aria-label="Audio controls"
-      onClick={minimized ? onExpand : undefined}
-      onKeyDown={
-        minimized
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onExpand?.();
-            }
-          : undefined
-      }
-      style={minimized ? { cursor: "pointer" } : undefined}
+      aria-label={minimized ? "Expand player" : "Audio controls"}
     >
+      {minimized && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onExpand?.();
+          }}
+          className="cursor-pointer"
+          aria-label="Expand player"
+        />
+      )}
       {/* Seek */}
       <input
         type="range"
@@ -50,7 +52,12 @@ export default function AudioControls({
         max={duration || 0}
         value={progress}
         onChange={seek}
+        onPointerDown={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
         className="seek"
+        aria-label="Seek"
+        aria-valuetext={`${fmt(progress)} of ${fmt(duration)}`}
       />
 
       {/* controls */}

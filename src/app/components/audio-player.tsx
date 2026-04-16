@@ -44,7 +44,7 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
         >
           {Object.entries(albums).map(([album, albumSongs]) => (
             <div key={album} className="audio-player-album">
-              <p className="audio-player-album-title">{album}</p>
+              <h3 className="audio-player-album-title">{album}</h3>
               <ul className="audio-player-album-songs">
                 {albumSongs.map((song) => {
                   const idx = songs.indexOf(song);
@@ -58,6 +58,7 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
                           setCurrent(idx);
                           setListOpen(false);
                         }}
+                        tabIndex={listOpen ? 0 : -1}
                       >
                         {song.title}
                       </button>

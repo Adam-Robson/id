@@ -35,6 +35,8 @@ export default function MiniPlayer() {
           value={progress}
           onChange={seek}
           className="mini-player-seek"
+          aria-label="Seek"
+          aria-valuetext={`${fmt(progress)} of ${fmt(duration)}`}
         />
         <div className="mini-player-controls">
           <div className="mini-player-info">
