@@ -51,6 +51,8 @@ export default function AudioControls({
         value={progress}
         onChange={seek}
         className="seek"
+        aria-label="Seek"
+        aria-valuetext={`${fmt(progress)} of ${fmt(duration)}`}
       />
 
       {/* controls */}
