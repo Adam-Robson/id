@@ -1,10 +1,11 @@
 export default function JsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@graph": [{
-      "@type": "MusicGroup",
-      "@id": 'https://lefog.me/#artist',
-      name: "LE FOG",
+    "@graph": [
+      {
+        "@type": "MusicGroup",
+        "@id": "https://lefog.me/#artist",
+        name: "LE FOG",
         url: "https://lefog.me",
         image: "https://lefog.me/images/og-image.jpg",
         genre: ["Electronic", "Ambient", "Rock", "Folk", "Psychedelic"],
@@ -12,7 +13,7 @@ export default function JsonLd() {
           "@type": "Place",
           name: "Portland, Oregon, US",
         },
-         album: [
+        album: [
           { "@id": "https://lefog.me/#forbeforeiforget" },
           { "@id": "https://lefog.me/#hifiveyourself" },
           { "@id": "https://lefog.me/#leftstaticandatease" },
@@ -59,9 +60,8 @@ export default function JsonLd() {
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
-    />
+    <script type="application/ld+json">
+      {JSON.stringify(jsonLd).replace(/</g, "\\u003c")}
+    </script>
   );
 }

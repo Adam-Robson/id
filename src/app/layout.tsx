@@ -3,12 +3,11 @@ import { Barlow } from "next/font/google";
 
 import { cookies } from "next/headers";
 import "./globals.css";
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import type { Theme } from "@/types/theme";
 import GlobalProvider from "../contexts/global-provider";
 import JsonLd from "./components/json-ld";
 import { sharedOgImage } from "./components/shared-metadata";
-import type { Metadata } from 'next';
 
 export const viewport: Viewport = {
   themeColor: "#333333ff",
@@ -69,7 +68,8 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "LE FOG",
     title: "HOME | LE FOG",
-    description: "LE FOG is the pseudonym of Adam Robson since 2020 — a songwriter and producer based in Portland, Oregon. Available everywhere to stream.",
+    description:
+      "LE FOG is the pseudonym of Adam Robson since 2020 — a songwriter and producer based in Portland, Oregon. Available everywhere to stream.",
     url: "https://lefog.me/",
     locale: "en_US",
     images: sharedOgImage,
@@ -77,7 +77,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "LE FOG",
-    description: "LE FOG is the pseudonym of Adam Robson since 2020 — a songwriter and producer based in Portland, Oregon. Available everywhere to stream.",
+    description:
+      "LE FOG is the pseudonym of Adam Robson since 2020 — a songwriter and producer based in Portland, Oregon. Available everywhere to stream.",
     images: ["https://lefog.me/images/og-image.jpg"],
   },
   other: {

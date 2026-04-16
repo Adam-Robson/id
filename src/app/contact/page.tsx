@@ -2,7 +2,7 @@ import ContactForm from "@/app/components/contact-form";
 import SiteHeader from "@/app/components/site-header";
 import "@/app/contact/contact.css";
 import "@/app/components/interior-pages.css";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { sharedOgImage } from "@/app/components/shared-metadata";
 
 export const metadata: Metadata = {

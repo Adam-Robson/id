@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const sharedOgImage: NonNullable<Metadata["openGraph"]>["images"] = [
   {
@@ -6,5 +6,5 @@ export const sharedOgImage: NonNullable<Metadata["openGraph"]>["images"] = [
     width: 1200,
     height: 630,
     alt: "LE FOG",
-  }
-]
+  },
+];

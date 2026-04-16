@@ -114,13 +114,11 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         setCurrent,
         songsLoaded,
         prev,
-        next
+        next,
       }}
     >
-      <div
-        role="status"
+      <output
         aria-live="polite"
-        aria-atomic="true"
         style={{
           position: "absolute",
           width: "1px",
@@ -130,17 +128,19 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
           overflow: "hidden",
           clip: "rect(0,0,0,0)",
           whiteSpace: "nowrap",
-          border: 0
+          border: 0,
         }}
       >
-        {songsLoaded ? `Now playing: ${songs[current]?.title} from ${songs[current]?.album}` : ""}
-      </div>
+        {songsLoaded
+          ? `Now playing: ${songs[current]?.title} from ${songs[current]?.album}`
+          : ""}
+      </output>
 
-        {currentSrc && (
-          <audio ref={songRef} src={currentSrc} preload="metadata">
-            <track kind="captions" />
-          </audio>
-        )}
+      {currentSrc && (
+        <audio ref={songRef} src={currentSrc} preload="metadata">
+          <track kind="captions" />
+        </audio>
+      )}
       {children}
     </AudioContext.Provider>
   );

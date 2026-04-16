@@ -1,9 +1,8 @@
 import SiteHeader from "@/app/components/site-header";
 import "@/app/about/about.css";
 import "@/app/components/interior-pages.css";
+import type { Metadata } from "next";
 import { sharedOgImage } from "@/app/components/shared-metadata";
-import { Metadata } from 'next';
-
 
 export const metadata: Metadata = {
   title: "About",
