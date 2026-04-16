@@ -114,14 +114,33 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         setCurrent,
         songsLoaded,
         prev,
-        next,
+        next
       }}
     >
-      {currentSrc && (
-        <audio ref={songRef} src={currentSrc} preload="metadata">
-          <track kind="captions" />
-        </audio>
-      )}
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        style={{
+          position: "absolute",
+          width: "1px",
+          height: "1px",
+          padding: 0,
+          margin: "-1px",
+          overflow: "hidden",
+          clip: "rect(0,0,0,0)",
+          whiteSpace: "nowrap",
+          border: 0
+        }}
+      >
+        {songsLoaded ? `Now playing: ${songs[current]?.title} from ${songs[current]?.album}` : ""}
+      </div>
+
+        {currentSrc && (
+          <audio ref={songRef} src={currentSrc} preload="metadata">
+            <track kind="captions" />
+          </audio>
+        )}
       {children}
     </AudioContext.Provider>
   );
