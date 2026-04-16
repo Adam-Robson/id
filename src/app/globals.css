@@ -10,30 +10,29 @@
 
 :root {
   --black: #000103ff;
-  --jet: #333333ff;
+  --jet: #353535ff;
+  --ash: #acbdbaff;
   --slate: #70798cff;
-  --ash: #a5ae9eff;
-  --snow: #f7fefdff;
-  --ember: #ba5c12ff;
+  --snow: #eff1edff;
+  --copper: #b57f50ff;
 
   --background: var(--snow);
   --foreground: var(--black);
-  --accent: var(--ember);
+  --accent: var(--copper);
   --muted: var(--slate);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-serif: var(--font-aleo);
-  --font-sans: var(--font-anaheim);
+  --font-sans: "Barlow", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     --background: var(--black);
     --foreground: var(--snow);
-    --accent: var(--ember);
+    --accent: var(--copper);
     --muted: var(--ash);
   }
 }
@@ -41,14 +40,14 @@
 .dark {
   --background: var(--black);
   --foreground: var(--snow);
-  --accent: var(--ember);
+  --accent: var(--copper);
   --muted: var(--ash);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-serif), serif;
+  font-family: var(--font-sans), serif;
   font-weight: 400;
   display: flex;
   flex-direction: column;
