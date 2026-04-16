@@ -3,10 +3,10 @@
 }
 
 .page-wrapper--interior:has(.contact-interior)::after {
-  content: "";
+  content: '';
   position: fixed;
   inset: 0;
-  background-image: url("/images/blur.webp");
+  background-image: url('/images/blur.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

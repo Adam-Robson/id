@@ -1,3 +1,5 @@
+import { sharedOgImage } from "@/app/components/shared-metadata";
+
 export default function JsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -7,7 +9,7 @@ export default function JsonLd() {
         "@id": "https://lefog.me/#artist",
         name: "LE FOG",
         url: "https://lefog.me",
-        image: "https://lefog.me/images/og-image.jpg",
+        image: sharedOgImage,
         genre: ["Electronic", "Ambient", "Rock", "Folk", "Psychedelic"],
         foundingLocation: {
           "@type": "Place",

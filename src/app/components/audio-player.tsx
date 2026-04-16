@@ -58,7 +58,7 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
                           setCurrent(idx);
                           setListOpen(false);
                         }}
-                        tabIndex={listOpen ? -1 : 0}
+                        tabIndex={listOpen ? 0 : -1}
                       >
                         {song.title}
                       </button>
