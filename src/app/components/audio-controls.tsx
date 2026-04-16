@@ -32,14 +32,18 @@ export default function AudioControls({
   return (
     <section
       className={`audio-controls${minimized ? " audio-controls--minimized" : ""}`}
-      aria-label="Audio controls"
+      aria-label={minimized ? "Expand player" : "Audio controls"}
+      role={minimized ? 'button' : undefined}
+      tabIndex={minimized ? 0 : undefined}
       onClick={minimized ? onExpand : undefined}
       onKeyDown={
         minimized
           ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onExpand?.();
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onExpand?.();
             }
-          : undefined
+          } : undefined
       }
       style={minimized ? { cursor: "pointer" } : undefined}
     >
