@@ -19,5 +19,3 @@ export const IconProvider = ({
 export function useIconContext(): IconDefaults {
   return useContext(IconContext);
 }
-
-export default IconContext;

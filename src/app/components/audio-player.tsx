@@ -9,18 +9,11 @@ import { groupByAlbum } from "@/lib/group-by-album";
 export default function AudioPlayer({ songs }: { songs: Song[] }) {
   const [listOpen, setListOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
-  const audioContext = useAudio();
+  const { current, setCurrent, isPlaying, setSongs } = useAudio();
 
-  const current = audioContext?.current ?? 0;
-  const setCurrent = audioContext?.setCurrent ?? (() => {});
-  const isPlaying = audioContext?.isPlaying ?? false;
-  const prev = audioContext?.prev ?? (() => {});
-  const next = audioContext?.next ?? (() => {});
-
-  // Push songs into context on mount
   useEffect(() => {
-    audioContext?.setSongs(songs);
-  }, [songs, audioContext?.setSongs]);
+    setSongs(songs);
+  }, [songs, setSongs]);
 
   // Auto-minimize when playback starts
   useEffect(() => {
@@ -75,8 +68,6 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
           <AudioControls
             onToggleList={() => setListOpen((o) => !o)}
             listOpen={listOpen}
-            onPrev={prev}
-            onNext={next}
             minimized={minimized}
             onExpand={() => setMinimized(false)}
           />

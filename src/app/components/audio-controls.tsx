@@ -6,15 +6,9 @@ import "@/app/components/audio-controls.css";
 export default function AudioControls({
   onToggleList,
   listOpen,
-  onPrev,
-  onNext,
   minimized,
   onExpand,
 }: AudioControlsProps) {
-  const audioContext = useAudio();
-
-  if (!audioContext) return null;
-
   const {
     isPlaying,
     togglePlay,
@@ -24,7 +18,9 @@ export default function AudioControls({
     fmt,
     songs,
     current,
-  } = audioContext;
+    prev,
+    next,
+  } = useAudio();
 
   const title = songs[current]?.title ?? "";
   const album = songs[current]?.album ?? "";
@@ -73,7 +69,7 @@ export default function AudioControls({
           <button
             type="button"
             className="ctrl-btn"
-            onClick={onPrev}
+            onClick={prev}
             aria-label="Previous song"
           >
             <svg
@@ -120,7 +116,7 @@ export default function AudioControls({
           <button
             type="button"
             className="ctrl-btn"
-            onClick={onNext}
+            onClick={next}
             aria-label="Next song"
           >
             <svg

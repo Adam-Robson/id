@@ -1,41 +1,20 @@
-import type { ElementType } from "react";
 import { useIconContext } from "@/contexts/icon-provider";
-
 import type { IconProps } from "@/types/icon-props";
-import type { RestProps } from "@/types/rest-props";
 
-export default function PhosphorIcon<T extends ElementType = "span">({
-  as,
-  name,
-  children,
+export default function PhosphorIcon({
+  as: Tag,
   className,
-  ...rest
-}: IconProps<T>) {
+  size,
+  weight,
+}: IconProps) {
   const ctx = useIconContext();
-
-  const restProps = rest as RestProps<T>;
-
-  // allow props to override context defaults
-  const size = restProps.size ?? ctx.size;
-  const weight = restProps.weight ?? ctx.weight;
-  const ctxClass = ctx.className;
-
-  const Tag = (as || "span") as ElementType;
-  const classes = [
-    name ? `${name} ${name}-icon` : null,
-    ctxClass,
-    className,
-  ].filter(Boolean);
-  const classString = classes.join(" ");
+  const classString = [ctx.className, className].filter(Boolean).join(" ");
 
   return (
     <Tag
-      {...(restProps as unknown as Record<string, unknown>)}
-      size={size}
-      weight={weight}
+      size={size ?? ctx.size}
+      weight={weight ?? ctx.weight}
       className={classString}
-    >
-      {children}
-    </Tag>
+    />
   );
 }

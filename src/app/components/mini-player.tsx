@@ -5,11 +5,6 @@ import "@/app/components/mini-player.css";
 
 export default function MiniPlayer() {
   const pathname = usePathname();
-  const audioContext = useAudio();
-
-  // Hide on home (full player is there) or if no songs loaded
-  if (!audioContext?.songsLoaded || pathname === "/") return null;
-
   const {
     songs,
     current,
@@ -21,7 +16,10 @@ export default function MiniPlayer() {
     fmt,
     prev,
     next,
-  } = audioContext;
+    songsLoaded,
+  } = useAudio();
+
+  if (!songsLoaded || pathname === "/") return null;
   const title = songs[current]?.title ?? "";
   const album = songs[current]?.album ?? "";
 

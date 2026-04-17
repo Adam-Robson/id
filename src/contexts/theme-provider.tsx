@@ -13,7 +13,7 @@ import type { ThemeContextValue } from "@/types/theme-context-value";
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 // useLayoutEffect on client (no flash), useEffect on server (SSR no-op)
-const useIsomorphibrickoutEffect =
+const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export function ThemeProvider({
@@ -24,9 +24,11 @@ export function ThemeProvider({
   initialTheme?: Theme;
 }) {
   const [theme, setThemeState] = useState<Theme>(initialTheme);
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() =>
+    initialTheme === "dark" ? "dark" : "light",
+  );
 
-  useIsomorphibrickoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
     const resolve = () => {
