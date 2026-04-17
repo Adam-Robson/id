@@ -62,9 +62,7 @@ describe("AudioControls", () => {
     const playBtn = screen.getByRole("button", { name: "Play" });
     await user.click(playBtn);
     expect(window.HTMLMediaElement.prototype.play).toHaveBeenCalled();
-    expect(
-      screen.getByRole("button", { name: "Pause" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Pause" })).toBeInTheDocument();
   });
 });
 
