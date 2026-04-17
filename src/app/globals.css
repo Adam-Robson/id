@@ -19,7 +19,7 @@
   --background: var(--snow);
   --foreground: var(--black);
   --accent: var(--copper);
-  --muted: var(--slate);
+  --muted: var(--ash);
 }
 
 @theme inline {
@@ -37,11 +37,24 @@
   }
 }
 
+:root.light {
+  --background: var(--snow);
+  --foreground: var(--black);
+  --accent: var(--copper);
+  --muted: var(--ash);
+}
+
+:root.dark,
 .dark {
   --background: var(--black);
   --foreground: var(--snow);
   --accent: var(--copper);
   --muted: var(--ash);
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {

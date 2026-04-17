@@ -13,8 +13,16 @@ import type { ThemeContextValue } from "@/types/theme-context-value";
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 // useLayoutEffect on client (no flash), useEffect on server (SSR no-op)
-const useIsomorphibrickoutEffect =
+const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+function getInitialResolvedTheme(theme: Theme): ResolvedTheme {
+  if (theme !== "system") return theme;
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
 
 export function ThemeProvider({
   children,
@@ -24,9 +32,11 @@ export function ThemeProvider({
   initialTheme?: Theme;
 }) {
   const [theme, setThemeState] = useState<Theme>(initialTheme);
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() =>
+    getInitialResolvedTheme(initialTheme),
+  );
 
-  useIsomorphibrickoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
     const resolve = () => {

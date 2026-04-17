@@ -14,10 +14,11 @@ import type { Song } from "@/types/song";
 const AudioContext = createContext<AudioProviderType | null>(null);
 
 export const useAudio = () => {
-  if (!AudioContext || AudioContext === null) {
+  const ctx = useContext(AudioContext);
+  if (!ctx) {
     throw new Error("useAudio must be used within an AudioProvider");
   }
-  return useContext(AudioContext);
+  return ctx;
 };
 
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
@@ -98,15 +99,11 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AudioContext.Provider
       value={{
-        songRef,
         isPlaying,
-        setIsPlaying,
         togglePlay,
         seek,
         progress,
-        setProgress,
         duration,
-        setDuration,
         fmt,
         songs,
         setSongs,

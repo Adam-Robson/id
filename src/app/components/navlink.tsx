@@ -15,7 +15,7 @@ export default function Navlink({
     <Link href={href} className={className}>
       {value}
       {children}
-      {icon && <PhosphorIcon as={icon} size={24} weight="regular" />}
+      {icon && <PhosphorIcon as={icon} />}
     </Link>
   );
 }

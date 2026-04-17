@@ -1,14 +1,14 @@
 "use client";
 import "./theme-toggle.css";
 
-import { useState } from "react";
+import { useTheme } from "@/contexts/theme-provider";
 
 export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   const handleToggle = () => {
-    document.documentElement.classList.toggle("dark");
-    setIsDark(!isDark);
+    setTheme(isDark ? "light" : "dark");
   };
 
   return (
@@ -17,7 +17,8 @@ export default function ThemeToggle() {
         type="button"
         onClick={handleToggle}
         className={`theme-toggle${isDark ? " is-dark" : ""}`}
-        aria-label="Toggle theme"
+        aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+        aria-pressed={isDark}
       >
         <span className="theme-toggle-knob" />
       </button>
