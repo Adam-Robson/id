@@ -16,6 +16,14 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
+function getInitialResolvedTheme(theme: Theme): ResolvedTheme {
+  if (theme !== "system") return theme;
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
 export function ThemeProvider({
   children,
   initialTheme = "system",
@@ -25,7 +33,7 @@ export function ThemeProvider({
 }) {
   const [theme, setThemeState] = useState<Theme>(initialTheme);
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() =>
-    initialTheme === "dark" ? "dark" : "light",
+    getInitialResolvedTheme(initialTheme),
   );
 
   useIsomorphicLayoutEffect(() => {
