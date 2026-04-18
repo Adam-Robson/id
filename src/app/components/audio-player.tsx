@@ -9,19 +9,11 @@ import { groupByAlbum } from "@/lib/group-by-album";
 export default function AudioPlayer({ songs }: { songs: Song[] }) {
   const [listOpen, setListOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
-  const { current, setCurrent, isPlaying, setSongs } = useAudio();
+  const { current, setCurrent, setSongs } = useAudio();
 
   useEffect(() => {
     setSongs(songs);
   }, [songs, setSongs]);
-
-  // Auto-minimize when playback starts
-  useEffect(() => {
-    if (isPlaying) {
-      setMinimized(true);
-      setListOpen(false);
-    }
-  }, [isPlaying]);
 
   if (!songs.length) return null;
 

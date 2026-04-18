@@ -23,6 +23,7 @@ export const useAudio = () => {
 
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const songRef = useRef<HTMLAudioElement | null>(null);
+  const shouldPlayRef = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -52,8 +53,10 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     if (!songRef.current) return;
     if (isPlaying) {
       songRef.current.pause();
+      shouldPlayRef.current = false;
     } else {
       songRef.current.play();
+      shouldPlayRef.current = true;
     }
     setIsPlaying(!isPlaying);
   }, [isPlaying]);
@@ -74,14 +77,22 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     if (!audio || !currentSrc) return;
 
     setProgress(0);
-    setIsPlaying(false);
     audio.load();
 
     const onTimeUpdate = () => setProgress(audio.currentTime);
-    const onLoadedMetadata = () => setDuration(audio.duration);
+    const onLoadedMetadata = () => {
+      setDuration(audio.duration);
+      if (shouldPlayRef.current) {
+        audio.play().then(
+          () => setIsPlaying(true),
+          () => setIsPlaying(false),
+        );
+      } else {
+        setIsPlaying(false);
+      }
+    };
     const onEnded = () => {
-      setIsPlaying(false);
-      // Auto-advance to next track
+      shouldPlayRef.current = true;
       setCurrent((i) => (i + 1) % songs.length);
     };
 
