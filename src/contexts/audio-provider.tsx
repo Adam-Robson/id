@@ -50,16 +50,16 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   }, [songs.length]);
 
   const togglePlay = useCallback(() => {
-    if (!songRef.current) return;
-    if (isPlaying) {
-      songRef.current.pause();
-      shouldPlayRef.current = false;
-    } else {
-      songRef.current.play();
+    const audio = songRef.current;
+    if (!audio) return;
+    if (audio.paused) {
       shouldPlayRef.current = true;
+      audio.play().catch(() => {});
+    } else {
+      shouldPlayRef.current = false;
+      audio.pause();
     }
-    setIsPlaying(!isPlaying);
-  }, [isPlaying]);
+  }, []);
 
   const seek = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (!songRef.current) return;
@@ -77,32 +77,39 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     if (!audio || !currentSrc) return;
 
     setProgress(0);
+    setIsPlaying(false);
     audio.load();
 
     const onTimeUpdate = () => setProgress(audio.currentTime);
     const onLoadedMetadata = () => {
       setDuration(audio.duration);
       if (shouldPlayRef.current) {
-        audio.play().then(
-          () => setIsPlaying(true),
-          () => setIsPlaying(false),
-        );
-      } else {
-        setIsPlaying(false);
+        audio.play().catch(() => {});
       }
     };
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
     const onEnded = () => {
+      if (songs.length <= 1) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+        return;
+      }
       shouldPlayRef.current = true;
       setCurrent((i) => (i + 1) % songs.length);
     };
 
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
     audio.addEventListener("ended", onEnded);
 
     return () => {
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
       audio.removeEventListener("ended", onEnded);
     };
   }, [currentSrc, songs.length]);

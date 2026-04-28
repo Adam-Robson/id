@@ -173,17 +173,3 @@
   overflow: hidden;
 }
 
-/* ── minimized state ── */
-.audio-controls--minimized {
-  padding: 0.4rem 1.5rem 0.35rem;
-}
-
-.audio-controls--minimized .controls {
-  display: none;
-}
-
-.audio-controls--minimized .seek {
-  margin-bottom: 0;
-  height: 2px;
-  opacity: 0.5;
-}
