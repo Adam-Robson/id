@@ -5,11 +5,16 @@ import { afterEach, beforeEach, vi } from "vitest";
 // jsdom doesn't implement HTMLMediaElement playback APIs — stub them
 // so AudioProvider's togglePlay/seek/load effects don't blow up.
 beforeEach(() => {
-  vi.spyOn(window.HTMLMediaElement.prototype, "play").mockResolvedValue(
-    undefined,
+  vi.spyOn(window.HTMLMediaElement.prototype, "play").mockImplementation(
+    function (this: HTMLMediaElement) {
+      this.dispatchEvent(new Event("play"));
+      return Promise.resolve();
+    },
   );
   vi.spyOn(window.HTMLMediaElement.prototype, "pause").mockImplementation(
-    () => {},
+    function (this: HTMLMediaElement) {
+      this.dispatchEvent(new Event("pause"));
+    },
   );
   vi.spyOn(window.HTMLMediaElement.prototype, "load").mockImplementation(
     () => {},

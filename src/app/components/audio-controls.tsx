@@ -6,8 +6,6 @@ import "@/app/components/audio-controls.css";
 export default function AudioControls({
   onToggleList,
   listOpen,
-  minimized,
-  onExpand,
 }: AudioControlsProps) {
   const {
     isPlaying,
@@ -26,21 +24,7 @@ export default function AudioControls({
   const album = songs[current]?.album ?? "";
 
   return (
-    <section
-      className={`audio-controls${minimized ? " audio-controls--minimized" : ""}`}
-      aria-label={minimized ? "Expand player" : "Audio controls"}
-    >
-      {minimized && (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onExpand?.();
-          }}
-          className="cursor-pointer"
-          aria-label="Expand player"
-        />
-      )}
+    <section className="audio-controls" aria-label="Audio controls">
       {/* Seek */}
       <input
         type="range"
@@ -48,9 +32,6 @@ export default function AudioControls({
         max={duration || 0}
         value={progress}
         onChange={seek}
-        onPointerDown={(e) => e.stopPropagation()}
-        onMouseDown={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
         className="seek"
         aria-label="Seek"
         aria-valuetext={`${fmt(progress)} of ${fmt(duration)}`}
@@ -85,10 +66,7 @@ export default function AudioControls({
           <button
             type="button"
             className="ctrl-btn ctrl-btn--play"
-            onClick={(e) => {
-              e.stopPropagation();
-              togglePlay();
-            }}
+            onClick={togglePlay}
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? (
@@ -139,10 +117,7 @@ export default function AudioControls({
         {/* Toggle song list */}
         <button
           type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleList();
-          }}
+          onClick={onToggleList}
           aria-label={listOpen ? "Close song list" : "Open song list"}
           className={`toggle-list${listOpen ? " open" : ""}`}
         >
