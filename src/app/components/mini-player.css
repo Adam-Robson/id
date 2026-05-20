@@ -10,9 +10,9 @@
   max-width: 900px;
   margin: 0 auto;
   background: var(--background);
-  border-top: 1px solid var(--muted);
   border-radius: 0.65rem 0.65rem 0 0;
   padding: 0.6rem 1.25rem 0.5rem;
+  box-shadow: var(--player-elevation);
 }
 
 .mini-player-seek {
