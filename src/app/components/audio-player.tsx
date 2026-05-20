@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AudioControls from "@/app/components/audio-controls";
 import type { Song } from "@/types/song";
 import "@/app/components/audio-player.css";
@@ -8,11 +8,24 @@ import { groupByAlbum } from "@/lib/group-by-album";
 
 export default function AudioPlayer({ songs }: { songs: Song[] }) {
   const [listOpen, setListOpen] = useState(false);
-  const { current, setCurrent, setSongs } = useAudio();
+  const playerRef = useRef<HTMLDivElement>(null);
+  const { current, playAt, setSongs } = useAudio();
 
   useEffect(() => {
     setSongs(songs);
   }, [songs, setSongs]);
+
+  // Close the track list when clicking anywhere outside the player.
+  useEffect(() => {
+    if (!listOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!playerRef.current?.contains(e.target as Node)) {
+        setListOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [listOpen]);
 
   if (!songs.length) return null;
 
@@ -20,7 +33,7 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
 
   return (
     <div className="audio-player">
-      <div className="audio-player-inner">
+      <div className="audio-player-inner" ref={playerRef}>
         {/* song list panel — slides up from player */}
         <div
           className={`audio-player-list${listOpen ? " open" : ""}`}
@@ -39,7 +52,7 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
                         type="button"
                         className={`audio-player-album-song${isActive ? " active" : ""}`}
                         onClick={() => {
-                          setCurrent(idx);
+                          playAt(idx);
                           setListOpen(false);
                         }}
                         tabIndex={listOpen ? 0 : -1}

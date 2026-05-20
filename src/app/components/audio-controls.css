@@ -61,7 +61,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--accent);
+  color: var(--foreground);
   text-transform: uppercase;
 }
 
@@ -81,7 +81,7 @@
   font-size: 0.75rem;
   font-weight: 400;
   white-space: nowrap;
-  color: var(--muted);
+  color: var(--foreground);
   letter-spacing: 0.05em;
   font-variant-numeric: tabular-nums;
 }
@@ -135,41 +135,14 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  transition:
-    transform 0.35s ease,
-    color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .toggle-list.open {
   color: var(--accent);
 }
 
-.toggle-list > :last-child {
-  display: inline-block;
-  transition: transform 0.35s ease;
-}
-
-.toggle-list.open > :last-child {
-  transform: rotate(180deg);
-}
-
 .toggle-list:hover {
   color: var(--accent);
-}
-
-.toggle-list-label {
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  transition:
-    opacity 0.2s ease,
-    width 0.2s ease;
-}
-
-.toggle-list.open .toggle-list-label {
-  opacity: 0;
-  width: 0;
-  overflow: hidden;
 }
 

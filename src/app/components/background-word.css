@@ -10,12 +10,13 @@
   pointer-events: none;
   user-select: none;
   z-index: -99;
-  opacity: 0.2;
+  opacity: 0.1;
+  filter: blur(3px);
 }
 
 /* ── word ── */
 .bg-word {
-  font-family: var(--font-anaheim), serif;
+  font-family: var(--font-barlow), serif;
   font-weight: 100;
   line-height: 1;
   color: var(--foreground);

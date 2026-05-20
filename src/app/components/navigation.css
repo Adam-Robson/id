@@ -45,20 +45,20 @@
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--foreground);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .nav-link:hover {
-  color: var(--foreground);
+  color: var(--muted);
 }
 
 .nav-link svg {
   /* hidden by default */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-4px) rotate(0deg);
+  transform: translateY(-4px);
   transition:
     opacity 180ms ease,
     transform 180ms ease;
@@ -72,53 +72,11 @@
 .nav-link:focus-within svg {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) rotate(0deg);
-}
-
-/* About: reveal & start slow continuous spin while hovered */
-.nav-link.nav-about:hover svg,
-.nav-link.nav-about:focus svg,
-.nav-link.nav-about:focus-within svg {
-  opacity: 1;
-  transform: translateY(0) rotate(0deg);
-  animation: navIconSpinSlow 8s linear infinite;
-}
-
-/* Contact: reveal & start slow alternating tilt while hovered */
-.nav-link.nav-contact:hover svg,
-.nav-link.nav-contact:focus svg,
-.nav-link.nav-contact:focus-within svg {
-  opacity: 1;
-  transform: translateY(0) rotate(0deg);
-  transform-origin: center;
-  animation: navIconJitter 0.9s ease-in-out infinite alternate;
-}
-
-@keyframes navIconSpinSlow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes navIconJitter {
-  from {
-    transform: rotate(-8deg);
-  }
-  to {
-    transform: rotate(8deg);
-  }
+  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .nav-link svg {
     transition: none;
-    animation: none;
-  }
-  .nav-link.nav-about svg,
-  .nav-link.nav-contact svg {
-    animation: none;
   }
 }

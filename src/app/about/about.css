@@ -1,5 +1,22 @@
+/* The page wrapper caps width at 900px globally — widen it for the about page
+   so the container max-width below can actually take effect. */
+.page-wrapper--interior:has(.about-interior) {
+  max-width: 1080px;
+}
+
 .interior-main.about-interior {
-  max-width: 1200px;
+  max-width: 1080px;
+  /* Pull content up so the page fits without scrolling */
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}
+
+.about-interior .page-eyebrow {
+  margin-bottom: 1rem;
+}
+
+.about-interior .page-body {
+  line-height: 1.7;
 }
 
 .page-wrapper--interior:has(.about-interior)::before {
@@ -25,11 +42,40 @@
   gap: 2rem;
 }
 
-.about-video {
+.about-image {
   width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
   display: block;
   border-radius: 0.65rem;
-  object-fit: cover;
+  opacity: 0.65;
+  /* Fade the top and bottom edges so the image melts into the page */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 20%,
+    #000 80%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 20%,
+    #000 80%,
+    transparent
+  );
+}
+
+/* The brick texture is lighter than the dark background, so fade it further
+   in dark mode to blend like it does in light mode. */
+.dark .about-image {
+  opacity: 0.4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .about-image {
+    opacity: 0.4;
+  }
 }
 
 @media (min-width: 768px) {
@@ -44,7 +90,7 @@
     margin: 0;
   }
 
-  .about-video {
+  .about-image {
     width: 42%;
     flex-shrink: 0;
   }

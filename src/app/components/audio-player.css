@@ -11,6 +11,7 @@
   margin: 0 auto;
   border-radius: 0.65rem 0.65rem 0 0;
   overflow: hidden;
+  box-shadow: var(--player-elevation);
 }
 
 @keyframes list-item-in {
@@ -58,38 +59,13 @@
   animation: list-item-in 0.35s ease both;
 }
 
-.audio-player-list.open li:nth-child(2) {
-  animation-delay: 30ms;
-}
-.audio-player-list.open li:nth-child(3) {
-  animation-delay: 60ms;
-}
-.audio-player-list.open li:nth-child(4) {
-  animation-delay: 90ms;
-}
-.audio-player-list.open li:nth-child(5) {
-  animation-delay: 120ms;
-}
-.audio-player-list.open li:nth-child(6) {
-  animation-delay: 150ms;
-}
-.audio-player-list.open li:nth-child(7) {
-  animation-delay: 180ms;
-}
-.audio-player-list.open li:nth-child(8) {
-  animation-delay: 210ms;
-}
-.audio-player-list.open li:nth-child(n + 9) {
-  animation-delay: 240ms;
-}
-
 .audio-player-album {
   margin-bottom: 1.25rem;
 }
 
 .audio-player-album-title {
   margin: 0 0 0.5rem;
-  font-size: 0.6rem;
+  font-size: 1.275rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -110,7 +86,7 @@
   margin-bottom: 0.05rem;
   border-radius: 0.25rem;
   background: transparent;
-  color: var(--muted);
+  color: var(--foreground);
   font-size: 0.85rem;
   font-weight: 300;
   border: none;
@@ -124,7 +100,7 @@
 
 .audio-player-album-song:hover {
   background: var(--background);
-  color: var(--muted);
+  color: var(--foreground);
   transform: translateX(3px);
 }
 
@@ -140,7 +116,4 @@
 
 .audio-player-controls {
   background: var(--background);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid var(--muted);
 }
