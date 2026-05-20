@@ -1,6 +1,6 @@
 "use client";
 
-import { PersonSimpleCircleIcon, RadioIcon, ApproximateEqualsIcon } from "@phosphor-icons/react";
+import { ApproximateEqualsIcon, RadioIcon } from "@phosphor-icons/react";
 import Navlink from "@/app/components/navlink";
 import "@/app/components/navigation.css";
 
