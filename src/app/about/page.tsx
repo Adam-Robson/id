@@ -47,19 +47,13 @@ export default function AboutPage() {
             theatrics; rebellious without the noise. The catalog stands on its
             own, with plenty to explore.
             <br />
-            As always, there is more where that came from.
           </p>
-          <video
-            controls
-            className="about-video"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/video/juggle.mp4" type="video/mp4" />
-            <source src="/video/juggle.webm" type="video/webm" />
-          </video>
+          {/* biome-ignore lint/performance/noImgElement: SVG art, not a raster needing next/image optimization */}
+          <img
+            className="about-image"
+            src="/images/bricks2.svg"
+            alt="LE FOG brick artwork"
+          />
         </div>
       </main>
     </div>

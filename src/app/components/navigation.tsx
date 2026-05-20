@@ -1,6 +1,6 @@
 "use client";
 
-import { PersonSimpleCircleIcon, RadioIcon } from "@phosphor-icons/react";
+import { PersonSimpleCircleIcon, RadioIcon, ApproximateEqualsIcon } from "@phosphor-icons/react";
 import Navlink from "@/app/components/navlink";
 import "@/app/components/navigation.css";
 
@@ -13,7 +13,7 @@ export default function Navigation() {
             href="/about"
             className="nav-link nav-about"
             value="ABOUT"
-            icon={PersonSimpleCircleIcon}
+            icon={ApproximateEqualsIcon}
           />
         </li>
         <li className="nav-li">
