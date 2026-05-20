@@ -148,7 +148,6 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         songs,
         setSongs,
         current,
-        setCurrent,
         playAt,
         songsLoaded,
         prev,

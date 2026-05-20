@@ -15,7 +15,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export const barlow = Barlow({
+const barlow = Barlow({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-barlow",
@@ -24,6 +24,7 @@ export const barlow = Barlow({
 
 export const metadata: Metadata = {
   applicationName: "LE FOG",
+  manifest: "/manifest.json",
   title: {
     default: "LE FOG",
     template: "%s — LE FOG",
@@ -44,11 +45,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/favicon-128.png", sizes: "128x128", type: "image/png" },
-      { url: "/favicon-196x196.png", sizes: "196x196", type: "image/png" },
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon/favicon-128.png", sizes: "128x128", type: "image/png" },
+      {
+        url: "/favicon/favicon-196x196.png",
+        sizes: "196x196",
+        type: "image/png",
+      },
     ],
     apple: [
       { url: "/favicon/apple-touch-icon-57x57.png", sizes: "57x57" },
@@ -114,8 +119,7 @@ export default async function RootLayout({
       className={theme === "dark" ? "dark" : theme === "light" ? "light" : ""}
     >
       <head>
-        {/* Preload background images so they're ready on first paint */}
-        <link rel="preload" href="/images/background.svg" as="image" />
+        {/* Preload background image so it's ready on first paint */}
         <link
           rel="preload"
           href="/images/blur.webp"
