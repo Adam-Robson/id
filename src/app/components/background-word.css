@@ -16,7 +16,7 @@
 
 /* ── word ── */
 .bg-word {
-  font-family: var(--font-anaheim), serif;
+  font-family: var(--font-barlow), serif;
   font-weight: 100;
   line-height: 1;
   color: var(--foreground);

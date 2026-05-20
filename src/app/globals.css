@@ -9,18 +9,30 @@
 }
 
 :root {
-  --black: #000103ff;
-  --jet: #353535ff;
-  --ash: #acbdbaff;
-  --slate: #70798cff;
-  --slate-deep: #586477ff;
-  --snow: #eff1edff;
-  --copper: #b57f50ff;
+  /* ── Base palette (Coolors: 272727 · 7698b3 · a47963 · a6a57a · 96c5b0) ── */
+  --shadow-grey: #272727;
+  --steel-blue: #7698b3;
+  --faded-copper: #a47963;
+  --dry-sage: #a6a57a; /* available secondary accent */
+  --muted-teal: #96c5b0; /* available secondary accent */
 
-  --background: var(--snow);
-  --foreground: var(--black);
-  --accent: var(--copper);
-  --muted: var(--slate-deep);
+  /* ── Sane neutrals & contrast-tuned variants ── */
+  --ink: #1c1c1c; /* deepest neutral — dark-mode surface */
+  --paper: #f5f4f0; /* soft off-white — light-mode surface */
+  --copper-bright: #c08a66; /* accent lifted for dark backgrounds */
+  --steel-deep: #4f6e89; /* muted text on light backgrounds */
+  --steel-soft: #a3b8cb; /* muted text on dark backgrounds */
+
+  /* ── Semantic tokens (light defaults) ── */
+  --background: var(--paper);
+  --foreground: var(--shadow-grey);
+  --accent: var(--faded-copper);
+  --muted: var(--steel-deep);
+
+  /* ── Elevation ── soft halo (reads on light) + lit top edge (reads on dark) */
+  --player-elevation:
+    0 -3px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 @theme inline {
@@ -31,26 +43,26 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --background: var(--black);
-    --foreground: var(--snow);
-    --accent: var(--copper);
-    --muted: var(--ash);
+    --background: var(--ink);
+    --foreground: var(--paper);
+    --accent: var(--copper-bright);
+    --muted: var(--steel-soft);
   }
 }
 
 :root.light {
-  --background: var(--snow);
-  --foreground: var(--black);
-  --accent: var(--copper);
-  --muted: var(--slate-deep);
+  --background: var(--paper);
+  --foreground: var(--shadow-grey);
+  --accent: var(--faded-copper);
+  --muted: var(--steel-deep);
 }
 
 :root.dark,
 .dark {
-  --background: var(--black);
-  --foreground: var(--snow);
-  --accent: var(--copper);
-  --muted: var(--ash);
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --accent: var(--copper-bright);
+  --muted: var(--steel-soft);
 }
 
 html {
@@ -84,8 +96,10 @@ body::after {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
   pointer-events: none;
+  opacity: 0.06;
   z-index: 991;
 }
 

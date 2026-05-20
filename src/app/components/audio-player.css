@@ -11,6 +11,7 @@
   margin: 0 auto;
   border-radius: 0.65rem 0.65rem 0 0;
   overflow: hidden;
+  box-shadow: var(--player-elevation);
 }
 
 @keyframes list-item-in {
@@ -115,5 +116,4 @@
 
 .audio-player-controls {
   background: var(--background);
-  border-top: 1px solid var(--muted);
 }
