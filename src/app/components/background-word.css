@@ -10,7 +10,8 @@
   pointer-events: none;
   user-select: none;
   z-index: -99;
-  opacity: 0.2;
+  opacity: 0.1;
+  filter: blur(3px);
 }
 
 /* ── word ── */
