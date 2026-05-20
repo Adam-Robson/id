@@ -78,41 +78,6 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  isolation: isolate;
-}
-
-.page-wrapper--interior::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("/images/background.svg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: repeat-x;
-  opacity: 0.1;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.dark .page-wrapper--interior::before {
-  opacity: 0.1;
-}
-
-.page-wrapper--home::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("/images/background.svg");
-  background-size: 90vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.4;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.dark .page-wrapper--home::before {
-  opacity: 0.3;
 }
 
 body::after {

@@ -1,4 +1,5 @@
 "use client";
+import { PlaylistIcon } from "@phosphor-icons/react";
 import { useAudio } from "@/contexts/audio-provider";
 import type { AudioControlsProps } from "@/types/audio-controls";
 import "@/app/components/audio-controls.css";
@@ -121,7 +122,7 @@ export default function AudioControls({
           aria-label={listOpen ? "Close song list" : "Open song list"}
           className={`toggle-list${listOpen ? " open" : ""}`}
         >
-          <span className="toggle-list-label">TRACKS</span>▲
+          <PlaylistIcon size={20} weight="regular" aria-hidden="true" />
         </button>
       </div>
     </section>

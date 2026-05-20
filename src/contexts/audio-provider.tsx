@@ -49,6 +49,28 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     setCurrent((i) => (i + 1) % songs.length);
   }, [songs.length]);
 
+  const playAt = useCallback(
+    (idx: number) => {
+      const audio = songRef.current;
+      if (idx === current) {
+        // Same track already loaded — toggle pause/play.
+        if (!audio) return;
+        if (audio.paused) {
+          shouldPlayRef.current = true;
+          audio.play().catch(() => {});
+        } else {
+          shouldPlayRef.current = false;
+          audio.pause();
+        }
+        return;
+      }
+      // Different track — selecting it triggers load + autoplay via shouldPlayRef.
+      shouldPlayRef.current = true;
+      setCurrent(idx);
+    },
+    [current],
+  );
+
   const togglePlay = useCallback(() => {
     const audio = songRef.current;
     if (!audio) return;
@@ -127,6 +149,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         setSongs,
         current,
         setCurrent,
+        playAt,
         songsLoaded,
         prev,
         next,

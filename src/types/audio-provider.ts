@@ -11,6 +11,7 @@ export interface AudioProviderType {
   setSongs: (songs: Song[]) => void;
   current: number;
   setCurrent: React.Dispatch<React.SetStateAction<number>>;
+  playAt: (idx: number) => void;
   songsLoaded: boolean;
   prev: () => void;
   next: () => void;
