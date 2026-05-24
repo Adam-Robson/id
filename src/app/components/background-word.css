@@ -10,7 +10,7 @@
   pointer-events: none;
   user-select: none;
   z-index: -99;
-  opacity: 0.1;
+  opacity: 0.13;
   filter: blur(3px);
 }
 
@@ -32,6 +32,13 @@
   -webkit-text-stroke: 4px var(--accent);
 }
 
+/* ── brick element at the end of the word ── inherits the container's
+   faint opacity + blur so it reads as part of the wordmark.
+   Hidden on mobile (vertical, repeated words). */
+.bg-word-brick {
+  display: none;
+}
+
 /* Medium+: single word, horizontal, centered */
 @media (min-width: 640px) {
   .bg-word--extra {
@@ -44,13 +51,45 @@
 
   .bg-word {
     writing-mode: horizontal-tb;
+    /* horizontal "LE FOG" + brick must fit one line — smaller than the
+       25vw vertical mobile size */
+    font-size: 16vw;
+  }
+
+  .bg-word-brick {
+    display: block;
+    flex-shrink: 0;
+    /* ~cap height of the word, so it sits level with the letters */
+    height: 11vw;
+    aspect-ratio: 595 / 842;
+    margin-left: 2vw;
+    background-image: url("/images/bricks1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
   }
 }
 
-/* Desktop: letter spacing */
+/* Desktop: step the word down further so it stays on-screen, add spacing */
 @media (min-width: 1024px) {
   .bg-word {
+    font-size: 13vw;
     letter-spacing: 0.16em;
     padding-left: 0.16em;
+  }
+
+  .bg-word-brick {
+    height: 9vw;
+  }
+}
+
+/* Large screens: cap the growth so it never runs off the page */
+@media (min-width: 1536px) {
+  .bg-word {
+    font-size: 11vw;
+  }
+
+  .bg-word-brick {
+    height: 7.5vw;
   }
 }
