@@ -9,27 +9,32 @@
 }
 
 :root {
-  /* ── Base palette (Coolors: 272727 · 7698b3 · a47963 · a6a57a · 96c5b0) ── */
-  --shadow-grey: #272727;
-  --steel-blue: #7698b3;
-  --faded-copper: #a47963;
-  --dry-sage: #a6a57a; /* available secondary accent */
-  --muted-teal: #96c5b0; /* available secondary accent */
+  /* base palette */
+  --paper: #f8f3e7;
+  --ink: #272320;
+  --soft-ink: #36302a;
+  --powder-deep: #52799a;
+  --powder-bright: #a9c8de;
+  --blush-deep: #b4736c;
+  --blush-bright: #e0aca5;
+  --butter-deep: #ab853d;
+  --butter-bright: #e4c377;
+  /* muted text light */
+  --stone: #7d7466;
+  /* muted text dark */
+  --stone-soft: #b3a897;
 
-  /* ── Sane neutrals & contrast-tuned variants ── */
-  --ink: #1c1c1c; /* deepest neutral — dark-mode surface */
-  --paper: #f5f4f0; /* soft off-white — light-mode surface */
-  --copper-bright: #c08a66; /* accent lifted for dark backgrounds */
-  --steel-deep: #4f6e89; /* muted text on light backgrounds */
-  --steel-soft: #a3b8cb; /* muted text on dark backgrounds */
-
-  /* ── Semantic tokens (light defaults) ── */
+  /* -- light default semantic tokens -- */
   --background: var(--paper);
-  --foreground: var(--shadow-grey);
-  --accent: var(--faded-copper);
-  --muted: var(--steel-deep);
+  --foreground: var(--soft-ink);
+  --accent: var(--powder-deep);
+  --muted: var(--stone);
+  /* secondary accent */
+  --blush: var(--blush-deep);
+  /* secondary accent */
+  --butter: var(--butter-deep);
 
-  /* ── Elevation ── soft halo (reads on light) + lit top edge (reads on dark) */
+  /* ── border effect: elevation -- halo (for light); lit top edge (for dark) */
   --player-elevation:
     0 -3px 24px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -41,28 +46,39 @@
   --font-sans: "Barlow", sans-serif;
 }
 
+:root {
+  /* -- display face for headings & wordmark -- */
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     --background: var(--ink);
     --foreground: var(--paper);
-    --accent: var(--copper-bright);
-    --muted: var(--steel-soft);
+    --accent: var(--powder-bright);
+    --muted: var(--stone-soft);
+    --blush: var(--blush-bright);
+    --butter: var(--butter-bright);
   }
 }
 
 :root.light {
   --background: var(--paper);
-  --foreground: var(--shadow-grey);
-  --accent: var(--faded-copper);
-  --muted: var(--steel-deep);
+  --foreground: var(--soft-ink);
+  --accent: var(--powder-deep);
+  --muted: var(--stone);
+  --blush: var(--blush-deep);
+  --butter: var(--butter-deep);
 }
 
 :root.dark,
 .dark {
   --background: var(--ink);
   --foreground: var(--paper);
-  --accent: var(--copper-bright);
-  --muted: var(--steel-soft);
+  --accent: var(--powder-bright);
+  --muted: var(--stone-soft);
+  --blush: var(--blush-bright);
+  --butter: var(--butter-bright);
 }
 
 html {
@@ -84,7 +100,7 @@ body {
 
 .page-wrapper {
   width: 100%;
-  max-width: 900px;
+  max-width: 1210px;
   margin: 0 auto;
   position: relative;
   min-height: 100dvh;
@@ -117,10 +133,10 @@ body::after {
 }
 
 .back-link {
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--foreground);
   text-decoration: none;
   transition: color 0.2s;

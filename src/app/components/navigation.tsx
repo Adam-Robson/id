@@ -12,7 +12,7 @@ export default function Navigation() {
           <Navlink
             href="/about"
             className="nav-link nav-about"
-            value="ABOUT"
+            value="About"
             icon={ApproximateEqualsIcon}
           />
         </li>
@@ -20,7 +20,7 @@ export default function Navigation() {
           <Navlink
             href="/contact"
             className="nav-link nav-contact"
-            value="CONTACT"
+            value="Contact"
             icon={RadioIcon}
           />
         </li>
