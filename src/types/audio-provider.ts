@@ -1,9 +1,10 @@
+import type { ChangeEvent } from "react";
 import type { Song } from "@/types/song";
 
 export interface AudioProviderType {
   isPlaying: boolean;
   togglePlay: () => void;
-  seek: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  seek: (e: ChangeEvent<HTMLInputElement>) => void;
   progress: number;
   duration: number;
   fmt: (s: number) => string;

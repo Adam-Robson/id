@@ -1,0 +1,76 @@
+import { groupByAlbum } from "@/lib/group-by-album";
+import type { AlbumMeta } from "@/types/album";
+import type { Song } from "@/types/song";
+
+/**
+ * Presentation metadata for each album, keyed by the album name that
+ * `parseSongMeta` derives from the R2 folder structure.
+ *
+ * R2 remains the source of truth for which albums and songs exist;
+ * this module is the source of truth for how they present. An album
+ * that exists in R2 but not here still renders — plainly, at the end
+ * of the shelf — so adding a new album to the bucket never breaks
+ * the homepage.
+ *
+ * TODO(adam): set real years and true chronological `order`,
+ * and write each album's one-line blurb in your own voice.
+ */
+export const ALBUM_META: Record<string, AlbumMeta> = {
+  forbeforeiforget: {
+    key: "forbeforeiforget",
+    catalog: "LF-001",
+    cover: "/images/albums/forbeforeiforget.webp",
+    order: 1,
+  },
+  hifiveyourself: {
+    key: "hifiveyourself",
+    catalog: "LF-002",
+    cover: "/images/albums/hifiveyourself.webp",
+    order: 2,
+  },
+  leftstaticandatease: {
+    key: "leftstaticandatease",
+    catalog: "LF-003",
+    cover: "/images/albums/leftstaticandatease.webp",
+    order: 3,
+  },
+  seemsreal: {
+    key: "seemsreal",
+    catalog: "LF-004",
+    cover: "/images/albums/seemsreal.webp",
+    order: 4,
+  },
+  "three.": {
+    key: "three.",
+    catalog: "LF-005",
+    cover: "/images/albums/three.webp",
+    order: 5,
+  },
+};
+
+const UNKNOWN_ALBUM_ORDER = 999;
+
+export function metaFor(albumKey: string): AlbumMeta {
+  return (
+    ALBUM_META[albumKey] ?? {
+      key: albumKey,
+      catalog: "LF-???",
+      order: UNKNOWN_ALBUM_ORDER,
+    }
+  );
+}
+
+export interface AlbumWithSongs {
+  meta: AlbumMeta;
+  songs: Song[];
+}
+
+/**
+ * Groups songs by album and sorts albums by their shelf order.
+ * Albums missing from ALBUM_META sort last, in R2 listing order.
+ */
+export function orderedAlbums(songs: Song[]): AlbumWithSongs[] {
+  return Object.entries(groupByAlbum(songs))
+    .map(([key, albumSongs]) => ({ meta: metaFor(key), songs: albumSongs }))
+    .sort((a, b) => a.meta.order - b.meta.order);
+}
