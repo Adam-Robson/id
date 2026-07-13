@@ -16,12 +16,10 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
+// Must match SSR output exactly — the layout effect below resolves the
+// real value (matchMedia) before first paint, so no window reads here.
 function getInitialResolvedTheme(theme: Theme): ResolvedTheme {
-  if (theme !== "system") return theme;
-  if (typeof window === "undefined") return "light";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  return theme === "system" ? "light" : theme;
 }
 
 export function ThemeProvider({
