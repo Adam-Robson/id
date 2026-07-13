@@ -22,8 +22,6 @@ const barlow = Barlow({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-/* Display serif — soft, slightly irregular ("wonky") old-style face that
-   matches the hand-set feel of the LE FOG wordmark. */
 const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",

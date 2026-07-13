@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Navigation from "@/app/components/navigation";
 import ThemeToggle from "@/app/components/theme-toggle";
 
@@ -9,7 +10,12 @@ export default function SiteHeader({ variant }: Props) {
   return (
     <header className="site-header">
       {variant === "home" ? (
-        <Navigation />
+        <>
+          <a href="/" className="brand-stamp" aria-label="LE FOG — home">
+            <Image src="/images/logo.svg" alt="" width={52} height={52} />
+          </a>
+          <Navigation />
+        </>
       ) : (
         <a href="/" className="back-link">
           ← LE FOG

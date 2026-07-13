@@ -49,6 +49,17 @@
   margin: 0 0 2.25rem;
 }
 
+.page-eyebrow::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 10px;
+  margin: 0.8rem auto 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='10'%3E%3Ccircle cx='8' cy='5' r='3.2' fill='%23cbe4f4'/%3E%3Ccircle cx='28' cy='5' r='3.2' fill='%23f1d998'/%3E%3Ccircle cx='48' cy='5' r='3.2' fill='%23f4d2d6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .page-body {
   font-size: 1.05rem;
   font-weight: 300;

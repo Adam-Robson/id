@@ -1,0 +1,208 @@
+.album-shelf {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* ── The J-card ─────────────────────────────────────────────── */
+
+.tape-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--card-edge);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 var(--card-edge),
+    0 10px 28px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: rotate 0.3s ease;
+}
+
+/* cards sit a hair off-square, like tapes stacked by hand */
+.album-shelf > .tape-card:nth-child(odd) {
+  rotate: -0.5deg;
+}
+
+.album-shelf > .tape-card:nth-child(even) {
+  rotate: 0.5deg;
+}
+
+.album-shelf > .tape-card:hover {
+  rotate: 0deg;
+}
+
+/* grain, slightly heavier inside the card than on the page */
+.tape-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.tape-card-label {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px dashed var(--card-rule);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* leopard-print band across the top of the J-card */
+.tape-card-label::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cdefs%3E%3Cg id='s'%3E%3Cellipse rx='6' ry='4.5'/%3E%3Cellipse cx='7' cy='4' rx='3' ry='2.2'/%3E%3C/g%3E%3C/defs%3E%3Cg fill='%239d9992'%3E%3Cuse href='%23s' transform='translate(18 22) rotate(20)'/%3E%3Cuse href='%23s' transform='translate(96 14) rotate(-40) scale(0.8)'/%3E%3Cuse href='%23s' transform='translate(58 52) rotate(70)'/%3E%3Cuse href='%23s' transform='translate(124 66) rotate(10) scale(0.9)'/%3E%3Cuse href='%23s' transform='translate(30 96) rotate(-15)'/%3E%3Cuse href='%23s' transform='translate(88 112) rotate(50) scale(0.85)'/%3E%3C/g%3E%3Cg fill='%23f2d3c8'%3E%3Ccircle cx='44' cy='10' r='4'/%3E%3Ccircle cx='10' cy='60' r='4.5'/%3E%3Ccircle cx='76' cy='84' r='4'/%3E%3Ccircle cx='120' cy='108' r='4.5'/%3E%3Ccircle cx='60' cy='128' r='3.5'/%3E%3Ccircle cx='132' cy='30' r='3.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 90px 90px;
+  opacity: var(--leopard-opacity);
+  pointer-events: none;
+}
+
+.tape-card-cover {
+  position: relative;
+  aspect-ratio: 1;
+  border-bottom: 1px solid var(--card-edge);
+}
+
+.tape-card-cover-img {
+  object-fit: cover;
+}
+
+.tape-card-body {
+  padding: 1.1rem 1.1rem 1.25rem;
+  position: relative;
+}
+
+.tape-card-title {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(1.15rem, 5vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.35rem;
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+}
+
+.tape-card-blurb {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* ── Track list ─────────────────────────────────────────────── */
+
+.tape-card-tracks {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  border-top: 1px dashed var(--card-rule);
+}
+
+.tape-track {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.55rem 0.25rem;
+  border-bottom: 1px dashed var(--card-rule);
+  color: var(--foreground);
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+
+.tape-track:hover {
+  opacity: 1;
+  color: var(--accent);
+  background: var(--card-hover);
+}
+
+.tape-track.active {
+  color: var(--accent);
+}
+
+.tape-track-num {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  min-width: 1.6em;
+}
+
+.tape-track.active .tape-track-num {
+  color: var(--accent);
+}
+
+.tape-track-title {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+/* ── Now-playing meter ──────────────────────────────────────── */
+
+.tape-track-meter {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  align-self: center;
+}
+
+.tape-track-meter i {
+  width: 3px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+.tape-track-meter.playing i {
+  animation: meter 0.9s ease-in-out infinite;
+}
+
+.tape-track-meter.playing i:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.tape-track-meter.playing i:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes meter {
+  0%,
+  100% {
+    height: 4px;
+  }
+  50% {
+    height: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tape-track-meter.playing i {
+    animation: none;
+    height: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-shelf {
+    padding: 0.5rem 1rem 8rem;
+    gap: 2.5rem;
+  }
+}
