@@ -12,9 +12,7 @@ export default async function Home() {
       <BackgroundWord />
       <SiteHeader variant="home" />
       <main className="home-main">
-        <p className="home-intro">
-          Home recordings from Portland, Oregon.
-        </p>
+        <p className="home-intro">Home recordings from Portland, Oregon.</p>
         <AlbumShelf songs={songs} />
         <AudioPlayer songs={songs} />
       </main>
