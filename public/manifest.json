@@ -2,8 +2,8 @@
   "name": "LE FOG",
   "short_name": "LE FOG",
   "start_url": "/",
-  "theme_color": "#333333",
-  "background_color": "#000000",
+  "theme_color": "#272320",
+  "background_color": "#f8f3e7",
   "display": "standalone",
   "orientation": "portrait",
   "icons": [

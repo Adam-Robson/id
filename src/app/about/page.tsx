@@ -2,6 +2,7 @@ import SiteHeader from "@/app/components/site-header";
 import "@/app/about/about.css";
 import "@/app/components/interior-pages.css";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { sharedOgImage } from "@/app/components/shared-metadata";
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: "About | LE FOG",
-    description: "About LE FOG, bio, other projects, & more...",
+    description: "About page for LE FOG.",
     images: sharedOgImage,
   },
 };
@@ -21,38 +22,37 @@ export default function AboutPage() {
       <main className="interior-main about-interior">
         <h1 className="page-eyebrow">About</h1>
         <div className="about-layout">
-          <p className="page-body">
-            There is a kind of music that does not try to convince you of
-            anything. LE FOG is that kind of music. The sound LE FOG creates is
-            honest and spontaneous. Their songs move on a foundation grounded in
-            this world, and layered on top is fuzz from electric guitars and
-            alien synthesizers. The effect increases the number of possible
-            worlds.
-            <br />
-            An ambient introduction, a dive into an electronic ensemble that
-            compels you to move your hips, or a groove that leans in to the
-            acoustics of live drums and electric bass — the music is alive, and
-            like life it is confronting and understated. The layers are not
-            decorative - each sound is placed for a reason. It draws you in the
-            way an unexpected and easy conversation does, captivating you in the
-            moment, and will have you involuntarily revisiting it as you walk
-            away.
-            <br />
-            The lyrics do not lead you anywhere in particular, because that is
-            not their purpose. They are there to remind you of yourself. They
-            surface and linger, because they are reminiscent of one's own
-            inner-monologue, a fond and distant memory, or an overheard phrase
-            that stays with you longer than you anticipated. Like something you
-            thought you knew, but forgot along the way. Existential without
-            theatrics; rebellious without the noise. The catalog stands on its
-            own, with plenty to explore.
-            <br />
-          </p>
-          {/* biome-ignore lint/performance/noImgElement: SVG art, not a raster needing next/image optimization */}
-          <img
+          <div className="about-text">
+            <p className="page-body">
+              LE FOG makes music that is independent and unpretentious. The
+              songs are confronting and understated. The effect finds space
+              where before it appeared there was none. Each track suggests an
+              alternative shape to the world.
+            </p>
+            <p className="page-body">
+              Everything is homemade, in the fullest sense: every instrument is
+              played and recorded at home, and every song is produced and
+              released the same way — one pair of hands carrying each idea from
+              conception to distribution. Nothing is decorative; every sound is
+              placed for a reason. It draws you in the way an easy & unexpected
+              conversation does — tethering you for the moment and folding time
+              so it passes unnoticed.
+            </p>
+            <p className="page-body">
+              The lyrics lead you to yourself. They surface and linger, like a
+              fragment of your own inner monologue, something you thought you
+              knew, but forgot along the way, or an overheard phrase that stays
+              with you longer than you expected. Existential without theatrics;
+              rebellious without the noise. The catalog stands on its own, and
+              there is plenty to explore.
+            </p>
+          </div>
+          <Image
             className="about-image"
-            src="/images/bricks2.svg"
-            alt="LE FOG brick artwork"
+            src="/images/og-image.png"
+            alt="LE FOG artwork"
+            width={1025}
+            height={576}
           />
         </div>
       </main>

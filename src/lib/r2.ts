@@ -8,10 +8,10 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const r2 = new S3Client({
   region: "auto",
-  endpoint: process.env.S3_API,
+  endpoint: process.env.CLOUDFLARE_R2_API,
   credentials: {
-    accessKeyId: process.env.ACCESS_KEY_ID ?? "",
-    secretAccessKey: process.env.SECRET_ACCESS_KEY ?? "",
+    accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID ?? "",
+    secretAccessKey: process.env.CLOUDFLARE_ACCESS_KEY ?? "",
   },
 });
 
@@ -56,7 +56,7 @@ export async function saveContact(
 
   await r2.send(
     new PutObjectCommand({
-      Bucket: process.env.BUCKET_NAME,
+      Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME,
       Key: `contacts/${submission.submittedAt}_${submission.id}.json`,
       Body: JSON.stringify(submission),
       ContentType: "application/json",
@@ -68,7 +68,7 @@ export async function saveContact(
 
 export async function getSongs() {
   const list = await r2.send(
-    new ListObjectsV2Command({ Bucket: process.env.BUCKET_NAME }),
+    new ListObjectsV2Command({ Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME }),
   );
 
   const keys = (list.Contents ?? [])
@@ -82,7 +82,10 @@ export async function getSongs() {
       ...parseSongMeta(key),
       url: await getSignedUrl(
         r2,
-        new GetObjectCommand({ Bucket: process.env.BUCKET_NAME, Key: key }),
+        new GetObjectCommand({
+          Bucket: process.env.CLOUDFLARE_R2_BUCKET_NAME,
+          Key: key,
+        }),
         { expiresIn: 3600 },
       ),
     })),

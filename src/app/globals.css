@@ -9,39 +9,32 @@
 }
 
 :root {
-  /* ── Base palette (Coolors: 2f3437 · 69808c · fff6e0 · ffc573 · ba5e45) ── */
-  --ink: #2f3437; /* dark slate — dark-mode surface, light-mode text */
-  --slate: #69808c; /* decorative slate — rules, low-emphasis marks */
-  --cream: #fff6e0; /* warm paper — the card surface */
-  --apricot: #ffc573; /* accent lifted for dark backgrounds */
-  --rust: #ba5e45; /* accent on light backgrounds */
+  /* base palette */
+  --paper: #f8f3e7;
+  --ink: #272320;
+  --soft-ink: #36302a;
+  --powder-deep: #52799a;
+  --powder-bright: #a9c8de;
+  --blush-deep: #b4736c;
+  --blush-bright: #e0aca5;
+  --butter-deep: #ab853d;
+  --butter-bright: #e4c377;
+  /* muted text light */
+  --stone: #7d7466;
+  /* muted text dark */
+  --stone-soft: #b3a897;
 
-  /* ── Contrast-tuned variants ── */
-  --kraft: #f4e8cd; /* page canvas behind the cream cards (light) */
-  --ink-deep: #262b2e; /* page canvas behind the slate cards (dark) */
-  --slate-deep: #4e6272; /* muted text on cream — AA-safe */
-  --slate-soft: #a9bac6; /* muted text on slate — AA-safe */
-  --card-shade: #384045; /* card surface lifted off the dark canvas */
+  /* -- light default semantic tokens -- */
+  --background: var(--paper);
+  --foreground: var(--soft-ink);
+  --accent: var(--powder-deep);
+  --muted: var(--stone);
+  /* secondary accent */
+  --blush: var(--blush-deep);
+  /* secondary accent */
+  --butter: var(--butter-deep);
 
-  /* ── Pastels (from the forget-me-not artwork) ── decorative only,
-     never used for text, so contrast rules don't apply */
-  --sky: #cbe4f4; /* forget-me-not blue */
-  --blush: #f4d2d6; /* petal pink */
-  --butter: #f1d998; /* stamen yellow */
-
-  /* ── Semantic tokens (light defaults) ── */
-  --background: var(--kraft);
-  --foreground: var(--ink);
-  --accent: var(--rust);
-  --muted: var(--slate-deep);
-  --card: var(--cream);
-  --card-edge: rgba(47, 52, 55, 0.18);
-  --card-rule: rgba(78, 98, 114, 0.35);
-  --card-hover: rgba(203, 228, 244, 0.4);
-  --floral-opacity: 0.55;
-  --leopard-opacity: 0.4;
-
-  /* ── Elevation ── soft halo (reads on light) + lit top edge (reads on dark) */
+  /* ── border effect: elevation -- halo (for light); lit top edge (for dark) */
   --player-elevation:
     0 -3px 24px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -53,46 +46,39 @@
   --font-sans: "Barlow", sans-serif;
 }
 
+:root {
+  /* -- display face for headings & wordmark -- */
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --background: var(--ink-deep);
-    --foreground: var(--cream);
-    --accent: var(--apricot);
-    --muted: var(--slate-soft);
-    --card: var(--card-shade);
-    --card-edge: rgba(255, 246, 224, 0.14);
-    --card-rule: rgba(169, 186, 198, 0.28);
-    --card-hover: rgba(255, 197, 115, 0.07);
-    --floral-opacity: 0.08;
-    --leopard-opacity: 0.1;
+    --background: var(--ink);
+    --foreground: var(--paper);
+    --accent: var(--powder-bright);
+    --muted: var(--stone-soft);
+    --blush: var(--blush-bright);
+    --butter: var(--butter-bright);
   }
 }
 
 :root.light {
-  --background: var(--kraft);
-  --foreground: var(--ink);
-  --accent: var(--rust);
-  --muted: var(--slate-deep);
-  --card: var(--cream);
-  --card-edge: rgba(47, 52, 55, 0.18);
-  --card-rule: rgba(78, 98, 114, 0.35);
-  --card-hover: rgba(203, 228, 244, 0.4);
-  --floral-opacity: 0.55;
-  --leopard-opacity: 0.4;
+  --background: var(--paper);
+  --foreground: var(--soft-ink);
+  --accent: var(--powder-deep);
+  --muted: var(--stone);
+  --blush: var(--blush-deep);
+  --butter: var(--butter-deep);
 }
 
 :root.dark,
 .dark {
-  --background: var(--ink-deep);
-  --foreground: var(--cream);
-  --accent: var(--apricot);
-  --muted: var(--slate-soft);
-  --card: var(--card-shade);
-  --card-edge: rgba(255, 246, 224, 0.14);
-  --card-rule: rgba(169, 186, 198, 0.28);
-  --card-hover: rgba(255, 197, 115, 0.07);
-  --floral-opacity: 0.08;
-  --leopard-opacity: 0.1;
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --accent: var(--powder-bright);
+  --muted: var(--stone-soft);
+  --blush: var(--blush-bright);
+  --butter: var(--butter-bright);
 }
 
 html {
@@ -114,7 +100,7 @@ body {
 
 .page-wrapper {
   width: 100%;
-  max-width: 900px;
+  max-width: 1210px;
   margin: 0 auto;
   position: relative;
   min-height: 100dvh;
@@ -171,10 +157,10 @@ body {
 }
 
 .back-link {
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--foreground);
   text-decoration: none;
   transition: color 0.2s;
@@ -220,13 +206,4 @@ a {
 
 a:hover {
   opacity: 0.7;
-}
-
-.home-intro {
-  max-width: 480px;
-  margin: 0.5rem auto 0;
-  padding: 0 1.25rem;
-  font-size: 0.95rem;
-  color: var(--muted);
-  text-align: center;
 }

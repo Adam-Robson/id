@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
-import { Barlow, Courier_Prime } from "next/font/google";
+import { Barlow, Fraunces } from "next/font/google";
 
 import { cookies } from "next/headers";
 import "./globals.css";
@@ -10,7 +10,7 @@ import GlobalProvider from "@/contexts/global-provider";
 import type { Theme } from "@/types/theme";
 
 export const viewport: Viewport = {
-  themeColor: "#2f3437",
+  themeColor: "#272320",
   width: "device-width",
   initialScale: 1,
 };
@@ -22,11 +22,11 @@ const barlow = Barlow({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const courierPrime = Courier_Prime({
+const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-mono",
-  weight: ["400", "700"],
+  variable: "--font-fraunces",
+  axes: ["SOFT", "WONK", "opsz"],
 });
 
 export const metadata: Metadata = {
@@ -126,22 +126,13 @@ export default async function RootLayout({
       className={theme === "dark" ? "dark" : theme === "light" ? "light" : ""}
     >
       <head>
-        {/* Preload background image so it's ready on first paint */}
-        <link
-          rel="preload"
-          href="/images/blur.webp"
-          as="image"
-          type="image/webp"
-        />
         {/* DNS prefetch is not available via Metadata API */}
         <meta httpEquiv="x-dns-prefetch-control" content="off" />
         <link rel="dns-prefetch" href="//lefog.me/" />
         <link rel="preconnect" href="https://lefog.me/" />
         <JsonLd />
       </head>
-      <body
-        className={`antialiased ${barlow.variable} ${courierPrime.variable}`}
-      >
+      <body className={`antialiased ${barlow.variable} ${fraunces.variable}`}>
         <GlobalProvider>
           {children}
           <Analytics />
