@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
-import { Barlow } from "next/font/google";
+import { Barlow, Courier_Prime } from "next/font/google";
 
 import { cookies } from "next/headers";
 import "./globals.css";
@@ -10,7 +10,7 @@ import GlobalProvider from "@/contexts/global-provider";
 import type { Theme } from "@/types/theme";
 
 export const viewport: Viewport = {
-  themeColor: "#333333ff",
+  themeColor: "#2f3437",
   width: "device-width",
   initialScale: 1,
 };
@@ -20,6 +20,13 @@ const barlow = Barlow({
   display: "swap",
   variable: "--font-barlow",
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const courierPrime = Courier_Prime({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -132,7 +139,9 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://lefog.me/" />
         <JsonLd />
       </head>
-      <body className={`antialiased ${barlow.variable}`}>
+      <body
+        className={`antialiased ${barlow.variable} ${courierPrime.variable}`}
+      >
         <GlobalProvider>
           {children}
           <Analytics />

@@ -9,25 +9,37 @@
 }
 
 :root {
-  /* ── Base palette (Coolors: 272727 · 7698b3 · a47963 · a6a57a · 96c5b0) ── */
-  --shadow-grey: #272727;
-  --steel-blue: #7698b3;
-  --faded-copper: #a47963;
-  --dry-sage: #a6a57a; /* available secondary accent */
-  --muted-teal: #96c5b0; /* available secondary accent */
+  /* ── Base palette (Coolors: 2f3437 · 69808c · fff6e0 · ffc573 · ba5e45) ── */
+  --ink: #2f3437; /* dark slate — dark-mode surface, light-mode text */
+  --slate: #69808c; /* decorative slate — rules, low-emphasis marks */
+  --cream: #fff6e0; /* warm paper — the card surface */
+  --apricot: #ffc573; /* accent lifted for dark backgrounds */
+  --rust: #ba5e45; /* accent on light backgrounds */
 
-  /* ── Sane neutrals & contrast-tuned variants ── */
-  --ink: #1c1c1c; /* deepest neutral — dark-mode surface */
-  --paper: #f5f4f0; /* soft off-white — light-mode surface */
-  --copper-bright: #c08a66; /* accent lifted for dark backgrounds */
-  --steel-deep: #4f6e89; /* muted text on light backgrounds */
-  --steel-soft: #a3b8cb; /* muted text on dark backgrounds */
+  /* ── Contrast-tuned variants ── */
+  --kraft: #f4e8cd; /* page canvas behind the cream cards (light) */
+  --ink-deep: #262b2e; /* page canvas behind the slate cards (dark) */
+  --slate-deep: #4e6272; /* muted text on cream — AA-safe */
+  --slate-soft: #a9bac6; /* muted text on slate — AA-safe */
+  --card-shade: #384045; /* card surface lifted off the dark canvas */
+
+  /* ── Pastels (from the forget-me-not artwork) ── decorative only,
+     never used for text, so contrast rules don't apply */
+  --sky: #cbe4f4; /* forget-me-not blue */
+  --blush: #f4d2d6; /* petal pink */
+  --butter: #f1d998; /* stamen yellow */
 
   /* ── Semantic tokens (light defaults) ── */
-  --background: var(--paper);
-  --foreground: var(--shadow-grey);
-  --accent: var(--faded-copper);
-  --muted: var(--steel-deep);
+  --background: var(--kraft);
+  --foreground: var(--ink);
+  --accent: var(--rust);
+  --muted: var(--slate-deep);
+  --card: var(--cream);
+  --card-edge: rgba(47, 52, 55, 0.18);
+  --card-rule: rgba(78, 98, 114, 0.35);
+  --card-hover: rgba(203, 228, 244, 0.4);
+  --floral-opacity: 0.55;
+  --leopard-opacity: 0.4;
 
   /* ── Elevation ── soft halo (reads on light) + lit top edge (reads on dark) */
   --player-elevation:
@@ -43,26 +55,44 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --background: var(--ink);
-    --foreground: var(--paper);
-    --accent: var(--copper-bright);
-    --muted: var(--steel-soft);
+    --background: var(--ink-deep);
+    --foreground: var(--cream);
+    --accent: var(--apricot);
+    --muted: var(--slate-soft);
+    --card: var(--card-shade);
+    --card-edge: rgba(255, 246, 224, 0.14);
+    --card-rule: rgba(169, 186, 198, 0.28);
+    --card-hover: rgba(255, 197, 115, 0.07);
+    --floral-opacity: 0.08;
+    --leopard-opacity: 0.1;
   }
 }
 
 :root.light {
-  --background: var(--paper);
-  --foreground: var(--shadow-grey);
-  --accent: var(--faded-copper);
-  --muted: var(--steel-deep);
+  --background: var(--kraft);
+  --foreground: var(--ink);
+  --accent: var(--rust);
+  --muted: var(--slate-deep);
+  --card: var(--cream);
+  --card-edge: rgba(47, 52, 55, 0.18);
+  --card-rule: rgba(78, 98, 114, 0.35);
+  --card-hover: rgba(203, 228, 244, 0.4);
+  --floral-opacity: 0.55;
+  --leopard-opacity: 0.4;
 }
 
 :root.dark,
 .dark {
-  --background: var(--ink);
-  --foreground: var(--paper);
-  --accent: var(--copper-bright);
-  --muted: var(--steel-soft);
+  --background: var(--ink-deep);
+  --foreground: var(--cream);
+  --accent: var(--apricot);
+  --muted: var(--slate-soft);
+  --card: var(--card-shade);
+  --card-edge: rgba(255, 246, 224, 0.14);
+  --card-rule: rgba(169, 186, 198, 0.28);
+  --card-hover: rgba(255, 197, 115, 0.07);
+  --floral-opacity: 0.08;
+  --leopard-opacity: 0.1;
 }
 
 html {
@@ -92,16 +122,6 @@ body {
   flex-direction: column;
 }
 
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-  pointer-events: none;
-  opacity: 0.06;
-  z-index: 991;
-}
 
 .site-header {
   display: flex;
@@ -113,6 +133,40 @@ body::after {
 @media (max-width: 480px) {
   .site-header {
     padding: 1rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+/* round LE FOG stamp, sitting a touch off-square */
+.brand-stamp {
+  display: inline-flex;
+  flex-shrink: 0;
+  rotate: -6deg;
+  transition:
+    rotate 0.25s ease,
+    opacity 0.2s;
+}
+
+.brand-stamp:hover {
+  rotate: 2deg;
+  opacity: 1;
+}
+
+.brand-stamp img {
+  display: block;
+  width: 52px;
+  height: 52px;
+}
+
+/* the stamp art is near-black — flip it to cream on dark surfaces */
+.dark .brand-stamp img {
+  filter: invert(0.92);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .brand-stamp img {
+    filter: invert(0.92);
   }
 }
 
@@ -134,9 +188,7 @@ body::after {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 6rem;
+  align-items: stretch;
 }
 
 @media (max-width: 480px) {
@@ -168,4 +220,13 @@ a {
 
 a:hover {
   opacity: 0.7;
+}
+
+.home-intro {
+  max-width: 480px;
+  margin: 0.5rem auto 0;
+  padding: 0 1.25rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-align: center;
 }
