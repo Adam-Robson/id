@@ -33,6 +33,7 @@
 }
 
 @media (max-width: 480px) {
+
   .nav-list,
   .nav-li {
     flex-direction: column;
@@ -52,8 +53,6 @@
 
 .nav-link:hover {
   color: var(--accent);
-  text-decoration: underline wavy var(--accent) 1.5px;
-  text-underline-offset: 7px;
 }
 
 .nav-link svg {

@@ -1,0 +1,22 @@
+.page-wrapper--interior:has(.albums-interior)::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("/images/blur.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.albums-interior {
+  padding-bottom: 1.5rem;
+}
+
+/* interior-main already reserves bottom space for the fixed mini-player;
+   drop the shelf's own player clearance so it isn't reserved twice. */
+.albums-interior .album-shelf {
+  padding-bottom: 0;
+}

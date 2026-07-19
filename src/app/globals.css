@@ -23,12 +23,6 @@
   --slate-soft: #a9bac6; /* muted text on slate — AA-safe */
   --card-shade: #384045; /* card surface lifted off the dark canvas */
 
-  /* ── Pastels (from the forget-me-not artwork) ── decorative only,
-     never used for text, so contrast rules don't apply */
-  --sky: #cbe4f4; /* forget-me-not blue */
-  --blush: #f4d2d6; /* petal pink */
-  --butter: #f1d998; /* stamen yellow */
-
   /* ── Semantic tokens (light defaults) ── */
   --background: var(--kraft);
   --foreground: var(--ink);
@@ -37,9 +31,8 @@
   --card: var(--cream);
   --card-edge: rgba(47, 52, 55, 0.18);
   --card-rule: rgba(78, 98, 114, 0.35);
-  --card-hover: rgba(203, 228, 244, 0.4);
-  --floral-opacity: 0.55;
-  --leopard-opacity: 0.4;
+  /* faint ink wash — reads as pressed paper, not a colored highlight */
+  --card-hover: rgba(47, 52, 55, 0.05);
 
   /* ── Elevation ── soft halo (reads on light) + lit top edge (reads on dark) */
   --player-elevation:
@@ -63,8 +56,6 @@
     --card-edge: rgba(255, 246, 224, 0.14);
     --card-rule: rgba(169, 186, 198, 0.28);
     --card-hover: rgba(255, 197, 115, 0.07);
-    --floral-opacity: 0.08;
-    --leopard-opacity: 0.1;
   }
 }
 
@@ -76,9 +67,7 @@
   --card: var(--cream);
   --card-edge: rgba(47, 52, 55, 0.18);
   --card-rule: rgba(78, 98, 114, 0.35);
-  --card-hover: rgba(203, 228, 244, 0.4);
-  --floral-opacity: 0.55;
-  --leopard-opacity: 0.4;
+  --card-hover: rgba(47, 52, 55, 0.05);
 }
 
 :root.dark,
@@ -91,8 +80,6 @@
   --card-edge: rgba(255, 246, 224, 0.14);
   --card-rule: rgba(169, 186, 198, 0.28);
   --card-hover: rgba(255, 197, 115, 0.07);
-  --floral-opacity: 0.08;
-  --leopard-opacity: 0.1;
 }
 
 html {
@@ -138,18 +125,13 @@ body {
   }
 }
 
-/* round LE FOG stamp, sitting a touch off-square */
 .brand-stamp {
   display: inline-flex;
   flex-shrink: 0;
-  rotate: -6deg;
-  transition:
-    rotate 0.25s ease,
-    opacity 0.2s;
+  transition: opacity 0.2s;
 }
 
 .brand-stamp:hover {
-  rotate: 2deg;
   opacity: 1;
 }
 
