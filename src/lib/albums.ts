@@ -12,38 +12,42 @@ import type { Song } from "@/types/song";
  * of the shelf — so adding a new album to the bucket never breaks
  * the homepage.
  *
- * TODO(adam): set real years and true chronological `order`,
- * and write each album's one-line blurb in your own voice.
+ * TODO(adam): write each album's one-line blurb in your own voice.
  */
 export const ALBUM_META: Record<string, AlbumMeta> = {
   forbeforeiforget: {
     key: "forbeforeiforget",
     catalog: "LF-001",
     cover: "/images/albums/forbeforeiforget.webp",
+    year: 2024,
     order: 1,
   },
   hifiveyourself: {
     key: "hifiveyourself",
     catalog: "LF-002",
     cover: "/images/albums/hifiveyourself.webp",
+    year: 2026,
     order: 2,
   },
   leftstaticandatease: {
     key: "leftstaticandatease",
     catalog: "LF-003",
     cover: "/images/albums/leftstaticandatease.webp",
+    year: 2020,
     order: 3,
   },
   seemsreal: {
     key: "seemsreal",
     catalog: "LF-004",
     cover: "/images/albums/seemsreal.webp",
+    year: 2020,
     order: 4,
   },
   "three.": {
     key: "three.",
     catalog: "LF-005",
     cover: "/images/albums/three.webp",
+    year: 2022,
     order: 5,
   },
 };
@@ -66,11 +70,22 @@ export interface AlbumWithSongs {
 }
 
 /**
- * Groups songs by album and sorts albums by their shelf order.
- * Albums missing from ALBUM_META sort last, in R2 listing order.
+ * Groups songs by album and sorts albums newest release first. Albums
+ * without a known year fall back to their manual `order`, and sort
+ * after every dated album.
  */
 export function orderedAlbums(songs: Song[]): AlbumWithSongs[] {
   return Object.entries(groupByAlbum(songs))
     .map(([key, albumSongs]) => ({ meta: metaFor(key), songs: albumSongs }))
-    .sort((a, b) => a.meta.order - b.meta.order);
+    .sort((a, b) => {
+      const { year: ay } = a.meta;
+      const { year: by } = b.meta;
+      if (ay != null && by != null) {
+        if (ay !== by) return by - ay;
+        return a.meta.order - b.meta.order;
+      }
+      if (ay != null) return -1;
+      if (by != null) return 1;
+      return a.meta.order - b.meta.order;
+    });
 }
