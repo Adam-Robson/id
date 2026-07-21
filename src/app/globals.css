@@ -34,6 +34,12 @@
   /* secondary accent */
   --butter: var(--butter-deep);
 
+  /* card surface (tape-card, etc.) */
+  --card: #fffdf8;
+  --card-edge: rgba(39, 35, 32, 0.14);
+  --card-rule: rgba(39, 35, 32, 0.16);
+  --card-hover: rgba(39, 35, 32, 0.05);
+
   /* ── border effect: elevation -- halo (for light); lit top edge (for dark) */
   --player-elevation:
     0 -3px 24px rgba(0, 0, 0, 0.12),
@@ -59,6 +65,10 @@
     --muted: var(--stone-soft);
     --blush: var(--blush-bright);
     --butter: var(--butter-bright);
+    --card: #322d29;
+    --card-edge: rgba(248, 243, 231, 0.14);
+    --card-rule: rgba(248, 243, 231, 0.18);
+    --card-hover: rgba(248, 243, 231, 0.06);
   }
 }
 
@@ -69,6 +79,10 @@
   --muted: var(--stone);
   --blush: var(--blush-deep);
   --butter: var(--butter-deep);
+  --card: #fffdf8;
+  --card-edge: rgba(39, 35, 32, 0.14);
+  --card-rule: rgba(39, 35, 32, 0.16);
+  --card-hover: rgba(39, 35, 32, 0.05);
 }
 
 :root.dark,
@@ -79,6 +93,10 @@
   --muted: var(--stone-soft);
   --blush: var(--blush-bright);
   --butter: var(--butter-bright);
+  --card: #322d29;
+  --card-edge: rgba(248, 243, 231, 0.14);
+  --card-rule: rgba(248, 243, 231, 0.18);
+  --card-hover: rgba(248, 243, 231, 0.06);
 }
 
 html {
@@ -124,18 +142,13 @@ body {
   }
 }
 
-/* round LE FOG stamp, sitting a touch off-square */
 .brand-stamp {
   display: inline-flex;
   flex-shrink: 0;
-  rotate: -6deg;
-  transition:
-    rotate 0.25s ease,
-    opacity 0.2s;
+  transition: opacity 0.2s;
 }
 
 .brand-stamp:hover {
-  rotate: 2deg;
   opacity: 1;
 }
 

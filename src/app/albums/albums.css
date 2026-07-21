@@ -1,0 +1,9 @@
+.albums-interior {
+  padding-bottom: 1.5rem;
+}
+
+/* interior-main already reserves bottom space for the fixed mini-player;
+   drop the shelf's own player clearance so it isn't reserved twice. */
+.albums-interior .album-shelf {
+  padding-bottom: 0;
+}
