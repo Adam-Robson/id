@@ -12,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: "https://lefog.me/albums",
+      lastModified: LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: "https://lefog.me/about",
       lastModified: LAST_MODIFIED,
       changeFrequency: "yearly",
