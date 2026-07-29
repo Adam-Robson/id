@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import { Barlow, Fraunces } from "next/font/google";
 
@@ -133,10 +134,12 @@ export default async function RootLayout({
         <JsonLd />
       </head>
       <body className={`antialiased ${barlow.variable} ${fraunces.variable}`}>
-        <GlobalProvider>
-          {children}
-          <Analytics />
-        </GlobalProvider>
+        <ClerkProvider>
+          <GlobalProvider>
+            {children}
+            <Analytics />
+          </GlobalProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
