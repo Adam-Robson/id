@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import { Barlow, Fraunces } from "next/font/google";
 
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
   description: "Website for LE FOG; Portland, Oregon, US",
   generator: "none",
   referrer: "no-referrer",
-  metadataBase: new URL("https://lefog.me"),
+  metadataBase: new URL("https://lefog.xyz"),
   robots: {
     index: true,
     follow: true,
@@ -74,7 +75,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://lefog.me/",
+    canonical: "https://lefog.xyz/",
   },
   openGraph: {
     type: "website",
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
     title: "HOME | LE FOG",
     description:
       "LE FOG is the pseudonym of Adam Robson since 2020 — a songwriter and producer based in Portland, Oregon. Available everywhere to stream.",
-    url: "https://lefog.me/",
+    url: "https://lefog.xyz/",
     locale: "en_US",
     images: sharedOgImage,
   },
@@ -128,15 +129,17 @@ export default async function RootLayout({
       <head>
         {/* DNS prefetch is not available via Metadata API */}
         <meta httpEquiv="x-dns-prefetch-control" content="off" />
-        <link rel="dns-prefetch" href="//lefog.me/" />
-        <link rel="preconnect" href="https://lefog.me/" />
+        <link rel="dns-prefetch" href="//lefog.xyz/" />
+        <link rel="preconnect" href="https://lefog.xyz/" />
         <JsonLd />
       </head>
       <body className={`antialiased ${barlow.variable} ${fraunces.variable}`}>
-        <GlobalProvider>
-          {children}
-          <Analytics />
-        </GlobalProvider>
+        <ClerkProvider>
+          <GlobalProvider>
+            {children}
+            <Analytics />
+          </GlobalProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

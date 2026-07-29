@@ -1,22 +1,33 @@
 "use client";
+import { DownloadSimpleIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useEffect } from "react";
 import { useAudio } from "@/contexts/audio-provider";
 import { orderedAlbums } from "@/lib/albums";
+import type { AccessLevel } from "@/types/access-level";
 import type { Song } from "@/types/song";
+import type { SongMeta } from "@/types/song-meta";
 import "@/app/components/album-shelf.css";
 
-export default function AlbumShelf({ songs }: { songs: Song[] }) {
+export default function AlbumShelf({
+  songs,
+  accessLevel,
+}: {
+  songs: SongMeta[];
+  accessLevel: AccessLevel;
+}) {
+  const canPlay = accessLevel !== "guest";
+  const canDownload = accessLevel === "admin";
   const { current, isPlaying, playAt, setSongs } = useAudio();
 
   useEffect(() => {
-    setSongs(songs);
-  }, [songs, setSongs]);
+    if (canPlay) setSongs(songs as Song[]);
+  }, [songs, canPlay, setSongs]);
 
   if (!songs.length) return null;
 
   const albums = orderedAlbums(songs);
-  const currentSong: Song | undefined = songs[current];
+  const currentSong: SongMeta | undefined = songs[current];
 
   return (
     <div className="album-shelf">
@@ -55,31 +66,53 @@ export default function AlbumShelf({ songs }: { songs: Song[] }) {
             <ol className="tape-card-tracks">
               {albumSongs.map((song, i) => {
                 const idx = songs.indexOf(song);
-                const isActive = currentSong?.key === song.key;
+                const isActive = canPlay && currentSong?.key === song.key;
                 return (
-                  <li key={song.key}>
-                    <button
-                      type="button"
-                      className={`tape-track${isActive ? " active" : ""}`}
-                      onClick={() => playAt(idx)}
-                      aria-label={`Play ${song.title}`}
-                      aria-current={isActive ? "true" : undefined}
-                    >
-                      <span className="tape-track-num">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="tape-track-title">{song.title}</span>
-                      {isActive && (
-                        <span
-                          className={`tape-track-meter${isPlaying ? " playing" : ""}`}
-                          aria-hidden="true"
-                        >
-                          <i />
-                          <i />
-                          <i />
+                  <li key={song.key} className="tape-track-row">
+                    {canPlay ? (
+                      <button
+                        type="button"
+                        className={`tape-track${isActive ? " active" : ""}`}
+                        onClick={() => playAt(idx)}
+                        aria-label={`Play ${song.title}`}
+                        aria-current={isActive ? "true" : undefined}
+                      >
+                        <span className="tape-track-num">
+                          {String(i + 1).padStart(2, "0")}
                         </span>
-                      )}
-                    </button>
+                        <span className="tape-track-title">{song.title}</span>
+                        {isActive && (
+                          <span
+                            className={`tape-track-meter${isPlaying ? " playing" : ""}`}
+                            aria-hidden="true"
+                          >
+                            <i />
+                            <i />
+                            <i />
+                          </span>
+                        )}
+                      </button>
+                    ) : (
+                      <span className="tape-track tape-track--locked">
+                        <span className="tape-track-num">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="tape-track-title">{song.title}</span>
+                      </span>
+                    )}
+                    {canDownload && (
+                      <a
+                        className="tape-track-download"
+                        href={`/api/download?key=${encodeURIComponent(song.key)}`}
+                        aria-label={`Download ${song.title}`}
+                      >
+                        <DownloadSimpleIcon
+                          size={16}
+                          weight="regular"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    )}
                   </li>
                 );
               })}

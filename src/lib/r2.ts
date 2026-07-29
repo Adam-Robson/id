@@ -5,6 +5,8 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import type { Song } from "@/types/song";
+import type { SongMeta } from "@/types/song-meta";
 
 const r2 = new S3Client({
   region: "auto",
@@ -66,28 +68,64 @@ export async function saveContact(
   return submission;
 }
 
-export async function getSongs() {
+async function listAudioKeys(): Promise<string[]> {
   const list = await r2.send(
     new ListObjectsV2Command({ Bucket: process.env.BUCKET_NAME }),
   );
 
-  const keys = (list.Contents ?? [])
+  return (list.Contents ?? [])
     .map((obj) => obj.Key)
     .filter((key): key is string => key != null)
     .filter((key) => AUDIO_EXTENSIONS.test(key));
+}
 
+/**
+ * Track metadata only — no signed URL. Safe to expose to any visitor,
+ * signed in or not, since it grants no access to the underlying files.
+ */
+export async function listSongs(): Promise<SongMeta[]> {
+  const keys = await listAudioKeys();
+  return keys.map((key) => ({ key, ...parseSongMeta(key) }));
+}
+
+/**
+ * Track metadata plus a short-lived presigned streaming URL for each song.
+ * The URL is a bearer credential, so callers must only invoke this once
+ * the visitor's access level has already been checked.
+ */
+export async function getPlayableSongs(): Promise<Song[]> {
+  const songs = await listSongs();
   return Promise.all(
-    keys.map(async (key) => ({
-      key,
-      ...parseSongMeta(key),
+    songs.map(async (song) => ({
+      ...song,
       url: await getSignedUrl(
         r2,
         new GetObjectCommand({
           Bucket: process.env.BUCKET_NAME,
-          Key: key,
+          Key: song.key,
         }),
         { expiresIn: 3600 },
       ),
     })),
+  );
+}
+
+/**
+ * A presigned URL for downloading a single track as an attachment. Callers
+ * must verify the requester is an admin before calling this — it grants
+ * direct file access to whoever holds the returned URL.
+ */
+export async function getDownloadUrl(key: string): Promise<string | null> {
+  if (!AUDIO_EXTENSIONS.test(key)) return null;
+
+  const filename = key.slice(key.lastIndexOf("/") + 1);
+  return getSignedUrl(
+    r2,
+    new GetObjectCommand({
+      Bucket: process.env.BUCKET_NAME,
+      Key: key,
+      ResponseContentDisposition: `attachment; filename="${filename}"`,
+    }),
+    { expiresIn: 300 },
   );
 }

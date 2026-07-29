@@ -1,6 +1,6 @@
 import { groupByAlbum } from "@/lib/group-by-album";
 import type { AlbumMeta } from "@/types/album";
-import type { Song } from "@/types/song";
+import type { SongMeta } from "@/types/song-meta";
 
 /**
  * Presentation metadata for each album, keyed by the album name that
@@ -64,9 +64,9 @@ export function metaFor(albumKey: string): AlbumMeta {
   );
 }
 
-export interface AlbumWithSongs {
+export interface AlbumWithSongs<T extends SongMeta = SongMeta> {
   meta: AlbumMeta;
-  songs: Song[];
+  songs: T[];
 }
 
 /**
@@ -74,7 +74,9 @@ export interface AlbumWithSongs {
  * without a known year fall back to their manual `order`, and sort
  * after every dated album.
  */
-export function orderedAlbums(songs: Song[]): AlbumWithSongs[] {
+export function orderedAlbums<T extends SongMeta>(
+  songs: T[],
+): AlbumWithSongs<T>[] {
   return Object.entries(groupByAlbum(songs))
     .map(([key, albumSongs]) => ({ meta: metaFor(key), songs: albumSongs }))
     .sort((a, b) => {

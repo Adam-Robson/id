@@ -1,6 +1,5 @@
-export interface Song {
-  key: string;
-  title: string;
-  album: string;
+import type { SongMeta } from "@/types/song-meta";
+
+export interface Song extends SongMeta {
   url: string;
 }

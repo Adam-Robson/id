@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://lefog.me/sitemap.xml",
+    sitemap: "https://lefog.xyz/sitemap.xml",
   };
 }
