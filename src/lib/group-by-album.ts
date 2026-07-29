@@ -1,7 +1,9 @@
-import type { Song } from "@/types/song";
+import type { SongMeta } from "@/types/song-meta";
 
-export function groupByAlbum(songs: Song[]): Record<string, Song[]> {
-  return songs.reduce<Record<string, Song[]>>((acc, song) => {
+export function groupByAlbum<T extends SongMeta>(
+  songs: T[],
+): Record<string, T[]> {
+  return songs.reduce<Record<string, T[]>>((acc, song) => {
     if (!acc[song.album]) acc[song.album] = [];
     acc[song.album].push(song);
     return acc;
