@@ -4,7 +4,8 @@ import { sharedOgImage } from "@/app/components/shared-metadata";
 import SiteHeader from "@/app/components/site-header";
 import "@/app/albums/albums.css";
 import "@/app/components/interior-pages.css";
-import { getSongs } from "@/lib/r2";
+import { getAccessLevel } from "@/lib/auth";
+import { getPlayableSongs, listSongs } from "@/lib/r2";
 
 export const metadata: Metadata = {
   title: "Albums",
@@ -17,14 +18,16 @@ export const metadata: Metadata = {
 };
 
 export default async function AlbumsPage() {
-  const songs = await getSongs();
+  const accessLevel = await getAccessLevel();
+  const songs =
+    accessLevel === "guest" ? await listSongs() : await getPlayableSongs();
 
   return (
     <div className="page-wrapper page-wrapper--interior">
       <SiteHeader variant="interior" />
       <main className="interior-main albums-interior">
         <h1 className="page-eyebrow">Albums</h1>
-        <AlbumShelf songs={songs} />
+        <AlbumShelf songs={songs} accessLevel={accessLevel} />
       </main>
     </div>
   );
