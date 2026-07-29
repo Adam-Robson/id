@@ -1,3 +1,4 @@
+import { Show, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Navigation from "@/app/components/navigation";
 import ThemeToggle from "@/app/components/theme-toggle";
@@ -21,6 +22,14 @@ export default function SiteHeader({ variant }: Props) {
           ← LE FOG
         </a>
       )}
+      <Show when="signed-in">
+        <UserButton />
+      </Show>
+      <Show when="signed-out">
+        <a href="/sign-in" className="back-link">
+          Sign in
+        </a>
+      </Show>
       <ThemeToggle />
     </header>
   );
