@@ -1,6 +1,7 @@
 import { Show, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Navigation from "@/app/components/navigation";
+import "@/app/components/site-header.css";
 import ThemeToggle from "@/app/components/theme-toggle";
 
 type Props = {
@@ -22,15 +23,17 @@ export default function SiteHeader({ variant }: Props) {
           ← LE FOG
         </a>
       )}
-      <Show when="signed-in">
-        <UserButton />
-      </Show>
-      <Show when="signed-out">
-        <a href="/sign-in" className="back-link">
-          Sign in
-        </a>
-      </Show>
-      <ThemeToggle />
+      <div className="site-header-actions">
+        <Show when="signed-in">
+          <UserButton />
+        </Show>
+        <Show when="signed-out">
+          <a href="/sign-in" className="site-header-signin">
+            Sign in
+          </a>
+        </Show>
+        <ThemeToggle />
+      </div>
     </header>
   );
 }
