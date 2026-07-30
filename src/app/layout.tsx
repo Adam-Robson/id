@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { ui } from "@clerk/ui";
 import { Analytics } from "@vercel/analytics/next";
 import { Barlow, Fraunces } from "next/font/google";
 
@@ -8,6 +9,7 @@ import type { Metadata, Viewport } from "next";
 import JsonLd from "@/app/components/json-ld";
 import { sharedOgImage } from "@/app/components/shared-metadata";
 import GlobalProvider from "@/contexts/global-provider";
+import { clerkAppearance } from "@/lib/clerk-appearance";
 import type { Theme } from "@/types/theme";
 
 export const viewport: Viewport = {
@@ -134,7 +136,7 @@ export default async function RootLayout({
         <JsonLd />
       </head>
       <body className={`antialiased ${barlow.variable} ${fraunces.variable}`}>
-        <ClerkProvider>
+        <ClerkProvider appearance={clerkAppearance} ui={ui}>
           <GlobalProvider>
             {children}
             <Analytics />

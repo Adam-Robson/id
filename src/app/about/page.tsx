@@ -53,6 +53,7 @@ export default function AboutPage() {
             alt="LE FOG artwork"
             width={1025}
             height={576}
+            priority
           />
         </div>
       </main>
