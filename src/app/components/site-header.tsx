@@ -11,18 +11,21 @@ type Props = {
 export default function SiteHeader({ variant }: Props) {
   return (
     <header className="site-header">
-      {variant === "home" ? (
-        <>
-          <a href="/" className="brand-stamp" aria-label="LE FOG — home">
-            <Image src="/images/logo.svg" alt="" width={52} height={52} />
+      <div className="site-header-brand">
+        {variant === "home" ? (
+          <>
+            <a href="/" className="brand-stamp" aria-label="LE FOG — home">
+              <Image src="/images/logo.svg" alt="" width={52} height={52} />
+            </a>
+            <Navigation />
+          </>
+        ) : (
+          <a href="/" className="back-link">
+            ← LE FOG
           </a>
-          <Navigation />
-        </>
-      ) : (
-        <a href="/" className="back-link">
-          ← LE FOG
-        </a>
-      )}
+        )}
+        <ThemeToggle />
+      </div>
       <div className="site-header-actions">
         <Show when="signed-in">
           <UserButton />
@@ -32,7 +35,6 @@ export default function SiteHeader({ variant }: Props) {
             Sign in
           </a>
         </Show>
-        <ThemeToggle />
       </div>
     </header>
   );
