@@ -1,0 +1,20 @@
+.site-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-shrink: 0;
+}
+
+.site-header-signin {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.site-header-signin:hover {
+  color: var(--accent);
+  opacity: 1;
+}
