@@ -10,6 +10,7 @@ import JsonLd from "@/app/components/json-ld";
 import { sharedOgImage } from "@/app/components/shared-metadata";
 import GlobalProvider from "@/contexts/global-provider";
 import { clerkAppearance } from "@/lib/clerk-appearance";
+import { SITE_URL } from "@/lib/site";
 import type { Theme } from "@/types/theme";
 
 export const viewport: Viewport = {
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
   description: "Website for LE FOG; Portland, Oregon, US",
   generator: "none",
   referrer: "no-referrer",
-  metadataBase: new URL("https://lefog.xyz"),
+  metadataBase: new URL(SITE_URL),
   robots: {
     index: true,
     follow: true,
@@ -77,7 +78,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://lefog.xyz/",
+    canonical: `${SITE_URL}/`,
   },
   openGraph: {
     type: "website",
@@ -85,7 +86,7 @@ export const metadata: Metadata = {
     title: "HOME | LE FOG",
     description:
       "LE FOG is the pseudonym of Adam Robson since 2020 — a songwriter and producer based in Portland, Oregon. Available everywhere to stream.",
-    url: "https://lefog.xyz/",
+    url: `${SITE_URL}/`,
     locale: "en_US",
     images: sharedOgImage,
   },

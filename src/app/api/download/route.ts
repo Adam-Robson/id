@@ -28,5 +28,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  return NextResponse.redirect(url);
+  // The Location header carries a signed credential — keep it out of any
+  // shared cache, same as the streaming route.
+  const res = NextResponse.redirect(url, 302);
+  res.headers.set("Cache-Control", "private, no-store");
+  return res;
 }

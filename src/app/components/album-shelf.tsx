@@ -1,7 +1,8 @@
 "use client";
-import { DownloadSimpleIcon } from "@phosphor-icons/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
+import TrackList from "@/app/components/track-list";
 import { useAudio } from "@/contexts/audio-provider";
 import { orderedAlbums } from "@/lib/albums";
 import type { AccessLevel } from "@/types/access-level";
@@ -17,8 +18,7 @@ export default function AlbumShelf({
   accessLevel: AccessLevel;
 }) {
   const canPlay = accessLevel !== "guest";
-  const canDownload = accessLevel === "admin";
-  const { current, isPlaying, playAt, setSongs } = useAudio();
+  const { setSongs } = useAudio();
 
   useEffect(() => {
     if (canPlay) setSongs(songs as Song[]);
@@ -27,7 +27,6 @@ export default function AlbumShelf({
   if (!songs.length) return null;
 
   const albums = orderedAlbums(songs);
-  const currentSong: SongMeta | undefined = songs[current];
 
   return (
     <div className="album-shelf">
@@ -49,7 +48,7 @@ export default function AlbumShelf({
             <div className="tape-card-cover">
               <Image
                 src={meta.cover}
-                alt={`Cover of ${meta.key}`}
+                alt={`Cover art for ${meta.title} by LE FOG`}
                 fill
                 sizes="(max-width: 640px) 100vw, 420px"
                 className="tape-card-cover-img"
@@ -59,64 +58,20 @@ export default function AlbumShelf({
 
           <div className="tape-card-body">
             <h2 id={`album-${meta.key}`} className="tape-card-title">
-              {meta.key}
+              <Link
+                href={`/albums/${meta.slug}`}
+                className="tape-card-title-link"
+              >
+                {meta.title}
+              </Link>
             </h2>
             {meta.blurb && <p className="tape-card-blurb">{meta.blurb}</p>}
 
-            <ol className="tape-card-tracks">
-              {albumSongs.map((song, i) => {
-                const idx = songs.indexOf(song);
-                const isActive = canPlay && currentSong?.key === song.key;
-                return (
-                  <li key={song.key} className="tape-track-row">
-                    {canPlay ? (
-                      <button
-                        type="button"
-                        className={`tape-track${isActive ? " active" : ""}`}
-                        onClick={() => playAt(idx)}
-                        aria-label={`Play ${song.title}`}
-                        aria-current={isActive ? "true" : undefined}
-                      >
-                        <span className="tape-track-num">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="tape-track-title">{song.title}</span>
-                        {isActive && (
-                          <span
-                            className={`tape-track-meter${isPlaying ? " playing" : ""}`}
-                            aria-hidden="true"
-                          >
-                            <i />
-                            <i />
-                            <i />
-                          </span>
-                        )}
-                      </button>
-                    ) : (
-                      <span className="tape-track tape-track--locked">
-                        <span className="tape-track-num">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="tape-track-title">{song.title}</span>
-                      </span>
-                    )}
-                    {canDownload && (
-                      <a
-                        className="tape-track-download"
-                        href={`/api/download?key=${encodeURIComponent(song.key)}`}
-                        aria-label={`Download ${song.title}`}
-                      >
-                        <DownloadSimpleIcon
-                          size={16}
-                          weight="regular"
-                          aria-hidden="true"
-                        />
-                      </a>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
+            <TrackList
+              catalog={songs}
+              albumSongs={albumSongs}
+              accessLevel={accessLevel}
+            />
           </div>
         </section>
       ))}

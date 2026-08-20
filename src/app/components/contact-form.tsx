@@ -18,6 +18,7 @@ export default function ContactForm() {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement)
         .value,
+      website: (form.elements.namedItem("website") as HTMLInputElement).value,
     };
 
     try {
@@ -83,6 +84,19 @@ export default function ContactForm() {
           rows={5}
           required
           disabled={status === "submitting"}
+        />
+      </div>
+
+      {/* Honeypot. Hidden from people and from assistive tech; bots that
+          fill every field give themselves away by filling this one. */}
+      <div className="form-honeypot" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
         />
       </div>
 

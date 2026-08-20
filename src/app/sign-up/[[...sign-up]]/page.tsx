@@ -6,6 +6,7 @@ import "@/app/components/interior-pages.css";
 
 export const metadata: Metadata = {
   title: "Create Account",
+  robots: { index: false, follow: true },
   openGraph: {
     type: "website",
     title: "Create Account | LE FOG",

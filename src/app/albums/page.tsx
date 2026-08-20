@@ -5,7 +5,7 @@ import SiteHeader from "@/app/components/site-header";
 import "@/app/albums/albums.css";
 import "@/app/components/interior-pages.css";
 import { getAccessLevel } from "@/lib/auth";
-import { getPlayableSongs, listSongs } from "@/lib/r2";
+import { listSongs, toPlayable } from "@/lib/r2";
 
 export const metadata: Metadata = {
   title: "Albums",
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 export default async function AlbumsPage() {
   const accessLevel = await getAccessLevel();
-  const songs =
-    accessLevel === "guest" ? await listSongs() : await getPlayableSongs();
+  const catalog = await listSongs();
+  const songs = accessLevel === "guest" ? catalog : toPlayable(catalog);
 
   return (
     <div className="page-wrapper page-wrapper--interior">

@@ -5,6 +5,8 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { isAudioKey } from "@/lib/audio-keys";
+import { deriveCatalog, splitKey } from "@/lib/parse-song-meta";
 import type { Song } from "@/types/song";
 import type { SongMeta } from "@/types/song-meta";
 
@@ -16,28 +18,6 @@ const r2 = new S3Client({
     secretAccessKey: process.env.SECRET_ACCESS_KEY ?? "",
   },
 });
-
-const AUDIO_EXTENSIONS = /\.(mp3|wav|flac|ogg|m4a|aac)$/i;
-
-function parseSongMeta(key: string): { title: string; album: string } {
-  const slashIdx = key.lastIndexOf("/");
-  if (slashIdx !== -1) {
-    const dirPath = key.slice(0, slashIdx);
-    const album = (dirPath.split("/").filter(Boolean).pop() ?? dirPath).replace(
-      /[-_]/g,
-      " ",
-    );
-    const filename = key
-      .slice(slashIdx + 1)
-      .replace(/\.[^/.]+$/, "")
-      .replace(/[-_]/g, " ");
-    return { album, title: filename };
-  }
-  return {
-    album: "Singles",
-    title: key.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " "),
-  };
-}
 
 export interface ContactSubmission {
   id: string;
@@ -68,15 +48,22 @@ export async function saveContact(
   return submission;
 }
 
-async function listAudioKeys(): Promise<string[]> {
+export interface AudioObject {
+  key: string;
+  lastModified?: Date;
+}
+
+async function listAudioObjects(): Promise<AudioObject[]> {
   const list = await r2.send(
-    new ListObjectsV2Command({ Bucket: process.env.BUCKET_NAME }),
+    new ListObjectsV2Command({ Bucket: proc. oless.env.BUCKET_NAME }),
   );
 
   return (list.Contents ?? [])
-    .map((obj) => obj.Key)
-    .filter((key): key is string => key != null)
-    .filter((key) => AUDIO_EXTENSIONS.test(key));
+    .filter((obj) => obj.Key != null && isAudioKey(obj.Key))
+    .map((obj) => ({
+      key: obj.Key as string,
+      lastModified: obj.LastModified,
+    }));
 }
 
 /**
@@ -84,39 +71,55 @@ async function listAudioKeys(): Promise<string[]> {
  * signed in or not, since it grants no access to the underlying files.
  */
 export async function listSongs(): Promise<SongMeta[]> {
-  const keys = await listAudioKeys();
-  return keys.map((key) => ({ key, ...parseSongMeta(key) }));
+  const objects = await listAudioObjects();
+  return deriveCatalog(objects.map(({ key }) => key));
 }
 
 /**
- * Track metadata plus a short-lived presigned streaming URL for each song.
- * The URL is a bearer credential, so callers must only invoke this once
- * the visitor's access level has already been checked.
+ * When each track was last written to the bucket, keyed by album. Backs the
+ * sitemap's `lastModified` so it reflects the catalog instead of a date
+ * someone has to remember to bump.
  */
-export async function getPlayableSongs(): Promise<Song[]> {
-  const songs = await listSongs();
-  return Promise.all(
-    songs.map(async (song) => ({
-      ...song,
-      url: await getSignedUrl(
-        r2,
-        new GetObjectCommand({
-          Bucket: process.env.BUCKET_NAME,
-          Key: song.key,
-        }),
-        { expiresIn: 3600 },
-      ),
-    })),
-  );
+export async function albumLastModified(): Promise<Map<string, Date>> {
+  const objects = await listAudioObjects();
+  const newest = new Map<string, Date>();
+
+  for (const { key, lastModified } of objects) {
+    if (!lastModified) continue;
+    const { album } = splitKey(key);
+    const current = newest.get(album);
+    if (!current || lastModified > current) newest.set(album, lastModified);
+  }
+
+  return newest;
 }
 
 /**
- * A presigned URL for downloading a single track as an attachment. Callers
- * must verify the requester is an admin before calling this — it grants
- * direct file access to whoever holds the returned URL.
+ * Attaches the streaming endpoint to each track. The URL points at our own
+ * route rather than at R2, so it never expires and playback can't break in a
+ * tab that has been open a while — the route re-signs per request, after
+ * re-checking access.
  */
-export async function getDownloadUrl(key: string): Promise<string | null> {
-  if (!AUDIO_EXTENSIONS.test(key)) return null;
+export function toPlayable(songs: SongMeta[]): Song[] {
+  return songs.map((song) => ({
+    ...song,
+    url: `/api/stream?key=${encodeURIComponent(song.key)}`,
+  }));
+}
+
+/**
+ * A presigned URL for a single object, valid just long enough to be
+ * followed immediately. Both callers re-check the requester's access level
+ * first — this grants direct file access to whoever holds the result.
+ *
+ * The extension guard is a security boundary, not a convenience: without it
+ * a caller could name any object in the bucket, including `contacts/*.json`.
+ */
+async function signObject(
+  key: string,
+  { attachment }: { attachment: boolean },
+): Promise<string | null> { 
+  if (!isAudioKey(key)) return null;
 
   const filename = key.slice(key.lastIndexOf("/") + 1);
   return getSignedUrl(
@@ -124,8 +127,20 @@ export async function getDownloadUrl(key: string): Promise<string | null> {
     new GetObjectCommand({
       Bucket: process.env.BUCKET_NAME,
       Key: key,
-      ResponseContentDisposition: `attachment; filename="${filename}"`,
+      ...(attachment
+        ? { ResponseContentDisposition: `attachment; filename="${filename}"` }
+        : {}),
     }),
-    { expiresIn: 300 },
+    { expiresIn: attachment ? 300 : 120 },
   );
+}
+
+/** Playback URL for a member. Followed immediately by the audio element. */
+export function getStreamUrl(key: string): Promise<string | null> {
+  return signObject(key, { attachment: false });
+}
+
+/** Download URL for an admin, served as a file attachment. */
+export function getDownloadUrl(key: string): Promise<string | null> {
+  return signObject(key, { attachment: true });
 }
