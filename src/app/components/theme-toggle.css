@@ -56,3 +56,25 @@
   visibility: visible;
   opacity: 1;
 }
+
+/* touch devices have no real hover state — show the label plainly */
+@media (hover: none) {
+  .theme-toggle-label {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/* The pill is only 24px tall. Rather than resize it, project a 44px hit area
+   over it so the switch is comfortable to tap without changing how it looks. */
+@media (pointer: coarse) {
+  .theme-toggle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+}
