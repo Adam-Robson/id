@@ -1,6 +1,6 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { saveContact } from "@/lib/r2";
-import { clientKey, rateLimit } from "@/lib/rate-limit";
+import { type NextRequest, NextResponse } from 'next/server';
+import { saveContact } from '@/lib/r2';
+import { clientKey, rateLimit } from '@/lib/rate-limit';
 
 const MAX_NAME_LENGTH = 200;
 const MAX_EMAIL_LENGTH = 320;
@@ -21,32 +21,32 @@ export async function POST(req: NextRequest) {
   });
   if (!limit.ok) {
     return NextResponse.json(
-      { error: "Too many messages. Try again a little later." },
-      { status: 429, headers: { "Retry-After": String(limit.retryAfter) } },
+      { error: 'Too many messages. Try again a little later.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } },
     );
   }
 
   const body = await req.json().catch(() => null);
 
   if (!body) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 
   const { name, email, message, website } = body;
 
   // Honeypot: a hidden field no person can see or tab into. Answer 200 so a
   // bot has no signal that it was caught, but write nothing.
-  if (typeof website === "string" && website.trim() !== "") {
+  if (typeof website === 'string' && website.trim() !== '') {
     return NextResponse.json({ ok: true });
   }
 
-  const trimmedName = typeof name === "string" ? name.trim() : "";
-  const trimmedEmail = typeof email === "string" ? email.trim() : "";
-  const trimmedMessage = typeof message === "string" ? message.trim() : "";
+  const trimmedName = typeof name === 'string' ? name.trim() : '';
+  const trimmedEmail = typeof email === 'string' ? email.trim() : '';
+  const trimmedMessage = typeof message === 'string' ? message.trim() : '';
 
   if (!trimmedName || !trimmedEmail || !trimmedMessage) {
     return NextResponse.json(
-      { error: "All fields are required" },
+      { error: 'All fields are required' },
       { status: 400 },
     );
   }
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     trimmedMessage.length > MAX_MESSAGE_LENGTH
   ) {
     return NextResponse.json(
-      { error: "One or more fields are too long" },
+      { error: 'One or more fields are too long' },
       { status: 400 },
     );
   }
@@ -76,9 +76,9 @@ export async function POST(req: NextRequest) {
       message: trimmedMessage,
     });
   } catch (error) {
-    console.error("Failed to save contact", error);
+    console.error('Failed to save contact', error);
     return NextResponse.json(
-      { error: "Failed to save contact" },
+      { error: 'Failed to save contact' },
       { status: 500 },
     );
   }
