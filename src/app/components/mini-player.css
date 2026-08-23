@@ -111,3 +111,15 @@
     display: none;
   }
 }
+
+@media (pointer: coarse) {
+  .mini-player-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .mini-player-seek {
+    height: 2.75rem;
+    margin-bottom: 0;
+  }
+}

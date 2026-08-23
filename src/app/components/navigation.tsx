@@ -1,38 +1,38 @@
-"use client";
+'use client';
 
 import {
   ApproximateEqualsIcon,
   CassetteTapeIcon,
   RadioIcon,
-} from "@phosphor-icons/react";
-import Navlink from "@/app/components/navlink";
-import "@/app/components/navigation.css";
+} from '@phosphor-icons/react';
+import Navlink from '@/app/components/navlink';
+import '@/app/components/navigation.css';
 
 export default function Navigation() {
   return (
-    <nav className="site-nav nav">
-      <ul className="nav-list">
-        <li className="nav-li">
+    <nav className='site-nav nav'>
+      <ul className='nav-list'>
+        <li className='nav-li'>
           <Navlink
-            href="/albums"
-            className="nav-link nav-albums"
-            value="Albums"
+            href='/albums'
+            className='nav-link nav-albums'
+            value='Albums'
             icon={CassetteTapeIcon}
           />
         </li>
-        <li className="nav-li">
+        <li className='nav-li'>
           <Navlink
-            href="/about"
-            className="nav-link nav-about"
-            value="About"
+            href='/about'
+            className='nav-link nav-about'
+            value='About'
             icon={ApproximateEqualsIcon}
           />
         </li>
-        <li className="nav-li">
+        <li className='nav-li'>
           <Navlink
-            href="/contact"
-            className="nav-link nav-contact"
-            value="Contact"
+            href='/contact'
+            className='nav-link nav-contact'
+            value='Contact'
             icon={RadioIcon}
           />
         </li>

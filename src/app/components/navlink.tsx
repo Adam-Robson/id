@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import PhosphorIcon from "@/app/components/phosphor-icon";
-import type { NavlinkProps } from "@/types/navlink-props";
+import Link from 'next/link';
+import PhosphorIcon from '@/app/components/phosphor-icon';
+import type { NavlinkProps } from '@/types/navlink-props';
 
 export default function Navlink({
   href,
