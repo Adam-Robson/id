@@ -1,30 +1,30 @@
-"use client";
+'use client';
 import {
   createContext,
   useContext,
   useEffect,
   useLayoutEffect,
   useState,
-} from "react";
-import type { ResolvedTheme } from "@/types/resolved-theme";
-import type { Theme } from "@/types/theme";
-import type { ThemeContextValue } from "@/types/theme-context-value";
+} from 'react';
+import type { ResolvedTheme } from '@/types/resolved-theme';
+import type { Theme } from '@/types/theme';
+import type { ThemeContextValue } from '@/types/theme-context-value';
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 // useLayoutEffect on client (no flash), useEffect on server (SSR no-op)
 const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 // Must match SSR output exactly — the layout effect below resolves the
 // real value (matchMedia) before first paint, so no window reads here.
 function getInitialResolvedTheme(theme: Theme): ResolvedTheme {
-  return theme === "system" ? "light" : theme;
+  return theme === 'system' ? 'light' : theme;
 }
 
 export function ThemeProvider({
   children,
-  initialTheme = "system",
+  initialTheme = 'system',
 }: {
   children: React.ReactNode;
   initialTheme?: Theme;
@@ -35,33 +35,33 @@ export function ThemeProvider({
   );
 
   useIsomorphicLayoutEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     const resolve = () => {
       const resolved: ResolvedTheme =
-        theme === "system" ? (mediaQuery.matches ? "dark" : "light") : theme;
+        theme === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : theme;
       setResolvedTheme(resolved);
-      document.documentElement.classList.toggle("dark", resolved === "dark");
-      document.documentElement.classList.toggle("light", theme === "light");
+      document.documentElement.classList.toggle('dark', resolved === 'dark');
+      document.documentElement.classList.toggle('light', theme === 'light');
     };
 
     resolve();
 
-    if (theme === "system") {
-      mediaQuery.addEventListener("change", resolve);
-      return () => mediaQuery.removeEventListener("change", resolve);
+    if (theme === 'system') {
+      mediaQuery.addEventListener('change', resolve);
+      return () => mediaQuery.removeEventListener('change', resolve);
     }
   }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    if ("cookieStore" in window && window.cookieStore) {
+    if ('cookieStore' in window && window.cookieStore) {
       window.cookieStore.set({
-        name: "theme",
+        name: 'theme',
         value: newTheme,
-        path: "/",
+        path: '/',
         expires: Date.now() + 60 * 60 * 24 * 365 * 1000,
-        sameSite: "lax",
+        sameSite: 'lax',
       });
     }
   };
@@ -75,6 +75,6 @@ export function ThemeProvider({
 
 export function useTheme() {
   const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
+  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
   return ctx;
 }

@@ -1,6 +1,6 @@
-"use client";
-import { createContext, useContext } from "react";
-import type { IconDefaults } from "@/types/icon-defaults";
+'use client';
+import { createContext, useContext } from 'react';
+import type { IconDefaults } from '@/types/icon-defaults';
 
 const IconContext = createContext<IconDefaults>({});
 

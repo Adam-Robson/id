@@ -1,7 +1,7 @@
-import { groupByAlbum } from "@/lib/group-by-album";
-import { titleCase } from "@/lib/title-case";
-import type { AlbumMeta } from "@/types/album";
-import type { SongMeta } from "@/types/song-meta";
+import { groupByAlbum } from '@/lib/group-by-album';
+import { titleCase } from '@/lib/title-case';
+import type { AlbumMeta } from '@/types/album';
+import type { SongMeta } from '@/types/song-meta';
 
 /**
  * Presentation metadata for each album, keyed by the album name that
@@ -17,48 +17,48 @@ import type { SongMeta } from "@/types/song-meta";
  */
 export const ALBUM_META: Record<string, AlbumMeta> = {
   forbeforeiforget: {
-    key: "forbeforeiforget",
-    title: "For Before I Forget",
-    slug: "for-before-i-forget",
-    catalog: "LF-001",
-    cover: "/images/albums/forbeforeiforget.webp",
+    key: 'forbeforeiforget',
+    title: 'For Before I Forget',
+    slug: 'for-before-i-forget',
+    catalog: 'LF-001',
+    cover: '/images/albums/forbeforeiforget.webp',
     year: 2024,
     order: 1,
   },
   hifiveyourself: {
-    key: "hifiveyourself",
-    title: "Hi Five Yourself",
-    slug: "hi-five-yourself",
-    catalog: "LF-002",
-    cover: "/images/albums/hifiveyourself.webp",
+    key: 'hifiveyourself',
+    title: 'Hi Five Yourself',
+    slug: 'hi-five-yourself',
+    catalog: 'LF-002',
+    cover: '/images/albums/hifiveyourself.webp',
     year: 2026,
     order: 2,
   },
   leftstaticandatease: {
-    key: "leftstaticandatease",
-    title: "Left Static and at Ease",
-    slug: "left-static-and-at-ease",
-    catalog: "LF-003",
-    cover: "/images/albums/leftstaticandatease.webp",
+    key: 'leftstaticandatease',
+    title: 'Left Static and at Ease',
+    slug: 'left-static-and-at-ease',
+    catalog: 'LF-003',
+    cover: '/images/albums/leftstaticandatease.webp',
     year: 2020,
     order: 3,
   },
   seemsreal: {
-    key: "seemsreal",
-    title: "Seems Real",
-    slug: "seems-real",
-    catalog: "LF-004",
-    cover: "/images/albums/seemsreal.webp",
+    key: 'seemsreal',
+    title: 'Seems Real',
+    slug: 'seems-real',
+    catalog: 'LF-004',
+    cover: '/images/albums/seemsreal.webp',
     year: 2020,
     order: 4,
   },
-  "three.": {
-    key: "three.",
+  'three.': {
+    key: 'three.',
     // Lowercase and the trailing period are deliberate.
-    title: "three.",
-    slug: "three",
-    catalog: "LF-005",
-    cover: "/images/albums/three.webp",
+    title: 'three.',
+    slug: 'three',
+    catalog: 'LF-005',
+    cover: '/images/albums/three.webp',
     year: 2022,
     order: 5,
   },
@@ -70,8 +70,8 @@ const UNKNOWN_ALBUM_ORDER = 999;
 export function slugify(value: string): string {
   return value
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 export function metaFor(albumKey: string): AlbumMeta {
@@ -80,7 +80,7 @@ export function metaFor(albumKey: string): AlbumMeta {
       key: albumKey,
       title: titleCase(albumKey),
       slug: slugify(albumKey),
-      catalog: "LF-???",
+      catalog: 'LF-???',
       order: UNKNOWN_ALBUM_ORDER,
     }
   );
