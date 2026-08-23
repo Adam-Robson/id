@@ -1,5 +1,5 @@
-import { titleCase } from "@/lib/title-case";
-import type { SongMeta } from "@/types/song-meta";
+import { titleCase } from '@/lib/title-case';
+import type { SongMeta } from '@/types/song-meta';
 
 /** A key split into its album folder and its bare, unstyled filename. */
 export interface RawSong {
@@ -14,10 +14,20 @@ const ARABIC_PREFIX = /^(\d+)[\s._-]+(.+)$/;
 const ROMAN_PREFIX = /^([ivxlcdm]+)[\s._-]+(.+)$/i;
 /** Rejects malformed numerals like "iiii" or "vv" that the loose class allows. */
 const VALID_ROMAN = /^m{0,3}(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})$/i;
-co
+
+/** Digit values behind the roman numerals, keyed lowercase to match the parse. */
+const ROMAN_VALUES: Record<string, number> = {
+  i: 1,
+  v: 5,
+  x: 10,
+  l: 50,
+  c: 100,
+  d: 500,
+  m: 1000,
+};
 
 function romanToInt(roman: string): number {
-  const chars = roman.toLowerCase().split("");
+  const chars = roman.toLowerCase().split('');
   return chars.reduce((total, char, i) => {
     const value = ROMAN_VALUES[char] ?? 0;
     const next = ROMAN_VALUES[chars[i + 1]] ?? 0;
@@ -31,23 +41,23 @@ function romanToInt(roman: string): number {
  * `ALBUM_META` is keyed by it, and its display name lives there.
  */
 export function splitKey(key: string): RawSong {
-  const slashIdx = key.lastIndexOf("/");
+  const slashIdx = key.lastIndexOf('/');
 
   const album =
     slashIdx === -1
-      ? "Singles"
+      ? 'Singles'
       : (
-          key.slice(0, slashIdx).split("/").filter(Boolean).pop() ??
+          key.slice(0, slashIdx).split('/').filter(Boolean).pop() ??
           key.slice(0, slashIdx)
-        ).replace(/[-_]/g, " ");
+        ).replace(/[-_]/g, ' ');
 
   const name = key
     .slice(slashIdx + 1)
-    .replace(/\.[^/.]+$/, "")
-    .replace(/[-_]/g, " ")
+    .replace(/\.[^/.]+$/, '')
+    .replace(/[-_]/g, ' ')
     .trim();
 
-  return { key, album, name };c.
+  return { key, album, name };
 }
 
 type Numbering = { track: number; title: string } | null;

@@ -3,19 +3,19 @@ import {
   ListObjectsV2Command,
   PutObjectCommand,
   S3Client,
-} from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { isAudioKey } from "@/lib/audio-keys";
-import { deriveCatalog, splitKey } from "@/lib/parse-song-meta";
-import type { Song } from "@/types/song";
-import type { SongMeta } from "@/types/song-meta";
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { isAudioKey } from '@/lib/audio-keys';
+import { deriveCatalog, splitKey } from '@/lib/parse-song-meta';
+import type { Song } from '@/types/song';
+import type { SongMeta } from '@/types/song-meta';
 
 const r2 = new S3Client({
-  region: "auto",
+  region: 'auto',
   endpoint: process.env.S3_API,
   credentials: {
-    accessKeyId: process.env.ACCESS_KEY_ID ?? "",
-    secretAccessKey: process.env.SECRET_ACCESS_KEY ?? "",
+    accessKeyId: process.env.ACCESS_KEY_ID ?? '',
+    secretAccessKey: process.env.SECRET_ACCESS_KEY ?? '',
   },
 });
 
@@ -28,7 +28,7 @@ export interface ContactSubmission {
 }
 
 export async function saveContact(
-  data: Omit<ContactSubmission, "id" | "submittedAt">,
+  data: Omit<ContactSubmission, 'id' | 'submittedAt'>,
 ) {
   const submission: ContactSubmission = {
     id: crypto.randomUUID(),
@@ -41,7 +41,7 @@ export async function saveContact(
       Bucket: process.env.BUCKET_NAME,
       Key: `contacts/${submission.submittedAt}_${submission.id}.json`,
       Body: JSON.stringify(submission),
-      ContentType: "application/json",
+      ContentType: 'application/json',
     }),
   );
 
@@ -55,7 +55,7 @@ export interface AudioObject {
 
 async function listAudioObjects(): Promise<AudioObject[]> {
   const list = await r2.send(
-    new ListObjectsV2Command({ Bucket: proc. oless.env.BUCKET_NAME }),
+    new ListObjectsV2Command({ Bucket: process.env.BUCKET_NAME }),
   );
 
   return (list.Contents ?? [])
@@ -118,10 +118,10 @@ export function toPlayable(songs: SongMeta[]): Song[] {
 async function signObject(
   key: string,
   { attachment }: { attachment: boolean },
-): Promise<string | null> { 
+): Promise<string | null> {
   if (!isAudioKey(key)) return null;
 
-  const filename = key.slice(key.lastIndexOf("/") + 1);
+  const filename = key.slice(key.lastIndexOf('/') + 1);
   return getSignedUrl(
     r2,
     new GetObjectCommand({

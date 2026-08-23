@@ -1,4 +1,4 @@
-import type { SongMeta } from "@/types/song-meta";
+import type { SongMeta } from '@/types/song-meta';
 
 export function groupByAlbum<T extends SongMeta>(
   songs: T[],
