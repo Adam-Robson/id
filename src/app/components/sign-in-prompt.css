@@ -6,11 +6,12 @@
   z-index: 999;
 }
 
-/* The prompt is fixed, so it sits over the page. Any interior page that pins it
-   needs clearance or the bar covers its last row — .albums-interior in
-   particular zeroes the shelf's own bottom padding. Scoped with :has() so the
-   space is reserved only when the prompt is actually rendered. */
-.page-wrapper:has(.sign-in-prompt) .interior-main {
+/* The prompt is fixed, so it sits over the page. Interior pages need clearance
+   or the bar covers their last row — .albums-interior in particular zeroes the
+   shelf's own bottom padding. Matched from <body>, since the prompt renders
+   from the root layout as a sibling of the page wrapper, and scoped with :has()
+   so the space is reserved only when the bar is actually on screen. */
+body:has(.sign-in-prompt) .interior-main {
   padding-bottom: 9rem;
 }
 

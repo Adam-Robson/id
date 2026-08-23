@@ -8,7 +8,9 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import JsonLd from '@/app/components/json-ld';
 import { sharedOgImage } from '@/app/components/shared-metadata';
+import SignInPrompt from '@/app/components/sign-in-prompt';
 import GlobalProvider from '@/contexts/global-provider';
+import { getAccessLevel } from '@/lib/auth';
 import { clerkAppearance } from '@/lib/clerk-appearance';
 import { SITE_URL } from '@/lib/site';
 import type { Theme } from '@/types/theme';
@@ -123,6 +125,7 @@ export default async function RootLayout({
 }>) {
   const cookieStore = await cookies();
   const theme = (cookieStore.get('theme')?.value ?? 'system') as Theme;
+  const accessLevel = await getAccessLevel();
 
   return (
     <html
@@ -140,6 +143,10 @@ export default async function RootLayout({
         <ClerkProvider appearance={clerkAppearance} ui={ui}>
           <GlobalProvider>
             {children}
+            {/* Every page gets a way in. Resolved on the server so the bar
+                never flashes in after hydration; the component itself opts
+                out on the auth routes. */}
+            {accessLevel === 'guest' && <SignInPrompt />}
             <Analytics />
           </GlobalProvider>
         </ClerkProvider>

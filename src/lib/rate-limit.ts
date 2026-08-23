@@ -5,13 +5,6 @@ interface Window {
 
 /**
  * Fixed-window counters held in module scope.
- *
- * This is deliberately best-effort. On Fluid Compute an instance is reused
- * across requests so the counters do real work, but they are per-instance
- * and vanish on a cold start — a determined flood spread across instances
- * will get through. It exists to stop the ordinary case (one bot hammering
- * the contact form) without taking on a Redis dependency for a site this
- * size. Move to Upstash or Vercel BotID if abuse ever becomes real.
  */
 const windows = new Map<string, Window>();
 

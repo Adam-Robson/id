@@ -7,29 +7,6 @@
   margin-left: auto;
 }
 
-/* Mobile first: the pinned prompt at the bottom of the page is the sign-in
-   surface on phones, so this link stays out of the header rather than
-   competing with the logo and the nav for the top line. It returns on desktop,
-   where there is room for it and no prompt is in view until you scroll. */
-.site-header-signin {
-  display: none;
-}
-
-@media (min-width: 641px) {
-  .site-header-signin {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-
-  .site-header-signin:hover {
-    color: var(--accent);
-    opacity: 1;
-  }
-}
+/* The header carries no sign-in link at any width — the pinned prompt at the
+   bottom of the page is the only sign-in surface. This cluster now holds just
+   the account button, which appears once you are signed in. */

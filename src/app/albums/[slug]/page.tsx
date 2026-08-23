@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import AlbumTracks from '@/app/components/album-tracks';
-import SignInPrompt from '@/app/components/sign-in-prompt';
 import SiteHeader from '@/app/components/site-header';
 import { albumBySlug, orderedAlbumMeta } from '@/lib/albums';
 import { getAccessLevel } from '@/lib/auth';
@@ -159,7 +158,6 @@ export default async function AlbumPage({
           </p>
         )}
       </main>
-      {accessLevel === 'guest' && <SignInPrompt />}
     </div>
   );
 }

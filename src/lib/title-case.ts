@@ -18,7 +18,6 @@ const MINOR_WORDS = new Set([
   'of',
   'on',
   'or',
-  'over',
   'the',
   'to',
   'up',

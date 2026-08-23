@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import AlbumShelf from '@/app/components/album-shelf';
 import { sharedOgImage } from '@/app/components/shared-metadata';
-import SignInPrompt from '@/app/components/sign-in-prompt';
 import SiteHeader from '@/app/components/site-header';
 import '@/app/albums/albums.css';
 import '@/app/components/interior-pages.css';
@@ -30,7 +29,6 @@ export default async function AlbumsPage() {
         <h1 className='page-eyebrow'>Albums</h1>
         <AlbumShelf songs={songs} accessLevel={accessLevel} />
       </main>
-      {accessLevel === 'guest' && <SignInPrompt />}
     </div>
   );
 }

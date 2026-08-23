@@ -28,11 +28,6 @@ export default function SiteHeader({ variant }: Props) {
         <Show when='signed-in'>
           <UserButton />
         </Show>
-        <Show when='signed-out'>
-          <a href='/sign-in' className='site-header-signin'>
-            Sign in
-          </a>
-        </Show>
       </div>
     </header>
   );

@@ -3,7 +3,6 @@ import { listSongs, toPlayable } from '@/lib/r2';
 import AudioPlayer from './components/audio-player';
 import BackgroundWord from './components/background-word';
 import HomeIntro from './components/home-intro';
-import SignInPrompt from './components/sign-in-prompt';
 import SiteHeader from './components/site-header';
 
 export default async function Home() {
@@ -16,11 +15,8 @@ export default async function Home() {
       <SiteHeader variant='home' />
       <main className='home-main'>
         <HomeIntro />
-        {accessLevel === 'guest' ? (
-          <SignInPrompt />
-        ) : (
-          <AudioPlayer songs={songs} />
-        )}
+        {/* Guests get the sign-in bar from the root layout instead. */}
+        {accessLevel !== 'guest' && <AudioPlayer songs={songs} />}
       </main>
     </div>
   );
