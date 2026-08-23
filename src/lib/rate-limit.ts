@@ -70,9 +70,9 @@ export function rateLimit(
  * being waved through.
  */
 export function clientKey(headers: Headers): string {
-  const forwarded = headers.get("x-forwarded-for");
-  const first = forwarded?.split(",")[0]?.trim();
-  return first || headers.get("x-real-ip") || "unknown";
+  const forwarded = headers.get('x-forwarded-for');
+  const first = forwarded?.split(',')[0]?.trim();
+  return first || headers.get('x-real-ip') || 'unknown';
 }
 
 /** Test seam — the counters are module state that would otherwise leak. */

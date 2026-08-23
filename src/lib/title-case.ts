@@ -3,28 +3,28 @@
  * always capitalized regardless, which is the usual convention.
  */
 const MINOR_WORDS = new Set([
-  "a",
-  "an",
-  "and",
-  "as",
-  "at",
-  "but",
-  "by",
-  "for",
-  "from",
-  "in",
-  "into",
-  "nor",
-  "of",
-  "on",
-  "or",
-  "over",
-  "the",
-  "to",
-  "up",
-  "via",
-  "vs",
-  "with",
+  'a',
+  'an',
+  'and',
+  'as',
+  'at',
+  'but',
+  'by',
+  'for',
+  'from',
+  'in',
+  'into',
+  'nor',
+  'of',
+  'on',
+  'or',
+  'over',
+  'the',
+  'to',
+  'up',
+  'via',
+  'vs',
+  'with',
 ]);
 
 /**
@@ -52,5 +52,5 @@ export function titleCase(input: string): string {
       if (!isEdgeWord && MINOR_WORDS.has(lower)) return lower;
       return capitalize(lower);
     })
-    .join(" ");
+    .join(' ');
 }
