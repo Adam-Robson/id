@@ -1,10 +1,10 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import AudioControls from "@/app/components/audio-controls";
-import type { Song } from "@/types/song";
-import "@/app/components/audio-player.css";
-import { useAudio } from "@/contexts/audio-provider";
-import { groupByAlbum } from "@/lib/group-by-album";
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import AudioControls from '@/app/components/audio-controls';
+import type { Song } from '@/types/song';
+import '@/app/components/audio-player.css';
+import { useAudio } from '@/contexts/audio-provider';
+import { groupByAlbum } from '@/lib/group-by-album';
 
 export default function AudioPlayer({ songs }: { songs: Song[] }) {
   const [listOpen, setListOpen] = useState(false);
@@ -23,8 +23,8 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
         setListOpen(false);
       }
     };
-    document.addEventListener("pointerdown", onPointerDown);
-    return () => document.removeEventListener("pointerdown", onPointerDown);
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
   }, [listOpen]);
 
   if (!songs.length) return null;
@@ -32,25 +32,25 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
   const albums = groupByAlbum(songs);
 
   return (
-    <div className="audio-player">
-      <div className="audio-player-inner" ref={playerRef}>
+    <div className='audio-player'>
+      <div className='audio-player-inner' ref={playerRef}>
         {/* song list panel — slides up from player */}
         <div
-          className={`audio-player-list${listOpen ? " open" : ""}`}
+          className={`audio-player-list${listOpen ? ' open' : ''}`}
           aria-hidden={!listOpen}
         >
           {Object.entries(albums).map(([album, albumSongs]) => (
-            <div key={album} className="audio-player-album">
-              <h3 className="audio-player-album-title">{album}</h3>
-              <ul className="audio-player-album-songs">
+            <div key={album} className='audio-player-album'>
+              <h3 className='audio-player-album-title'>{album}</h3>
+              <ul className='audio-player-album-songs'>
                 {albumSongs.map((song) => {
                   const idx = songs.indexOf(song);
                   const isActive = idx === current;
                   return (
                     <li key={song.key}>
                       <button
-                        type="button"
-                        className={`audio-player-album-song${isActive ? " active" : ""}`}
+                        type='button'
+                        className={`audio-player-album-song${isActive ? ' active' : ''}`}
                         onClick={() => {
                           playAt(idx);
                           setListOpen(false);
@@ -68,7 +68,7 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
         </div>
 
         {/* Controls bar */}
-        <div className="audio-player-controls">
+        <div className='audio-player-controls'>
           <AudioControls
             onToggleList={() => setListOpen((o) => !o)}
             listOpen={listOpen}
