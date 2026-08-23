@@ -218,3 +218,16 @@
     gap: 2.5rem;
   }
 }
+
+/* Touch input: grow the rows into full tap targets. Vertical padding rather
+   than min-height, so the number and title keep their baseline alignment. */
+@media (pointer: coarse) {
+  .tape-track {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+
+  .tape-track-download {
+    min-width: 44px;
+  }
+}

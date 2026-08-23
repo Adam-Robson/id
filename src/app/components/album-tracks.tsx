@@ -1,10 +1,10 @@
-"use client";
-import { useEffect } from "react";
-import TrackList from "@/app/components/track-list";
-import { useAudio } from "@/contexts/audio-provider";
-import type { AccessLevel } from "@/types/access-level";
-import type { Song } from "@/types/song";
-import type { SongMeta } from "@/types/song-meta";
+'use client';
+import { useEffect } from 'react';
+import TrackList from '@/app/components/track-list';
+import { useAudio } from '@/contexts/audio-provider';
+import type { AccessLevel } from '@/types/access-level';
+import type { Song } from '@/types/song';
+import type { SongMeta } from '@/types/song-meta';
 
 /**
  * The tracklist on a single album's page. Pushes the whole catalog into the
@@ -20,7 +20,7 @@ export default function AlbumTracks({
   albumSongs: SongMeta[];
   accessLevel: AccessLevel;
 }) {
-  const canPlay = accessLevel !== "guest";
+  const canPlay = accessLevel !== 'guest';
   const { setSongs } = useAudio();
 
   useEffect(() => {
