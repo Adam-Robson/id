@@ -1,5 +1,5 @@
-import { useIconContext } from "@/contexts/icon-provider";
-import type { IconProps } from "@/types/icon-props";
+import { useIconContext } from '@/contexts/icon-provider';
+import type { IconProps } from '@/types/icon-props';
 
 export default function PhosphorIcon({
   as: Tag,
@@ -8,7 +8,7 @@ export default function PhosphorIcon({
   weight,
 }: IconProps) {
   const ctx = useIconContext();
-  const classString = [ctx.className, className].filter(Boolean).join(" ");
+  const classString = [ctx.className, className].filter(Boolean).join(' ');
 
   return (
     <Tag

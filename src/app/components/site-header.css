@@ -3,18 +3,10 @@
   align-items: center;
   gap: 1.25rem;
   flex-shrink: 0;
+  /* keeps the auth cluster hard right whatever precedes it on the line */
+  margin-left: auto;
 }
 
-.site-header-signin {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  color: var(--muted);
-  transition: color 0.2s;
-}
-
-.site-header-signin:hover {
-  color: var(--accent);
-  opacity: 1;
-}
+/* The header carries no sign-in link at any width — the pinned prompt at the
+   bottom of the page is the only sign-in surface. This cluster now holds just
+   the account button, which appears once you are signed in. */

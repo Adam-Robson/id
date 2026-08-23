@@ -1,0 +1,106 @@
+.skeleton-block {
+  background: var(--card-hover);
+  border-radius: 6px;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.skeleton-block {
+  animation: skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-block {
+    animation: none;
+  }
+}
+
+.skeleton-shelf {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.1rem;
+  border: 1px solid var(--card-edge);
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.skeleton-cover {
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.skeleton-cover--detail {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.skeleton-line {
+  height: 0.85rem;
+}
+
+.skeleton-line--title {
+  height: 1.5rem;
+  width: 60%;
+}
+
+.skeleton-line--short {
+  width: 35%;
+}
+
+.skeleton-album {
+  display: flex;
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.skeleton-album-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.skeleton-status {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (max-width: 639px) {
+  .skeleton-album {
+    flex-direction: column;
+  }
+
+  .skeleton-cover--detail {
+    width: 100%;
+    max-width: 320px;
+  }
+}

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -7,16 +7,16 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react";
-import type { AudioProviderType } from "@/types/audio-provider";
-import type { Song } from "@/types/song";
+} from 'react';
+import type { AudioProviderType } from '@/types/audio-provider';
+import type { Song } from '@/types/song';
 
 const AudioContext = createContext<AudioProviderType | null>(null);
 
 export const useAudio = () => {
   const ctx = useContext(AudioContext);
   if (!ctx) {
-    throw new Error("useAudio must be used within an AudioProvider");
+    throw new Error('useAudio must be used within an AudioProvider');
   }
   return ctx;
 };
@@ -25,7 +25,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const songRef = useRef<HTMLAudioElement | null>(null);
   // Tracks the URL we've loaded imperatively so the sync effect below doesn't
   // reload (and interrupt) a track we just started inside a user gesture.
-  const loadedSrcRef = useRef("");
+  const loadedSrcRef = useRef('');
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -113,7 +113,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const fmt = useCallback((s: number) => {
-    return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+    return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
   }, []);
 
   // Load the current track's source (without autoplaying) and wire up event
@@ -137,7 +137,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     const onPause = () => setIsPlaying(false);
     const onError = () => {
       setIsPlaying(false);
-      loadedSrcRef.current = ""; // allow the next attempt to reload from scratch
+      loadedSrcRef.current = ''; // allow the next attempt to reload from scratch
     };
     const onEnded = () => {
       if (songs.length <= 1) {
@@ -157,20 +157,20 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       setCurrent(nextIdx);
     };
 
-    audio.addEventListener("timeupdate", onTimeUpdate);
-    audio.addEventListener("loadedmetadata", onLoadedMetadata);
-    audio.addEventListener("play", onPlay);
-    audio.addEventListener("pause", onPause);
-    audio.addEventListener("error", onError);
-    audio.addEventListener("ended", onEnded);
+    audio.addEventListener('timeupdate', onTimeUpdate);
+    audio.addEventListener('loadedmetadata', onLoadedMetadata);
+    audio.addEventListener('play', onPlay);
+    audio.addEventListener('pause', onPause);
+    audio.addEventListener('error', onError);
+    audio.addEventListener('ended', onEnded);
 
     return () => {
-      audio.removeEventListener("timeupdate", onTimeUpdate);
-      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
-      audio.removeEventListener("play", onPlay);
-      audio.removeEventListener("pause", onPause);
-      audio.removeEventListener("error", onError);
-      audio.removeEventListener("ended", onEnded);
+      audio.removeEventListener('timeupdate', onTimeUpdate);
+      audio.removeEventListener('loadedmetadata', onLoadedMetadata);
+      audio.removeEventListener('play', onPlay);
+      audio.removeEventListener('pause', onPause);
+      audio.removeEventListener('error', onError);
+      audio.removeEventListener('ended', onEnded);
     };
   }, [songs, current]);
 
@@ -193,27 +193,27 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       <output
-        aria-live="polite"
+        aria-live='polite'
         style={{
-          position: "absolute",
-          width: "1px",
-          height: "1px",
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
           padding: 0,
-          margin: "-1px",
-          overflow: "hidden",
-          clip: "rect(0,0,0,0)",
-          whiteSpace: "nowrap",
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0,0,0,0)',
+          whiteSpace: 'nowrap',
           border: 0,
         }}
       >
         {songsLoaded
           ? `Now playing: ${songs[current]?.title} from ${songs[current]?.album}`
-          : ""}
+          : ''}
       </output>
 
       {songsLoaded && (
-        <audio ref={songRef} preload="metadata">
-          <track kind="captions" />
+        <audio ref={songRef} preload='metadata'>
+          <track kind='captions' />
         </audio>
       )}
       {children}

@@ -1,105 +1,119 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import type { Status } from "@/types/status";
+import { useState } from 'react';
+import type { Status } from '@/types/status';
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<Status>("idle");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [status, setStatus] = useState<Status>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("submitting");
-    setErrorMsg("");
+    setStatus('submitting');
+    setErrorMsg('');
 
     const form = e.currentTarget;
     const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement)
+      name: (form.elements.namedItem('name') as HTMLInputElement).value,
+      email: (form.elements.namedItem('email') as HTMLInputElement).value,
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement)
         .value,
+      website: (form.elements.namedItem('website') as HTMLInputElement).value,
     };
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
       if (res.ok) {
-        setStatus("success");
+        setStatus('success');
         form.reset();
       } else {
         const json = await res.json().catch(() => ({}));
-        setErrorMsg(json.error ?? "Something went wrong. Try again.");
-        setStatus("error");
+        setErrorMsg(json.error ?? 'Something went wrong. Try again.');
+        setStatus('error');
       }
     } catch (_err) {
       // Handle network-level or unexpected errors
-      setErrorMsg("Something went wrong. Try again.");
-      setStatus("error");
+      setErrorMsg('Something went wrong. Try again.');
+      setStatus('error');
     }
   }
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit} noValidate>
-      <div className="form-field">
-        <label className="contact-label" htmlFor="name">
+    <form className='contact-form' onSubmit={handleSubmit} noValidate>
+      <div className='form-field'>
+        <label className='contact-label' htmlFor='name'>
           Name
         </label>
         <input
-          className="form-input"
-          id="name"
-          name="name"
-          type="text"
+          className='form-input'
+          id='name'
+          name='name'
+          type='text'
           required
-          disabled={status === "submitting"}
+          disabled={status === 'submitting'}
         />
       </div>
 
-      <div className="form-field">
-        <label className="contact-label" htmlFor="email">
+      <div className='form-field'>
+        <label className='contact-label' htmlFor='email'>
           Email
         </label>
         <input
-          className="form-input"
-          id="email"
-          name="email"
-          type="email"
+          className='form-input'
+          id='email'
+          name='email'
+          type='email'
           required
-          disabled={status === "submitting"}
+          disabled={status === 'submitting'}
         />
       </div>
 
-      <div className="form-field">
-        <label className="contact-label" htmlFor="message">
+      <div className='form-field'>
+        <label className='contact-label' htmlFor='message'>
           Message
         </label>
         <textarea
-          className="form-input form-textarea"
-          id="message"
-          name="message"
+          className='form-input form-textarea'
+          id='message'
+          name='message'
           rows={5}
           required
-          disabled={status === "submitting"}
+          disabled={status === 'submitting'}
         />
       </div>
 
-      {status === "error" && (
-        <p className="form-feedback form-feedback--error">{errorMsg}</p>
+      {/* Honeypot. Hidden from people and from assistive tech; bots that
+          fill every field give themselves away by filling this one. */}
+      <div className='form-honeypot' aria-hidden='true'>
+        <label htmlFor='website'>Website</label>
+        <input
+          id='website'
+          name='website'
+          type='text'
+          tabIndex={-1}
+          autoComplete='off'
+        />
+      </div>
+
+      {status === 'error' && (
+        <p className='form-feedback form-feedback--error'>{errorMsg}</p>
       )}
 
-      {status === "success" && (
-        <p className="form-feedback form-feedback--success">Message sent.</p>
+      {status === 'success' && (
+        <p className='form-feedback form-feedback--success'>Message sent.</p>
       )}
 
       <button
-        className="form-submit"
-        type="submit"
-        disabled={status === "submitting"}
+        className='form-submit'
+        type='submit'
+        disabled={status === 'submitting'}
       >
-        {status === "submitting" ? "Sending…" : "Send"}
+        {status === 'submitting' ? 'Sending…' : 'Send'}
       </button>
     </form>
   );

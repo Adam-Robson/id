@@ -1,69 +1,48 @@
-import { sharedOgImage } from "@/app/components/shared-metadata";
+import { sharedOgImage } from '@/app/components/shared-metadata';
+import { orderedAlbumMeta } from '@/lib/albums';
+import { SITE_URL } from '@/lib/site';
 
+const ARTIST_ID = `${SITE_URL}/#artist`;
+
+/**
+ * Structured data for the site, generated from `ALBUM_META` so it can't
+ * drift from what the shelf actually renders. Track counts are deliberately
+ * omitted: R2 is the source of truth for those, and publishing a hardcoded
+ * count that quietly goes stale is worse than publishing none at all.
+ */
 export default function JsonLd() {
+  const albums = orderedAlbumMeta();
+
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
+    '@context': 'https://schema.org',
+    '@graph': [
       {
-        "@type": "MusicGroup",
-        "@id": "https://lefog.xyz/#artist",
-        name: "LE FOG",
-        url: "https://lefog.xyz",
+        '@type': 'MusicGroup',
+        '@id': ARTIST_ID,
+        name: 'LE FOG',
+        url: SITE_URL,
         image: sharedOgImage,
-        genre: ["Electronic", "Ambient", "Rock", "Folk", "Psychedelic"],
+        genre: ['Electronic', 'Ambient', 'Rock', 'Folk', 'Psychedelic'],
         foundingLocation: {
-          "@type": "Place",
-          name: "Portland, Oregon, US",
+          '@type': 'Place',
+          name: 'Portland, Oregon, US',
         },
-        album: [
-          { "@id": "https://lefog.xyz/#forbeforeiforget" },
-          { "@id": "https://lefog.xyz/#hifiveyourself" },
-          { "@id": "https://lefog.xyz/#leftstaticandatease" },
-          { "@id": "https://lefog.xyz/#seemsreal" },
-          { "@id": "https://lefog.xyz/#three" },
-        ],
+        album: albums.map((album) => ({ '@id': `${SITE_URL}/#${album.key}` })),
       },
-      {
-        "@type": "MusicAlbum",
-        "@id": "https://lefog.xyz/#forbeforeiforget",
-        name: "forbeforeiforget",
-        byArtist: { "@id": "https://lefog.xyz/#artist" },
-        numTracks: 12,
-      },
-      {
-        "@type": "MusicAlbum",
-        "@id": "https://lefog.xyz/#hifiveyourself",
-        name: "hifiveyourself",
-        byArtist: { "@id": "https://lefog.xyz/#artist" },
-        numTracks: 9,
-      },
-      {
-        "@type": "MusicAlbum",
-        "@id": "https://lefog.xyz/#leftstaticandatease",
-        name: "leftstaticandatease",
-        byArtist: { "@id": "https://lefog.xyz/#artist" },
-        numTracks: 12,
-      },
-      {
-        "@type": "MusicAlbum",
-        "@id": "https://lefog.xyz/#seemsreal",
-        name: "seemsreal",
-        byArtist: { "@id": "https://lefog.xyz/#artist" },
-        numTracks: 10,
-      },
-      {
-        "@type": "MusicAlbum",
-        "@id": "https://lefog.xyz/#three",
-        name: "three.",
-        byArtist: { "@id": "https://lefog.xyz/#artist" },
-        numTracks: 12,
-      },
+      ...albums.map((album) => ({
+        '@type': 'MusicAlbum',
+        '@id': `${SITE_URL}/#${album.key}`,
+        name: album.title,
+        byArtist: { '@id': ARTIST_ID },
+        ...(album.year ? { datePublished: String(album.year) } : {}),
+        ...(album.cover ? { image: `${SITE_URL}${album.cover}` } : {}),
+      })),
     ],
   };
 
   return (
-    <script type="application/ld+json">
-      {JSON.stringify(jsonLd).replace(/</g, "\\u003c")}
+    <script type='application/ld+json'>
+      {JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
     </script>
   );
 }

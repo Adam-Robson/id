@@ -1,5 +1,5 @@
-import type { ChangeEvent } from "react";
-import type { Song } from "@/types/song";
+import type { ChangeEvent } from 'react';
+import type { Song } from '@/types/song';
 
 export interface AudioProviderType {
   isPlaying: boolean;

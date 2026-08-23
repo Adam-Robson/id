@@ -1,0 +1,36 @@
+.status-page {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.status-page .page-body {
+  max-width: 46ch;
+  margin-inline: auto;
+}
+
+.status-page-code {
+  margin: 0 0 0.5rem;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+.status-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0 0;
+  font-size: 0.95rem;
+}
+
+.status-page-digest {
+  margin: 2.5rem 0 0;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
