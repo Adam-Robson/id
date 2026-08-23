@@ -15,7 +15,8 @@
       "!build",
       "!**/*.css",
       "!**/*.scss",
-      "!**/*.sass"
+      "!**/*.sass",
+      "!**/*.svg"
     ]
   },
   "formatter": {
