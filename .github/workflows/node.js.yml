@@ -14,9 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # Node version comes from .nvmrc so CI and local machines can never
+      # drift. They must match: npm 11 (Node 24) and npm 10 (Node 22) disagree
+      # on whether nested optional peer deps belong in the lockfile, so a lock
+      # written by one is rejected by `npm ci` under the other.
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
