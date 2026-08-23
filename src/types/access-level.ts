@@ -1,1 +1,1 @@
-export type AccessLevel = "guest" | "member" | "admin";
+export type AccessLevel = 'guest' | 'member' | 'admin';
