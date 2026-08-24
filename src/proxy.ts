@@ -6,14 +6,14 @@ const PRODUCTION_HOST = new URL(SITE_URL).host;
 export default clerkMiddleware({
   frontendApiProxy: {
     /**
-     * The Frontend API proxy is registered in the Clerk dashboard against
-     * the production domain, so Clerk can only attribute proxied requests
-     * that arrive on that host. Leaving it on everywhere makes localhost
-     * and preview deployments fail with `host_invalid`, so scope it to the
-     * one host it's actually configured for and let everything else talk
-     * to Clerk directly.
+     * The production domain has a verified CNAME straight to Clerk's
+     * Frontend API (clerk.lefog.xyz -> frontend-api.clerk.services), so it
+     * needs no proxying and Clerk rejects proxied requests arriving on that
+     * host with `host_invalid`. Proxy everywhere else (localhost, preview
+     * deployments) instead, since those hosts have no CNAME and would
+     * otherwise talk to Clerk as a third party.
      */
-    enabled: (url) => url.host === PRODUCTION_HOST,
+    enabled: (url) => url.host !== PRODUCTION_HOST,
   },
 });
 

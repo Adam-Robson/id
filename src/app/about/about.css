@@ -1,9 +1,3 @@
-/* The page wrapper caps width at 900px globally — widen it for the about page
-   so the container max-width below can actually take effect. */
-.page-wrapper--interior:has(.about-interior) {
-  max-width: 1210px;
-}
-
 .interior-main.about-interior {
   max-width: 1210px;
   padding-top: 2rem;
@@ -21,43 +15,40 @@
 .about-layout {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
+}
+
+.about-image {
+  width: 100%;
+  aspect-ratio: 400 / 176;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
+  background-color: #fff;
+  background-image: url('/images/og.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .about-text {
   min-width: 0;
 }
 
-/* Shown clear and whole: natural aspect ratio, no fade, no crop. A thin
-   frame mounts it on the paper like a printed card. */
-.about-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
-  background: #fff;
-}
-
 @media (min-width: 768px) {
   .about-layout {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 3rem;
+    gap: 2.5rem;
+  }
+
+  .about-image {
+    border-radius: 1rem;
   }
 
   .about-layout .about-text {
-    flex: 1;
+    max-width: 65ch;
+    margin-inline: auto;
   }
 
   .about-layout .page-body {
     margin: 0 0 1rem;
-  }
-
-  .about-image {
-    width: 52%;
-    flex-shrink: 0;
-    position: sticky;
-    top: 2rem;
   }
 }
