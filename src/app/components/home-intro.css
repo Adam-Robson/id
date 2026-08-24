@@ -1,23 +1,30 @@
 .home-intro {
+  position: relative;
   width: 100%;
   max-width: 780px;
   margin-inline: auto;
+  /* fills the space below the header so the copy can be centered in it */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   /* clears the fixed player / sign-in bar pinned to the bottom */
   padding: 3.5rem 1.5rem 10rem;
 }
 
-.home-intro-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 9vw, 4.25rem);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  line-height: 1;
-  margin: 0 0 1.25rem;
-  color: var(--foreground);
+/* Centers the copy in the full height of .home-intro — sitting over the
+   big background wordmark instead of pinned under the header. Nudged up
+   ~50px from dead-center per design tweak. The discography aside below is
+   taken out of flow, so it never affects this centering. */
+.home-intro-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: translateY(-50px);
 }
 
 .home-intro-lede {
-  margin: 0 0 3.5rem;
+  margin: 0;
   max-width: 58ch;
   font-size: 1.05rem;
   font-weight: 300;
@@ -32,9 +39,64 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 1.25rem;
+  margin: 0;
+}
+
+/* Taken out of flow entirely and pinned to the bottom of .home-intro, so
+   opening/closing the disclosure below never resizes .home-intro-copy or
+   shifts anything else on the page — it just grows in place. */
+.home-intro-discography {
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 10rem;
+}
+
+/* The disclosure control that reveals the album grid. Native <details>/
+   <summary> so it works without JS and gets keyboard/screen-reader
+   semantics for free — no client component needed just to toggle.
+   Laid out in reverse visual order so the summary stays anchored to the
+   bottom edge (the fixed point) and the album grid unfolds upward above
+   it, instead of the summary itself jumping when the grid appears. */
+.home-intro-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0;
+}
+
+.home-intro-summary {
+  order: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  cursor: pointer;
+  list-style: none;
   padding-bottom: 0.6rem;
   border-bottom: 1px dashed var(--card-rule);
+  /* opaque backing so the grid, unfolding upward from behind, doesn't
+     visually collide with the summary label */
+  background: var(--background);
+}
+
+.home-intro-summary::-webkit-details-marker {
+  display: none;
+}
+
+.home-intro-summary:hover .home-intro-heading,
+.home-intro-summary:focus-visible .home-intro-heading {
+  color: var(--foreground);
+}
+
+.home-intro-summary-icon {
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.home-intro-details[open] .home-intro-summary-icon {
+  transform: rotate(180deg);
 }
 
 .home-intro-albums {
@@ -44,6 +106,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1.5rem 1.25rem;
+  /* Unfolds upward from an absolutely positioned, bottom-anchored box, so
+     nothing constrains its growth the way normal document flow would —
+     cap it and let it scroll internally instead of running off-screen. */
+  max-height: 50dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .home-intro-album-link {
@@ -103,8 +171,13 @@
   }
 
   .home-intro-lede {
-    margin-bottom: 2.5rem;
     font-size: 1rem;
+  }
+
+  .home-intro-discography {
+    left: 1rem;
+    right: 1rem;
+    bottom: 9rem;
   }
 
   .home-intro-albums {

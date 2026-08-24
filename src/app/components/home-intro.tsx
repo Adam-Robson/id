@@ -14,43 +14,63 @@ export default function HomeIntro() {
 
   return (
     <section className='home-intro'>
-      <h1 className='home-intro-title'>LE FOG</h1>
+      <div className='home-intro-copy'>
+        <p className='home-intro-lede'>
+          LE FOG is a musical project by Adam Robson — a home-recording artist
+          from Portland, Oregon.
+        </p>
+      </div>
 
-      <p className='home-intro-lede'>
-        LE FOG is the pseudonym of Adam Robson — a songwriter and producer
-        working out of Portland, Oregon. Everything is homemade in the fullest
-        sense: every instrument played and recorded at home, every song produced
-        and released the same way.
-      </p>
-
-      <h2 className='home-intro-heading'>Discography</h2>
-
-      <ul className='home-intro-albums'>
-        {albums.map((album) => (
-          <li key={album.key} className='home-intro-album'>
-            <Link
-              className='home-intro-album-link'
-              href={`/albums/${album.slug}`}
+      <aside className='home-intro-discography'>
+        <details className='home-intro-details'>
+          <summary className='home-intro-summary'>
+            <h2 className='home-intro-heading'>Discography</h2>
+            <svg
+              className='home-intro-summary-icon'
+              viewBox='0 0 16 16'
+              width='12'
+              height='12'
+              aria-hidden='true'
             >
-              {album.cover && (
-                <span className='home-intro-album-cover'>
-                  <Image
-                    src={album.cover}
-                    alt={`Cover art for ${album.title} by LE FOG`}
-                    fill
-                    sizes='(max-width: 640px) 45vw, 200px'
-                    className='home-intro-album-img'
-                  />
-                </span>
-              )}
-              <span className='home-intro-album-title'>{album.title}</span>
-              {album.year && (
-                <span className='home-intro-album-year'>{album.year}</span>
-              )}
-            </Link>
-          </li>
-        ))}
-      </ul>
+              <path
+                d='M2 5l6 6 6-6'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          </summary>
+
+          <ul className='home-intro-albums'>
+            {albums.map((album) => (
+              <li key={album.key} className='home-intro-album'>
+                <Link
+                  className='home-intro-album-link'
+                  href={`/albums/${album.slug}`}
+                >
+                  {album.cover && (
+                    <span className='home-intro-album-cover'>
+                      <Image
+                        src={album.cover}
+                        alt={`Cover art for ${album.title} by LE FOG`}
+                        fill
+                        sizes='(max-width: 640px) 45vw, 200px'
+                        className='home-intro-album-img'
+                      />
+                    </span>
+                  )}
+                  <span className='home-intro-album-title'>{album.title}</span>
+                  {album.year && (
+                    <span className='home-intro-album-year'>{album.year}</span>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </aside>
     </section>
   );
 }

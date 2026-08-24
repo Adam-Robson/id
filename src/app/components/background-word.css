@@ -24,6 +24,8 @@
   /* Mobile: rotated */
   writing-mode: vertical-rl;
   font-size: 25vw;
+  /* Exaggerated tracking, scaled up further at each breakpoint below. */
+  letter-spacing: 0.3em;
 }
 
 .dark .bg-word {
@@ -52,6 +54,8 @@
     /* horizontal "LE FOG" + brick must fit one line — smaller than the
        25vw vertical mobile size */
     font-size: 16vw;
+    letter-spacing: 0.4em;
+    padding-left: 0.4em;
   }
 
   .bg-word-brick {
@@ -72,8 +76,8 @@
 @media (min-width: 1024px) {
   .bg-word {
     font-size: 13vw;
-    letter-spacing: 0.16em;
-    padding-left: 0.16em;
+    letter-spacing: 0.6em;
+    padding-left: 0.6em;
   }
 
   .bg-word-brick {
