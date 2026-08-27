@@ -15,7 +15,7 @@ import type { SongMeta } from '@/types/song-meta';
  *
  * TODO(adam): write each album's one-line blurb in your own voice.
  */
-export const ALBUM_META: Record<string, AlbumMeta> = {
+const ALBUM_META: Record<string, AlbumMeta> = {
   forbeforeiforget: {
     key: 'forbeforeiforget',
     title: 'For Before I Forget',
@@ -67,14 +67,14 @@ export const ALBUM_META: Record<string, AlbumMeta> = {
 const UNKNOWN_ALBUM_ORDER = 999;
 
 /** URL-safe segment for an album that has no entry in `ALBUM_META`. */
-export function slugify(value: string): string {
+function slugify(value: string): string {
   return value
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
 
-export function metaFor(albumKey: string): AlbumMeta {
+function metaFor(albumKey: string): AlbumMeta {
   return (
     ALBUM_META[albumKey] ?? {
       key: albumKey,

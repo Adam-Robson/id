@@ -15,7 +15,6 @@ export default async function Home() {
       <SiteHeader variant='home' />
       <main className='home-main'>
         <HomeIntro />
-        {/* Guests get the sign-in bar from the root layout instead. */}
         {accessLevel !== 'guest' && <AudioPlayer songs={songs} />}
       </main>
     </div>

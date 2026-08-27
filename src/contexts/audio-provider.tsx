@@ -52,7 +52,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         // Assigning src already starts the load — calling load() too would
         // reset it and abort the play() below. Only force load() to recover
         // from an error on the same source.
-        if (audio.src !== url) {
+        if (loadedSrcRef.current !== url) {
           audio.src = url;
         } else if (audio.error) {
           audio.load();
@@ -83,7 +83,10 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       const url = songs[current]?.url;
       // Recover if the element errored or lost its source — calling play() on
       // an errored element just rejects, so reset the source and reload first.
-      if (url && (audio.error || audio.src !== url || audio.readyState === 0)) {
+      if (
+        url &&
+        (audio.error || loadedSrcRef.current !== url || audio.readyState === 0)
+      ) {
         audio.src = url;
         loadedSrcRef.current = url;
         audio.load();
@@ -124,7 +127,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     const url = songs[current]?.url;
     if (!url) return;
 
-    if (audio.src !== url && loadedSrcRef.current !== url) {
+    if (loadedSrcRef.current !== url) {
       setProgress(0);
       setIsPlaying(false);
       audio.src = url; // assigning src starts the load on its own

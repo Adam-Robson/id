@@ -28,18 +28,18 @@ export default function AboutPage() {
               songs are understated yet confronting, and are wholly homemade.
             </p>
             <p className='page-body'>
-              Each instrument is recorded and played at home, and every song
-              is mixed, produced and released the same way. The sounds are not
+              Each instrument is recorded and played at home, and every song is
+              mixed, produced and released the same way. The sounds are not
               decorative; every note is placed with intention. It draws you in
               the way an easy & unexpected conversation does - tethering you for
               the moment and folding time so it passes unnoticed.
             </p>
             <p className='page-body'>
               The lyrics lead you to yourself. They surface and linger, like a
-              fragment of your inner monologue, something you forgot along the way,
-              and is still immediately familiar. Existential without theatrics;
-              rebellious, thoughtful. The catalog stands on its own, and
-              there is plenty to explore.
+              fragment of your inner monologue, something you forgot along the
+              way, and is still immediately familiar. Existential without
+              theatrics; rebellious, thoughtful. The catalog stands on its own,
+              and there is plenty to explore.
             </p>
           </div>
         </div>
