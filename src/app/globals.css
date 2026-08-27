@@ -13,14 +13,14 @@
   --paper: #f8f3e7;
   --ink: #272320;
   --soft-ink: #36302a;
-  --powder-deep: #52799a;
+  --powder-deep: #4d7190;
   --powder-bright: #a9c8de;
-  --blush-deep: #b4736c;
+  --blush-deep: #a05952;
   --blush-bright: #e0aca5;
-  --butter-deep: #ab853d;
+  --butter-deep: #876930;
   --butter-bright: #e4c377;
   /* muted text light */
-  --stone: #7d7466;
+  --stone: #756c5f;
   /* muted text dark */
   --stone-soft: #b3a897;
 
@@ -39,6 +39,11 @@
   --card-edge: rgba(39, 35, 32, 0.14);
   --card-rule: rgba(39, 35, 32, 0.16);
   --card-hover: rgba(39, 35, 32, 0.05);
+
+  /* lets native controls (checkboxes, range thumbs, scrollbars, date
+     pickers) render in the matching browser theme instead of staying
+     light-styled regardless of our own theme */
+  color-scheme: light;
 
   /*
   ── border effect: elevation --
@@ -65,6 +70,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
+    color-scheme: dark;
     --background: var(--ink);
     --foreground: var(--paper);
     --accent: var(--powder-bright);
@@ -79,6 +85,7 @@
 }
 
 :root.light {
+  color-scheme: light;
   --background: var(--paper);
   --foreground: var(--soft-ink);
   --accent: var(--powder-deep);
@@ -93,6 +100,7 @@
 
 :root.dark,
 .dark {
+  color-scheme: dark;
   --background: var(--ink);
   --foreground: var(--paper);
   --accent: var(--powder-bright);
@@ -194,7 +202,11 @@ body {
   align-items: stretch;
 }
 
-button:not([class*="cl-"]) {
+/* :where() keeps this reset's specificity at zero, so any component's own
+   single-class button/link styles (.ctrl-btn, .theme-toggle, etc.) always
+   win over it regardless of stylesheet order — a bare `button:not(...)`
+   selector outranks a plain class and was silently overriding them. */
+:where(button:not([class*="cl-"])) {
   appearance: none;
   background: none;
   color: var(--accent);
@@ -205,16 +217,16 @@ button:not([class*="cl-"]) {
   transition: opacity 0.2s;
 }
 
-button:not([class*="cl-"]):hover {
+:where(button:not([class*="cl-"]):hover) {
   opacity: 0.7;
 }
 
-a:not([class*="cl-"]) {
+:where(a:not([class*="cl-"])) {
   color: var(--accent);
   text-decoration: none;
   transition: opacity 0.2s;
 }
 
-a:not([class*="cl-"]):hover {
+:where(a:not([class*="cl-"]):hover) {
   opacity: 0.7;
 }

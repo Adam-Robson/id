@@ -6,6 +6,7 @@ export default function PhosphorIcon({
   className,
   size,
   weight,
+  ...aria
 }: IconProps) {
   const ctx = useIconContext();
   const classString = [ctx.className, className].filter(Boolean).join(' ');
@@ -15,6 +16,7 @@ export default function PhosphorIcon({
       size={size ?? ctx.size}
       weight={weight ?? ctx.weight}
       className={classString}
+      {...aria}
     />
   );
 }

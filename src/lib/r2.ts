@@ -48,7 +48,7 @@ export async function saveContact(
   return submission;
 }
 
-export interface AudioObject {
+interface AudioObject {
   key: string;
   lastModified?: Date;
 }

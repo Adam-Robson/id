@@ -62,7 +62,7 @@
     display: block;
     flex-shrink: 0;
     /* ~cap height of the word, so it sits level with the letters */
-    height: 11vw;
+    height: 22vw;
     aspect-ratio: 595 / 842;
     margin-left: 2vw;
     background-image: url("/images/bricks1.svg");
@@ -81,7 +81,7 @@
   }
 
   .bg-word-brick {
-    height: 9vw;
+    height: 18vw;
   }
 }
 
@@ -92,6 +92,6 @@
   }
 
   .bg-word-brick {
-    height: 7.5vw;
+    height: 15vw;
   }
 }

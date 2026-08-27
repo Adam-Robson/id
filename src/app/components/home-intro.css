@@ -13,8 +13,7 @@
 
 /* Centers the copy in the full height of .home-intro — sitting over the
    big background wordmark instead of pinned under the header. Nudged up
-   ~50px from dead-center per design tweak. The discography aside below is
-   taken out of flow, so it never affects this centering. */
+   ~50px from dead-center per design tweak. */
 .home-intro-copy {
   flex: 1;
   display: flex;
@@ -23,145 +22,41 @@
   transform: translateY(-50px);
 }
 
-.home-intro-lede {
-  margin: 0;
-  max-width: 58ch;
-  font-size: 1.05rem;
-  font-weight: 300;
-  line-height: 1.8;
-  color: var(--foreground);
-}
-
-.home-intro-heading {
-  font-family: var(--font-display);
-  font-size: 0.78rem;
+/* Tracked-out uppercase eyebrow, matching the monospace treatment used for
+   album years below — gives the copy a masthead-style entry point. */
+.home-intro-kicker {
+  margin: 0 0 1rem;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0;
 }
 
-/* Taken out of flow entirely and pinned to the bottom of .home-intro, so
-   opening/closing the disclosure below never resizes .home-intro-copy or
-   shifts anything else on the page — it just grows in place. */
-.home-intro-discography {
-  position: absolute;
-  left: 1.5rem;
-  right: 1.5rem;
-  bottom: 10rem;
-}
-
-/* The disclosure control that reveals the album grid. Native <details>/
-   <summary> so it works without JS and gets keyboard/screen-reader
-   semantics for free — no client component needed just to toggle.
-   Laid out in reverse visual order so the summary stays anchored to the
-   bottom edge (the fixed point) and the album grid unfolds upward above
-   it, instead of the summary itself jumping when the grid appears. */
-.home-intro-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin: 0;
-}
-
-.home-intro-summary {
-  order: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  cursor: pointer;
-  list-style: none;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px dashed var(--card-rule);
-  /* opaque backing so the grid, unfolding upward from behind, doesn't
-     visually collide with the summary label */
-  background: var(--background);
-}
-
-.home-intro-summary::-webkit-details-marker {
-  display: none;
-}
-
-.home-intro-summary:hover .home-intro-heading,
-.home-intro-summary:focus-visible .home-intro-heading {
-  color: var(--foreground);
-}
-
-.home-intro-summary-icon {
-  flex-shrink: 0;
-  color: var(--muted);
-  transition: transform 0.2s ease;
-}
-
-.home-intro-details[open] .home-intro-summary-icon {
-  transform: rotate(180deg);
-}
-
-.home-intro-albums {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1.5rem 1.25rem;
-  /* Unfolds upward from an absolutely positioned, bottom-anchored box, so
-     nothing constrains its growth the way normal document flow would —
-     cap it and let it scroll internally instead of running off-screen. */
-  max-height: 50dvh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.home-intro-album-link {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  color: var(--foreground);
-}
-
-.home-intro-album-link:hover {
-  opacity: 1;
-}
-
-.home-intro-album-cover {
-  position: relative;
-  display: block;
-  aspect-ratio: 1;
-  margin-bottom: 0.6rem;
-  border: 1px solid var(--card-edge);
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--card);
-}
-
-.home-intro-album-img {
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.home-intro-album-link:hover .home-intro-album-img {
-  transform: scale(1.04);
-}
-
-.home-intro-album-title {
+/* Oversized display-serif opening line — echoes the giant blurred wordmark
+   behind it instead of competing with a flat paragraph. */
+.home-intro-lede-display {
+  margin: 0 0 1.25rem;
+  max-width: 14ch;
   font-family: var(--font-display);
-  font-size: 1rem;
   font-weight: 500;
-  line-height: 1.3;
-  overflow-wrap: anywhere;
-  transition: color 0.2s;
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
 }
 
-.home-intro-album-link:hover .home-intro-album-title {
+.home-intro-mark {
   color: var(--accent);
 }
 
-.home-intro-album-year {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
+.home-intro-lede {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.8;
   color: var(--muted);
 }
 
@@ -170,18 +65,15 @@
     padding: 2rem 1rem 9rem;
   }
 
+  .home-intro-kicker {
+    font-size: 0.68rem;
+  }
+
+  .home-intro-lede-display {
+    max-width: 12ch;
+  }
+
   .home-intro-lede {
     font-size: 1rem;
-  }
-
-  .home-intro-discography {
-    left: 1rem;
-    right: 1rem;
-    bottom: 9rem;
-  }
-
-  .home-intro-albums {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 1.25rem 1rem;
   }
 }

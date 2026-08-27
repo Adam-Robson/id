@@ -1,5 +1,6 @@
 'use client';
 import { DownloadSimpleIcon } from '@phosphor-icons/react';
+import PhosphorIcon from '@/app/components/phosphor-icon';
 import { useAudio } from '@/contexts/audio-provider';
 import type { AccessLevel } from '@/types/access-level';
 import type { SongMeta } from '@/types/song-meta';
@@ -69,9 +70,9 @@ export default function TrackList({
                 href={`/api/download?key=${encodeURIComponent(song.key)}`}
                 aria-label={`Download ${song.title}`}
               >
-                <DownloadSimpleIcon
+                <PhosphorIcon
+                  as={DownloadSimpleIcon}
                   size={16}
-                  weight='regular'
                   aria-hidden='true'
                 />
               </a>

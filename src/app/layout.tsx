@@ -13,7 +13,7 @@ import GlobalProvider from '@/contexts/global-provider';
 import { getAccessLevel } from '@/lib/auth';
 import { clerkAppearance } from '@/lib/clerk-appearance';
 import { SITE_URL } from '@/lib/site';
-import type { Theme } from '@/types/theme';
+import { parseTheme, THEME_COOKIE_NAME } from '@/lib/theme-cookie';
 
 export const viewport: Viewport = {
   themeColor: '#272320',
@@ -124,7 +124,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const theme = (cookieStore.get('theme')?.value ?? 'system') as Theme;
+  const theme = parseTheme(cookieStore.get(THEME_COOKIE_NAME)?.value);
   const accessLevel = await getAccessLevel();
 
   return (
@@ -141,7 +141,7 @@ export default async function RootLayout({
       </head>
       <body className={`antialiased ${barlow.variable} ${fraunces.variable}`}>
         <ClerkProvider appearance={clerkAppearance} ui={ui}>
-          <GlobalProvider>
+          <GlobalProvider theme={theme}>
             {children}
             {/* Every page gets a way in. Resolved on the server so the bar
                 never flashes in after hydration; the component itself opts
