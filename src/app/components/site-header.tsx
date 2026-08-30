@@ -1,8 +1,8 @@
-import { Show, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Navigation from '@/app/components/navigation';
 import '@/app/components/site-header.css';
 import ThemeToggle from '@/app/components/theme-toggle';
+import UserMenu from '@/app/components/user-menu';
 
 type Props = {
   variant: 'home' | 'interior';
@@ -25,9 +25,7 @@ export default function SiteHeader({ variant }: Props) {
       )}
       <ThemeToggle />
       <div className='site-header-actions'>
-        <Show when='signed-in'>
-          <UserButton />
-        </Show>
+        <UserMenu />
       </div>
     </header>
   );

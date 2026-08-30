@@ -1,5 +1,4 @@
 import { ClerkProvider } from '@clerk/nextjs';
-import { ui } from '@clerk/ui';
 import { Analytics } from '@vercel/analytics/next';
 import { Barlow, Fraunces } from 'next/font/google';
 
@@ -11,7 +10,6 @@ import { sharedOgImage } from '@/app/components/shared-metadata';
 import SignInPrompt from '@/app/components/sign-in-prompt';
 import GlobalProvider from '@/contexts/global-provider';
 import { getAccessLevel } from '@/lib/auth';
-import { clerkAppearance } from '@/lib/clerk-appearance';
 import { SITE_URL } from '@/lib/site';
 import { parseTheme, THEME_COOKIE_NAME } from '@/lib/theme-cookie';
 
@@ -140,7 +138,7 @@ export default async function RootLayout({
         <JsonLd />
       </head>
       <body className={`antialiased ${barlow.variable} ${fraunces.variable}`}>
-        <ClerkProvider appearance={clerkAppearance} ui={ui}>
+        <ClerkProvider>
           <GlobalProvider theme={theme}>
             {children}
             {/* Every page gets a way in. Resolved on the server so the bar

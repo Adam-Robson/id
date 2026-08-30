@@ -1,6 +1,6 @@
-import { SignIn } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { sharedOgImage } from '@/app/components/shared-metadata';
+import SignInForm from '@/app/components/sign-in-form';
 import SiteHeader from '@/app/components/site-header';
 import '@/app/components/interior-pages.css';
 
@@ -20,7 +20,8 @@ export default function SignInPage() {
     <div className='page-wrapper page-wrapper--interior'>
       <SiteHeader variant='interior' />
       <main className='interior-main' style={{ alignItems: 'center' }}>
-        <SignIn />
+        <p className='page-eyebrow'>Sign In</p>
+        <SignInForm />
       </main>
     </div>
   );

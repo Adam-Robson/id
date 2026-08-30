@@ -9,7 +9,7 @@ import '@/app/components/sign-in-prompt.css';
  *
  * It hides itself on the auth routes: the sign-in form is already on screen
  * there, and a bar urging you to sign in would duplicate it and sit on top of
- * the Clerk card.
+ * it.
  */
 export default function SignInPrompt() {
   const pathname = usePathname();
