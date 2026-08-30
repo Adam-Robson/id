@@ -19,7 +19,7 @@ export default function SignInPage() {
   return (
     <div className='page-wrapper page-wrapper--interior'>
       <SiteHeader variant='interior' />
-      <main className='interior-main' style={{ alignItems: 'center' }}>
+      <main className='interior-main'>
         <p className='page-eyebrow'>Sign In</p>
         <SignInForm />
       </main>

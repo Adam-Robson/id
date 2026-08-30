@@ -1,6 +1,11 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getAccessLevel } from '@/lib/auth';
 import { getStreamUrl } from '@/lib/r2';
+import { clientKey, rateLimit } from '@/lib/rate-limit';
+
+/** Generous for a listener (one request per track switch), tight for a bot. */
+const LIMIT = 60;
+const WINDOW_MS = 60 * 1000;
 
 /**
  * Resolves a track to a freshly signed R2 URL and redirects to it.
@@ -15,6 +20,20 @@ import { getStreamUrl } from '@/lib/r2';
  * re-issued by the browser against the redirect target, so seeking works.
  */
 export async function GET(req: NextRequest) {
+  // Checked before the access lookup on purpose: every access check is a
+  // Clerk Backend API call, and that quota is shared by the whole site —
+  // an unthrottled client here could starve auth everywhere else.
+  const limit = rateLimit(`stream:${clientKey(req.headers)}`, {
+    limit: LIMIT,
+    windowMs: WINDOW_MS,
+  });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } },
+    );
+  }
+
   const accessLevel = await getAccessLevel();
   if (accessLevel === 'guest') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

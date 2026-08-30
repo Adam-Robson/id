@@ -121,7 +121,14 @@ async function signObject(
 ): Promise<string | null> {
   if (!isAudioKey(key)) return null;
 
-  const filename = key.slice(key.lastIndexOf('/') + 1);
+  // The filename is echoed back by R2 as a Content-Disposition header, and
+  // `isAudioKey` only vets the extension — so strip anything that could
+  // break out of the quoted-string or smuggle header bytes. Affects only
+  // the suggested save-as name, never which object is served.
+  const filename = key
+    .slice(key.lastIndexOf('/') + 1)
+    // biome-ignore lint/suspicious/noControlCharactersInRegex: stripping CR/LF and control bytes is the point
+    .replace(/["\\\u0000-\u001f\u007f]/g, '_');
   return getSignedUrl(
     r2,
     new GetObjectCommand({
@@ -140,7 +147,7 @@ export function getStreamUrl(key: string): Promise<string | null> {
   return signObject(key, { attachment: false });
 }
 
-/** Download URL for an admin, served as a file attachment. */
+/** Download URL for a member, served as a file attachment. */
 export function getDownloadUrl(key: string): Promise<string | null> {
   return signObject(key, { attachment: true });
 }

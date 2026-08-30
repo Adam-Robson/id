@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { resetRateLimits } from '@/lib/rate-limit';
 import type { AccessLevel } from '@/types/access-level';
 
 const getAccessLevel = vi.hoisted(() => vi.fn());
@@ -23,6 +24,7 @@ describe('GET /api/stream', () => {
     getAccessLevel.mockReset();
     getStreamUrl.mockReset();
     getStreamUrl.mockResolvedValue(SIGNED);
+    resetRateLimits();
   });
 
   it('refuses a signed-out visitor', async () => {
@@ -76,5 +78,15 @@ describe('GET /api/stream', () => {
     const res = await GET(request());
     expect(res.status).toBe(500);
     expect(JSON.stringify(await res.json())).not.toContain('credentials');
+  });
+
+  it('throttles before it spends an access check', async () => {
+    as('member');
+    let last: Response | undefined;
+    for (let i = 0; i < 61; i++) last = await GET(request());
+    expect(last?.status).toBe(429);
+    expect(last?.headers.get('retry-after')).toMatch(/^\d+$/);
+    // 60 allowed lookups, not 61 — the throttled request never reached auth.
+    expect(getAccessLevel).toHaveBeenCalledTimes(60);
   });
 });

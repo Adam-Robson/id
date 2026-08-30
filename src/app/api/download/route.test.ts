@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { resetRateLimits } from '@/lib/rate-limit';
 import type { AccessLevel } from '@/types/access-level';
 
 const getAccessLevel = vi.hoisted(() => vi.fn());
@@ -23,6 +24,7 @@ describe('GET /api/download', () => {
     getAccessLevel.mockReset();
     getDownloadUrl.mockReset();
     getDownloadUrl.mockResolvedValue(SIGNED);
+    resetRateLimits();
   });
 
   it('refuses a signed-out visitor', async () => {
@@ -30,49 +32,55 @@ describe('GET /api/download', () => {
     expect((await GET(request())).status).toBe(403);
   });
 
-  it('refuses a member — downloads are admin-only', async () => {
-    as('member');
-    expect((await GET(request())).status).toBe(403);
-  });
-
-  it('never signs anything below admin', async () => {
-    for (const level of ['guest', 'member'] as AccessLevel[]) {
-      as(level);
-      await GET(request());
-    }
+  it('never signs anything for a signed-out visitor', async () => {
+    as('guest');
+    await GET(request());
     expect(getDownloadUrl).not.toHaveBeenCalled();
   });
 
-  it('redirects an admin to the signed URL', async () => {
-    as('admin');
-    const res = await GET(request());
-    expect(res.status).toBe(302);
-    expect(res.headers.get('location')).toBe(SIGNED);
-  });
+  it.each(['member', 'admin'] as AccessLevel[])(
+    'redirects a %s to the signed URL',
+    async (level) => {
+      as(level);
+      const res = await GET(request());
+      expect(res.status).toBe(302);
+      expect(res.headers.get('location')).toBe(SIGNED);
+    },
+  );
 
   it('keeps the signed redirect out of shared caches', async () => {
-    as('admin');
+    as('member');
     const res = await GET(request());
     expect(res.headers.get('cache-control')).toContain('no-store');
   });
 
   it('rejects a request with no key', async () => {
-    as('admin');
+    as('member');
     expect((await GET(request(''))).status).toBe(400);
   });
 
   it('404s when the key is refused by the signer', async () => {
-    as('admin');
+    as('member');
     getDownloadUrl.mockResolvedValue(null);
     const res = await GET(request('?key=contacts%2Fleak.json'));
     expect(res.status).toBe(404);
   });
 
   it('does not leak internals when signing throws', async () => {
-    as('admin');
+    as('member');
     getDownloadUrl.mockRejectedValue(new Error('R2 credentials rejected'));
     const res = await GET(request());
     expect(res.status).toBe(500);
     expect(JSON.stringify(await res.json())).not.toContain('credentials');
+  });
+
+  it('throttles before it spends an access check', async () => {
+    as('member');
+    let last: Response | undefined;
+    for (let i = 0; i < 21; i++) last = await GET(request());
+    expect(last?.status).toBe(429);
+    expect(last?.headers.get('retry-after')).toMatch(/^\d+$/);
+    // 20 allowed lookups, not 21 — the throttled request never reached auth.
+    expect(getAccessLevel).toHaveBeenCalledTimes(20);
   });
 });
