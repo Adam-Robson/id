@@ -204,9 +204,9 @@ body {
 
 /* :where() keeps this reset's specificity at zero, so any component's own
    single-class button/link styles (.ctrl-btn, .theme-toggle, etc.) always
-   win over it regardless of stylesheet order — a bare `button:not(...)`
-   selector outranks a plain class and was silently overriding them. */
-:where(button:not([class*="cl-"])) {
+   win over it regardless of stylesheet order — a bare `button` selector
+   outranks a plain class and was silently overriding them. */
+:where(button) {
   appearance: none;
   background: none;
   color: var(--accent);
@@ -217,16 +217,16 @@ body {
   transition: opacity 0.2s;
 }
 
-:where(button:not([class*="cl-"]):hover) {
+:where(button:hover) {
   opacity: 0.7;
 }
 
-:where(a:not([class*="cl-"])) {
+:where(a) {
   color: var(--accent);
   text-decoration: none;
   transition: opacity 0.2s;
 }
 
-:where(a:not([class*="cl-"]):hover) {
+:where(a:hover) {
   opacity: 0.7;
 }
