@@ -10,6 +10,7 @@ export default function SignUpForm() {
   const router = useRouter();
   const [step, setStep] = useState<'details' | 'verify'>('details');
   const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
   const isSubmitting = fetchStatus === 'fetching';
 
   async function handleDetailsSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -34,9 +35,6 @@ export default function SignUpForm() {
   async function handleVerifySubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const form = e.currentTarget;
-    const code = (form.elements.namedItem('code') as HTMLInputElement).value;
-
     const { error } = await signUp.verifications.verifyEmailCode({ code });
     if (error) return;
 
@@ -48,7 +46,12 @@ export default function SignUpForm() {
 
   if (step === 'verify') {
     return (
-      <form className='auth-form' onSubmit={handleVerifySubmit} noValidate>
+      <form
+        className='auth-form'
+        onSubmit={handleVerifySubmit}
+        autoComplete='off'
+        noValidate
+      >
         <p className='auth-hint'>Enter the code we sent to {email}.</p>
 
         <div className='auth-field'>
@@ -62,8 +65,21 @@ export default function SignUpForm() {
             type='text'
             inputMode='numeric'
             autoComplete='one-time-code'
+            // Password managers (browser extensions especially) sometimes
+            // offer to fill their stored password into the next text input
+            // after a real password field, ignoring `autoComplete`. These
+            // are the vendor-documented opt-outs.
+            data-1p-ignore='true'
+            data-lpignore='true'
+            data-bwignore='true'
+            data-form-type='other'
             required
             disabled={isSubmitting}
+            value={code}
+            // Belt-and-suspenders: a code is digits only, so anything else
+            // that lands here (an auto-filled password, a pasted string)
+            // gets stripped rather than silently sitting in the field.
+            onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
           />
           {errors.fields.code && (
             <p className='auth-feedback auth-feedback--error'>
@@ -126,6 +142,16 @@ export default function SignUpForm() {
           </p>
         )}
       </div>
+
+      {/* Clerk mounts its bot-protection widget here when the instance has
+          CAPTCHA enabled. Custom flows must provide this node themselves —
+          without it the widget can't render and sign-ups fail invisibly. */}
+      <div id='clerk-captcha' />
+      {errors.fields.captcha && (
+        <p className='auth-feedback auth-feedback--error'>
+          {errors.fields.captcha.message}
+        </p>
+      )}
 
       {errors.global?.map((err) => (
         <p key={err.code} className='auth-feedback auth-feedback--error'>

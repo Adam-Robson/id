@@ -32,13 +32,6 @@
   color: var(--accent);
 }
 
-/* ── brick element at the end of the word ── inherits the container's
-   faint opacity + blur so it reads as part of the wordmark.
-   Hidden on mobile (vertical, repeated words). */
-.bg-word-brick {
-  display: none;
-}
-
 /* Medium+: single word, horizontal, centered */
 @media (min-width: 640px) {
   .bg-word--extra {
@@ -51,47 +44,24 @@
 
   .bg-word {
     writing-mode: horizontal-tb;
-    /* horizontal "LE FOG" + brick must fit one line — smaller than the
+    /* horizontal "LE FOG" must fit one line — smaller than the
        25vw vertical mobile size */
     font-size: 16vw;
     letter-spacing: 0.4em;
-    padding-left: 0.4em;
   }
 
-  .bg-word-brick {
-    display: block;
-    flex-shrink: 0;
-    /* ~cap height of the word, so it sits level with the letters */
-    height: 22vw;
-    aspect-ratio: 595 / 842;
-    margin-left: 2vw;
-    background-image: url("/images/bricks1.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-  }
-}
-
-/* Desktop: step the word down further so it stays on-screen, add spacing */
-@media (min-width: 1024px) {
-  .bg-word {
-    font-size: 13vw;
-    letter-spacing: 0.6em;
-    padding-left: 0.6em;
+  /* Desktop: step the word down further so it stays on-screen, add spacing */
+  @media (min-width: 1024px) {
+    .bg-word {
+      font-size: 13vw;
+      letter-spacing: 0.6em;
+    }
   }
 
-  .bg-word-brick {
-    height: 18vw;
-  }
-}
-
-/* Large screens: cap the growth so it never runs off the page */
-@media (min-width: 1536px) {
-  .bg-word {
-    font-size: 11vw;
-  }
-
-  .bg-word-brick {
-    height: 15vw;
+  /* Large screens: cap the growth so it never runs off the page */
+  @media (min-width: 1536px) {
+    .bg-word {
+      font-size: 11vw;
+    }
   }
 }

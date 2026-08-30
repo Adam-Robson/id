@@ -24,7 +24,7 @@ export default function TrackList({
   accessLevel: AccessLevel;
 }) {
   const canPlay = accessLevel !== 'guest';
-  const canDownload = accessLevel === 'admin';
+  const canDownload = accessLevel !== 'guest';
   const { current, isPlaying, playAt } = useAudio();
   const currentSong: SongMeta | undefined = catalog[current];
 

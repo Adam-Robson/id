@@ -138,7 +138,12 @@ export default async function RootLayout({
         <JsonLd />
       </head>
       <body className={`antialiased ${barlow.variable} ${fraunces.variable}`}>
-        <ClerkProvider>
+        {/* `dynamic` lets Clerk read the CSP nonce from the middleware's
+            header and stamp it onto its script tags; without it the
+            strict-dynamic policy refuses the SSR-inserted hotload scripts.
+            Every page is already request-rendered (cookies + currentUser),
+            so this changes no rendering behavior. */}
+        <ClerkProvider dynamic>
           <GlobalProvider theme={theme}>
             {children}
             {/* Every page gets a way in. Resolved on the server so the bar

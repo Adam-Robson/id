@@ -10,7 +10,7 @@ export default function HomeIntro() {
       <div className='home-intro-copy'>
         <p className='home-intro-kicker'>est. MMXX</p>
         <p className='home-intro-lede-display'>
-          <span className='home-intro-mark'>LE FOG</span> makes music.
+          <span className='home-intro-mark'>LE FOG</span> music
         </p>
         <p className='home-intro-lede'>
           Adam Robson is a home-recording artist living in the Pacific

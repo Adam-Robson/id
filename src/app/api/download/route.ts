@@ -1,10 +1,28 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getAccessLevel } from '@/lib/auth';
 import { getDownloadUrl } from '@/lib/r2';
+import { clientKey, rateLimit } from '@/lib/rate-limit';
+
+/** A person saves a handful of tracks; a scraper asks for the catalog. */
+const LIMIT = 20;
+const WINDOW_MS = 60 * 1000;
 
 export async function GET(req: NextRequest) {
+  // Checked before the access lookup on purpose: every access check is a
+  // Clerk Backend API call, and that quota is shared by the whole site.
+  const limit = rateLimit(`download:${clientKey(req.headers)}`, {
+    limit: LIMIT,
+    windowMs: WINDOW_MS,
+  });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } },
+    );
+  }
+
   const accessLevel = await getAccessLevel();
-  if (accessLevel !== 'admin') {
+  if (accessLevel === 'guest') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
