@@ -13,14 +13,14 @@
   --paper: #f8f3e7;
   --ink: #272320;
   --soft-ink: #36302a;
-  --powder-deep: #52799a;
+  --powder-deep: #4d7190;
   --powder-bright: #a9c8de;
-  --blush-deep: #b4736c;
+  --blush-deep: #a05952;
   --blush-bright: #e0aca5;
-  --butter-deep: #ab853d;
+  --butter-deep: #876930;
   --butter-bright: #e4c377;
   /* muted text light */
-  --stone: #7d7466;
+  --stone: #756c5f;
   /* muted text dark */
   --stone-soft: #b3a897;
 
@@ -40,7 +40,16 @@
   --card-rule: rgba(39, 35, 32, 0.16);
   --card-hover: rgba(39, 35, 32, 0.05);
 
-  /* ── border effect: elevation -- halo (for light); lit top edge (for dark) */
+  /* lets native controls (checkboxes, range thumbs, scrollbars, date
+     pickers) render in the matching browser theme instead of staying
+     light-styled regardless of our own theme */
+  color-scheme: light;
+
+  /*
+  ── border effect: elevation --
+  halo on light;
+  lit top edge on dark
+  */
   --player-elevation:
     0 -3px 24px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -53,12 +62,15 @@
 }
 
 :root {
-  /* -- display face for headings & wordmark -- */
+  /*
+  -- display face for headings & wordmark --
+  */
   --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
+    color-scheme: dark;
     --background: var(--ink);
     --foreground: var(--paper);
     --accent: var(--powder-bright);
@@ -73,6 +85,7 @@
 }
 
 :root.light {
+  color-scheme: light;
   --background: var(--paper);
   --foreground: var(--soft-ink);
   --accent: var(--powder-deep);
@@ -87,6 +100,7 @@
 
 :root.dark,
 .dark {
+  color-scheme: dark;
   --background: var(--ink);
   --foreground: var(--paper);
   --accent: var(--powder-bright);
@@ -107,9 +121,9 @@ html {
 body {
   color: var(--foreground);
   font-family: var(--font-sans), serif;
-  font-weight: 400;
+  font-weight: 300;
   display: flex;
-  flex-direction: column;
+  flex-direction: column ;
   margin: 0;
   padding: 0;
   min-height: 100dvh;
@@ -126,19 +140,18 @@ body {
   flex-direction: column;
 }
 
-
 .site-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  padding: 1rem;
 }
 
-@media (max-width: 480px) {
+@media (min-width: 641px) {
   .site-header {
-    padding: 1rem 1rem;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
   }
 }
 
@@ -158,7 +171,6 @@ body {
   height: 52px;
 }
 
-/* the stamp art is near-black — flip it to cream on dark surfaces */
 .dark .brand-stamp img {
   filter: invert(0.92);
 }
@@ -190,13 +202,11 @@ body {
   align-items: stretch;
 }
 
-@media (max-width: 480px) {
-  .home-main {
-    padding-bottom: 5rem;
-  }
-}
-
-button {
+/* :where() keeps this reset's specificity at zero, so any component's own
+   single-class button/link styles (.ctrl-btn, .theme-toggle, etc.) always
+   win over it regardless of stylesheet order — a bare `button:not(...)`
+   selector outranks a plain class and was silently overriding them. */
+:where(button:not([class*="cl-"])) {
   appearance: none;
   background: none;
   color: var(--accent);
@@ -207,16 +217,16 @@ button {
   transition: opacity 0.2s;
 }
 
-button:hover {
+:where(button:not([class*="cl-"]):hover) {
   opacity: 0.7;
 }
 
-a {
+:where(a:not([class*="cl-"])) {
   color: var(--accent);
   text-decoration: none;
   transition: opacity 0.2s;
 }
 
-a:hover {
+:where(a:not([class*="cl-"]):hover) {
   opacity: 0.7;
 }

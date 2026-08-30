@@ -1,14 +1,17 @@
+/* Mobile first: the nav takes its own full-width line beneath the brand.
+   `order` pushes it below the auth cluster, which shares the line above. */
 .site-nav {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  order: 10;
+  width: 100%;
 }
 
-@media (max-width: 480px) {
+@media (min-width: 641px) {
   .site-nav {
-    width: 100%;
-    flex-direction: column;
-    gap: 0.5rem;
+    order: 0;
+    width: auto;
   }
 }
 
@@ -32,12 +35,13 @@
   gap: 0.5rem;
 }
 
-@media (max-width: 480px) {
-  .nav-list,
-  .nav-li {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+/* the outer links sit flush with the header's padding, not indented by it */
+.nav-li:first-child .nav-link {
+  padding-left: 0;
+}
+
+.nav-li:last-child .nav-link {
+  padding-right: 0;
 }
 
 .nav-link {
@@ -73,6 +77,22 @@
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+/* touch devices have no real hover state — show the icon plainly */
+@media (hover: none) {
+  .nav-link svg {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+/* comfortable tap targets on touch input */
+@media (pointer: coarse) {
+  .nav-link {
+    min-height: 44px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

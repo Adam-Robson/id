@@ -7,20 +7,24 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
+    "lint:ci": "biome ci .",
     "format": "biome format --write",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1038.0",
-    "@aws-sdk/s3-request-presigner": "3.1030.0",
+    "@aws-sdk/s3-request-presigner": "3.1111.0",
     "@clerk/nextjs": "7.6.2",
-    "@clerk/ui": "1.27.1",
+    "@clerk/ui": "1.30.3",
     "@phosphor-icons/react": "2.1.10",
     "@vercel/analytics": "2.0.1",
     "next": "16.2.12",
     "react": "19.2.8",
     "react-dom": "19.2.8"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "overrides": {
     "postcss": "8.5.24",
@@ -28,7 +32,7 @@
     "uuid": "14.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.15",
+    "@biomejs/biome": "2.5.8",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",

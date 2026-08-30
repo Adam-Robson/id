@@ -1,6 +1,6 @@
-import type { ElementType } from "react";
+import type { AriaAttributes, ElementType } from 'react';
 
-export type IconProps = {
+export type IconProps = AriaAttributes & {
   as: ElementType;
   className?: string;
   size?: number;

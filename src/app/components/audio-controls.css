@@ -17,6 +17,16 @@
   .audio-controls {
     padding: 0.85rem 1rem 0.75rem;
   }
+
+  .controls {
+    gap: 0.5rem;
+  }
+
+  /* the seek bar already communicates position — drop the readout so the
+     title and the transport buttons get the width instead */
+  .song-duration {
+    display: none;
+  }
 }
 
 @media (max-width: 360px) {
@@ -26,10 +36,6 @@
 
   .controls {
     gap: 0.4rem;
-  }
-
-  .song-duration {
-    display: none;
   }
 }
 
@@ -144,5 +150,22 @@
 
 .toggle-list:hover {
   color: var(--accent);
+}
+
+/* Touch input: the transport is the primary interaction on this site, so give
+   every control a full-size tap target and a seek bar that can be grabbed
+   without precision. Scoped to coarse pointers so the mouse layout is intact. */
+@media (pointer: coarse) {
+  .ctrl-btn,
+  .toggle-list {
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  .seek {
+    height: 2.75rem;
+    margin-bottom: 0.15rem;
+  }
 }
 
