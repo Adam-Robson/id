@@ -30,7 +30,7 @@ const ALBUM_META: Record<string, AlbumMeta> = {
     catalog: 'LF-005',
     cover: '/images/albums/hifiveyourself.webp',
     year: 2026,
-    order: 5
+    order: 5,
   },
   forbeforeiforget: {
     key: 'forbeforeiforget',
@@ -39,7 +39,7 @@ const ALBUM_META: Record<string, AlbumMeta> = {
     catalog: 'LF-004',
     cover: '/images/albums/forbeforeiforget.webp',
     year: 2024,
-    order: 4
+    order: 4,
   },
   'three.': {
     key: 'three.',
@@ -49,7 +49,7 @@ const ALBUM_META: Record<string, AlbumMeta> = {
     catalog: 'LF-003',
     cover: '/images/albums/three.webp',
     year: 2022,
-    order: 3
+    order: 3,
   },
   seemsreal: {
     key: 'seemsreal',
@@ -58,7 +58,7 @@ const ALBUM_META: Record<string, AlbumMeta> = {
     catalog: 'LF-002',
     cover: '/images/albums/seemsreal.webp',
     year: 2020,
-    order: 2
+    order: 2,
   },
   leftstaticandatease: {
     key: 'leftstaticandatease',
@@ -67,7 +67,7 @@ const ALBUM_META: Record<string, AlbumMeta> = {
     catalog: 'LF-001',
     cover: '/images/albums/leftstaticandatease.webp',
     year: 2020,
-    order: 1
+    order: 1,
   },
 };
 
