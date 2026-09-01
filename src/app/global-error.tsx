@@ -27,8 +27,8 @@ export default function GlobalError({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#f8f3e7',
-          color: '#36302a',
+          background: '#f6f2e9',
+          color: '#3c3730',
           fontFamily: 'system-ui, -apple-system, sans-serif',
           textAlign: 'center',
           padding: '1.5rem',
@@ -38,7 +38,7 @@ export default function GlobalError({
           <h1 style={{ fontSize: '1.5rem', margin: '0 0 0.75rem' }}>
             LE FOG's website is temporarily unavailable.
           </h1>
-          <p style={{ margin: '0 0 1.5rem', color: '#7d7466' }}>
+          <p style={{ margin: '0 0 1.5rem', color: '#736b61' }}>
             Something went wrong loading the site. Please try again.
           </p>
           <button
@@ -48,9 +48,9 @@ export default function GlobalError({
               font: 'inherit',
               padding: '0.55rem 1.4rem',
               borderRadius: '0.5rem',
-              border: '1px solid rgba(39, 35, 32, 0.2)',
+              border: '1px solid rgba(46, 42, 38, 0.2)',
               background: 'transparent',
-              color: '#52799a',
+              color: '#547084',
               cursor: 'pointer',
             }}
           >
