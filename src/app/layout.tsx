@@ -14,7 +14,7 @@ import { SITE_URL } from '@/lib/site';
 import { parseTheme, THEME_COOKIE_NAME } from '@/lib/theme-cookie';
 
 export const viewport: Viewport = {
-  themeColor: '#272320',
+  themeColor: '#2e2a26',
   width: 'device-width',
   initialScale: 1,
 };
