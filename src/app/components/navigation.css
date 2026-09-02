@@ -15,8 +15,12 @@
   }
 }
 
+/* No max-width: the row measures ~427px once the icons claim their space,
+   so capping it at 400px made the content spill past its own box — and
+   `body { overflow-x: hidden }` then clipped whatever sat furthest right,
+   which is the account button. Sized by its content, the header can wrap
+   it onto its own line instead of pushing anything off screen. */
 .nav-list {
-  max-width: 400px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -76,11 +80,11 @@
   vertical-align: middle;
 }
 
-/* reveal icon on hover/focus, and keep it out for the current section */
+/* reveal icon on hover/focus — the current section is marked by colour
+   alone, so nothing sits permanently open or changes the row's width */
 .nav-link:hover svg,
 .nav-link:focus svg,
-.nav-link:focus-within svg,
-.nav-link[aria-current="page"] svg {
+.nav-link:focus-within svg {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
