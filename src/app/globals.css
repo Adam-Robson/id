@@ -10,19 +10,19 @@
 
 :root {
   /* base palette */
-  --paper: #f8f3e7;
-  --ink: #272320;
-  --soft-ink: #36302a;
-  --powder-deep: #4d7190;
-  --powder-bright: #a9c8de;
-  --blush-deep: #a05952;
-  --blush-bright: #e0aca5;
-  --butter-deep: #876930;
-  --butter-bright: #e4c377;
+  --paper: #f6f2e9;
+  --ink: #2e2a26;
+  --soft-ink: #3c3730;
+  --powder-deep: #547084;
+  --powder-bright: #aec4d2;
+  --blush-deep: #91605a;
+  --blush-bright: #ddb5af;
+  --butter-deep: #7d6a42;
+  --butter-bright: #dcc590;
   /* muted text light */
-  --stone: #756c5f;
+  --stone: #736b61;
   /* muted text dark */
-  --stone-soft: #b3a897;
+  --stone-soft: #b6ac9e;
 
   /* -- light default semantic tokens -- */
   --background: var(--paper);
@@ -35,10 +35,10 @@
   --butter: var(--butter-deep);
 
   /* card surface (tape-card, etc.) */
-  --card: #fffdf8;
-  --card-edge: rgba(39, 35, 32, 0.14);
-  --card-rule: rgba(39, 35, 32, 0.16);
-  --card-hover: rgba(39, 35, 32, 0.05);
+  --card: #fcfaf4;
+  --card-edge: rgba(46, 42, 38, 0.14);
+  --card-rule: rgba(46, 42, 38, 0.16);
+  --card-hover: rgba(46, 42, 38, 0.05);
 
   /* lets native controls (checkboxes, range thumbs, scrollbars, date
      pickers) render in the matching browser theme instead of staying
@@ -77,10 +77,10 @@
     --muted: var(--stone-soft);
     --blush: var(--blush-bright);
     --butter: var(--butter-bright);
-    --card: #322d29;
-    --card-edge: rgba(248, 243, 231, 0.14);
-    --card-rule: rgba(248, 243, 231, 0.18);
-    --card-hover: rgba(248, 243, 231, 0.06);
+    --card: #38332d;
+    --card-edge: rgba(246, 242, 233, 0.14);
+    --card-rule: rgba(246, 242, 233, 0.18);
+    --card-hover: rgba(246, 242, 233, 0.06);
   }
 }
 
@@ -92,10 +92,10 @@
   --muted: var(--stone);
   --blush: var(--blush-deep);
   --butter: var(--butter-deep);
-  --card: #fffdf8;
-  --card-edge: rgba(39, 35, 32, 0.14);
-  --card-rule: rgba(39, 35, 32, 0.16);
-  --card-hover: rgba(39, 35, 32, 0.05);
+  --card: #fcfaf4;
+  --card-edge: rgba(46, 42, 38, 0.14);
+  --card-rule: rgba(46, 42, 38, 0.16);
+  --card-hover: rgba(46, 42, 38, 0.05);
 }
 
 :root.dark,
@@ -107,10 +107,10 @@
   --muted: var(--stone-soft);
   --blush: var(--blush-bright);
   --butter: var(--butter-bright);
-  --card: #322d29;
-  --card-edge: rgba(248, 243, 231, 0.14);
-  --card-rule: rgba(248, 243, 231, 0.18);
-  --card-hover: rgba(248, 243, 231, 0.06);
+  --card: #38332d;
+  --card-edge: rgba(246, 242, 233, 0.14);
+  --card-rule: rgba(246, 242, 233, 0.18);
+  --card-hover: rgba(246, 242, 233, 0.06);
 }
 
 html {

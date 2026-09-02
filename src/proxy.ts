@@ -17,16 +17,26 @@ const IS_PRODUCTION_KEY =
 
 export default clerkMiddleware({
   /**
-   * Clerk generates a nonce-based strict-dynamic policy that covers its own
-   * origins; Next.js reads the nonce from the request header and stamps it
-   * onto its inline scripts. `frame-ancestors` here is the modern
+   * Clerk builds the policy and allowlists its own origins; the additions
+   * here cover what this site serves. `frame-ancestors` is the modern
    * anti-clickjacking control (X-Frame-Options in next.config.ts is the
    * legacy fallback).
+   *
+   * `strict` is deliberately off. It adds `strict-dynamic`, which trusts
+   * only nonce-carrying scripts and whatever they load — but React emits
+   * the preinit `<script async>` for a route's `loading.tsx` boundary
+   * without a nonce, so the browser refuses it. That chunk carries the
+   * client router, and refusing it leaves every in-page link dead on the
+   * album routes (verified: nav clicks did nothing on /albums, worked
+   * everywhere else). Revisit if Next/React start nonce-ing preinit
+   * scripts; until then a policy that breaks navigation is worse than one
+   * that stops at origin allowlisting.
    */
   contentSecurityPolicy: {
-    strict: true,
     directives: {
       'frame-ancestors': ["'none'"],
+      // The album shelf paints its grain texture from an inline SVG.
+      'img-src': ["'self'", 'data:', 'https://img.clerk.com'],
     },
   },
   frontendApiProxy: {

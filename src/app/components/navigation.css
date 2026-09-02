@@ -58,6 +58,12 @@
   color: var(--accent);
 }
 
+/* The section you're already in, marked the same way hovering marks a
+   destination — so the nav reads as a place as well as a set of exits. */
+.nav-link[aria-current="page"] {
+  color: var(--accent);
+}
+
 .nav-link svg {
   /* hidden by default */
   opacity: 0;
@@ -70,10 +76,11 @@
   vertical-align: middle;
 }
 
-/* reveal icon on hover/focus */
+/* reveal icon on hover/focus, and keep it out for the current section */
 .nav-link:hover svg,
 .nav-link:focus svg,
-.nav-link:focus-within svg {
+.nav-link:focus-within svg,
+.nav-link[aria-current="page"] svg {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -92,6 +99,25 @@
 @media (pointer: coarse) {
   .nav-link {
     min-height: 44px;
+  }
+}
+
+/* Small screens: the three labels need every pixel of the line they share.
+   At full size they measure ~427px against a ~288px viewport line, which
+   pushed Contact off the right edge — so the icons, which are decoration,
+   give up their space to the words, which are the way out of the page. */
+@media (max-width: 640px) {
+  .nav-list {
+    gap: 0.5rem;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.25rem;
+  }
+
+  .nav-link svg {
+    display: none;
   }
 }
 
