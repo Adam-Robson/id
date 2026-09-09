@@ -45,6 +45,12 @@
      light-styled regardless of our own theme */
   color-scheme: light;
 
+  /* One centring column for the whole page: the wrapper every page sits in,
+     and the width of the bars pinned to the bottom of the viewport. Both are
+     centred on the same axis, so they share a midline. */
+  --content-max: 1210px;
+  --bar-max: 900px;
+
   /*
   ── border effect: elevation --
   halo on light;
@@ -132,7 +138,7 @@ body {
 
 .page-wrapper {
   width: 100%;
-  max-width: 1210px;
+  max-width: var(--content-max);
   margin: 0 auto;
   position: relative;
   min-height: 100dvh;
@@ -140,9 +146,15 @@ body {
   flex-direction: column;
 }
 
+/* The row is one centred cluster, not a left edge and a right edge. Its
+   last item is the account button, which renders nothing at all for signed-out
+   visitors — so anything that pinned that item to the right would leave an
+   invisible box holding the right edge and pack every visible control against
+   the left, off the axis the background word and the pinned bar sit on. */
 .site-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   padding: 1rem;

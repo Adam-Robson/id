@@ -2,7 +2,6 @@ import { getAccessLevel } from '@/lib/auth';
 import { listSongs, toPlayable } from '@/lib/r2';
 import AudioPlayer from './components/audio-player';
 import BackgroundWord from './components/background-word';
-import HomeIntro from './components/home-intro';
 import SiteHeader from './components/site-header';
 
 export default async function Home() {
@@ -14,7 +13,6 @@ export default async function Home() {
       <BackgroundWord />
       <SiteHeader variant='home' />
       <main className='home-main'>
-        <HomeIntro />
         {accessLevel !== 'guest' && <AudioPlayer songs={songs} />}
       </main>
     </div>

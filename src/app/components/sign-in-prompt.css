@@ -16,7 +16,7 @@ body:has(.sign-in-prompt) .interior-main {
 }
 
 .sign-in-prompt-inner {
-  max-width: 900px;
+  max-width: var(--bar-max);
   margin: 0 auto;
   display: flex;
   align-items: center;
