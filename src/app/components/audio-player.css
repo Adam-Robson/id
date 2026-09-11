@@ -7,7 +7,7 @@
 }
 
 .audio-player-inner {
-  max-width: 900px;
+  max-width: var(--bar-max);
   margin: 0 auto;
   border-radius: 1rem 1rem 0 0;
   overflow: hidden;

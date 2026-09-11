@@ -1,4 +1,4 @@
-# LE FOG WEBSITE
+# WEBSITE FOR LE FOG
 
 [![CI](https://github.com/Adam-Robson/id/actions/workflows/node.js.yml/badge.svg)](https://github.com/Adam-Robson/id/actions/workflows/node.js.yml)
 

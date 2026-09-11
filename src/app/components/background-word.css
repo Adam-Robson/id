@@ -24,8 +24,18 @@
   /* Mobile: rotated */
   writing-mode: vertical-rl;
   font-size: 25vw;
-  /* Exaggerated tracking, scaled up further at each breakpoint below. */
-  letter-spacing: 0.3em;
+  /* Exaggerated tracking, scaled up further at each breakpoint below.
+     Tracking is added *after* every character, the final G included, so the
+     span's box carries one whole letter-space of emptiness past the last
+     letter. Centring that box parks the glyphs half a letter-space short of
+     the page's centre — around 56px adrift at 1440px wide. Pulling the end
+     margin back by the same amount trims the phantom space so the box ends
+     where the letters do and the word lands on the real centre.
+     `inline-end` follows the text direction: the bottom edge while the word
+     is rotated here, the right edge once it turns horizontal below. */
+  --bg-word-tracking: 0.3em;
+  letter-spacing: var(--bg-word-tracking);
+  margin-inline-end: calc(-1 * var(--bg-word-tracking));
 }
 
 .dark .bg-word {
@@ -47,14 +57,14 @@
     /* horizontal "LE FOG" must fit one line — smaller than the
        25vw vertical mobile size */
     font-size: 16vw;
-    letter-spacing: 0.4em;
+    --bg-word-tracking: 0.4em;
   }
 
   /* Desktop: step the word down further so it stays on-screen, add spacing */
   @media (min-width: 1024px) {
     .bg-word {
       font-size: 13vw;
-      letter-spacing: 0.6em;
+      --bg-word-tracking: 0.6em;
     }
   }
 
