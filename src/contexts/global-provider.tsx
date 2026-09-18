@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import MiniPlayer from '@/app/components/mini-player';
+import AudioPlayer from '@/app/components/audio-player';
 import { AudioProvider } from '@/contexts/audio-provider';
 import { IconProvider } from '@/contexts/icon-provider';
 import { ThemeProvider } from '@/contexts/theme-provider';
@@ -17,7 +17,7 @@ export default function GlobalProvider({
       <IconProvider value={{ size: 24, weight: 'regular', className: 'icon' }}>
         <AudioProvider>
           {children}
-          <MiniPlayer />
+          <AudioPlayer />
         </AudioProvider>
       </IconProvider>
     </ThemeProvider>

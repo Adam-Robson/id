@@ -6,14 +6,9 @@
   z-index: 999;
 }
 
-/* The prompt is fixed, so it sits over the page. Interior pages need clearance
-   or the bar covers their last row — .albums-interior in particular zeroes the
-   shelf's own bottom padding. Matched from <body>, since the prompt renders
-   from the root layout as a sibling of the page wrapper, and scoped with :has()
-   so the space is reserved only when the bar is actually on screen. */
-body:has(.sign-in-prompt) .interior-main {
-  padding-bottom: 9rem;
-}
+/* The prompt is fixed, so it sits over the page — but pages already reserve
+   --bar-clearance for whichever bar is pinned down there, and this one is
+   shorter than the player, so it needs no allowance of its own. */
 
 .sign-in-prompt-inner {
   max-width: var(--bar-max);

@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import AudioPlayer from '@/app/components/audio-player';
+import SongCatalog from '@/app/components/song-catalog';
 import { AudioProvider } from '@/contexts/audio-provider';
 import type { Song } from '@/types/song';
 
@@ -13,7 +14,8 @@ const songs: Song[] = [
 function renderPlayer() {
   return render(
     <AudioProvider>
-      <AudioPlayer songs={songs} />
+      <SongCatalog songs={songs} />
+      <AudioPlayer />
     </AudioProvider>,
   );
 }
@@ -67,10 +69,11 @@ describe('AudioControls', () => {
 });
 
 describe('AudioPlayer', () => {
-  it('renders nothing when no songs are provided', () => {
+  it('renders nothing until a page publishes a catalog', () => {
     const { container } = render(
       <AudioProvider>
-        <AudioPlayer songs={[]} />
+        <SongCatalog songs={[]} />
+        <AudioPlayer />
       </AudioProvider>,
     );
     expect(container.querySelector('.audio-player')).toBeNull();

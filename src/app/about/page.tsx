@@ -1,3 +1,4 @@
+import AboutGallery from '@/app/components/about-gallery';
 import SiteHeader from '@/app/components/site-header';
 import '@/app/about/about.css';
 import '@/app/components/interior-pages.css';
@@ -21,7 +22,7 @@ export default function AboutPage() {
       <main className='interior-main about-interior'>
         <h1 className='page-eyebrow'>About</h1>
         <div className='about-layout'>
-          <div className='about-image' role='img' aria-label='LE FOG artwork' />
+          <AboutGallery />
           <div className='about-text'>
             <p className='page-body'>
               LE FOG makes music that is independent and unpretentious. The

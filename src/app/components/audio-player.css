@@ -26,8 +26,12 @@
 }
 
 .audio-player-list {
+  /* Translucent so the page keeps showing through, blurred so a dense
+     tracklist underneath doesn't compete with the one in the panel — the
+     player opens over every page now, not just the near-empty home screen. */
   background: color-mix(in srgb, var(--background) 75%, transparent);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--card-edge);
   max-height: 0;
   overflow: hidden;
   padding: 0 1.5rem;
@@ -119,6 +123,9 @@
 
 .audio-player-controls {
   background: var(--background);
+  /* The bar sits flush to the bottom edge, so its surface — not just the
+     page's clearance — has to reach past the iOS home indicator. */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 @media (pointer: coarse) {
