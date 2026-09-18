@@ -15,6 +15,27 @@ const IS_PRODUCTION_KEY =
   process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith('pk_live_') ??
   false;
 
+/**
+ * Where the audio actually comes from. `/api/stream` is same-origin, but it
+ * answers with a 302 to a presigned R2 URL, and the browser re-checks the
+ * redirect target against this policy — so the bucket's origin has to be
+ * named or every track is refused before a byte is fetched. Verified: with
+ * only 'self' here the redirect is blocked and R2 is never contacted, and
+ * the violation names the same-origin URL, not the destination.
+ *
+ * One origin, because the S3 client is pinned to path-style addressing (see
+ * forcePathStyle in lib/r2.ts) and therefore signs for this exact host. The
+ * two have to be changed together.
+ */
+const R2_ORIGIN = (() => {
+  if (!process.env.S3_API) return null;
+  try {
+    return new URL(process.env.S3_API).origin;
+  } catch {
+    return null;
+  }
+})();
+
 export default clerkMiddleware({
   /**
    * Clerk builds the policy and allowlists its own origins; the additions
@@ -37,6 +58,8 @@ export default clerkMiddleware({
       'frame-ancestors': ["'none'"],
       // The album shelf paints its grain texture from an inline SVG.
       'img-src': ["'self'", 'data:', 'https://img.clerk.com'],
+      // Playback follows /api/stream's redirect out to the bucket.
+      'media-src': ["'self'", ...(R2_ORIGIN ? [R2_ORIGIN] : [])],
     },
   },
   frontendApiProxy: {
