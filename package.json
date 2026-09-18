@@ -21,7 +21,7 @@
     "@vercel/analytics": "2.0.1",
     "next": "16.3.5",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.3.0"
   },
   "engines": {
     "node": ">=24"
@@ -39,7 +39,7 @@
     "@testing-library/user-event": "14.6.7",
     "@types/node": "^26.5.1",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
+    "@types/react-dom": "^19.3.0",
     "jsdom": "30.0.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
