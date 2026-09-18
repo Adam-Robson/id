@@ -1,19 +1,24 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import AudioControls from '@/app/components/audio-controls';
-import type { Song } from '@/types/song';
 import '@/app/components/audio-player.css';
 import { useAudio } from '@/contexts/audio-provider';
 import { groupByAlbum } from '@/lib/group-by-album';
 
-export default function AudioPlayer({ songs }: { songs: Song[] }) {
+/**
+ * The site's one and only player: a bar pinned to the bottom of the viewport
+ * with the transport, the now-playing readout and a track list that slides up
+ * out of it. Mounted once from the global provider, so playback survives
+ * navigation and every page gets the same controls at every width.
+ *
+ * It reads the catalog from context rather than taking it as a prop — the
+ * page underneath it changes, the player doesn't. Pages that have tracks
+ * publish them with <SongCatalog>.
+ */
+export default function AudioPlayer() {
   const [listOpen, setListOpen] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
-  const { current, playAt, setSongs } = useAudio();
-
-  useEffect(() => {
-    setSongs(songs);
-  }, [songs, setSongs]);
+  const { songs, songsLoaded, current, playAt } = useAudio();
 
   // Close the track list when clicking anywhere outside the player.
   useEffect(() => {
@@ -27,7 +32,7 @@ export default function AudioPlayer({ songs }: { songs: Song[] }) {
     return () => document.removeEventListener('pointerdown', onPointerDown);
   }, [listOpen]);
 
-  if (!songs.length) return null;
+  if (!songsLoaded) return null;
 
   const albums = groupByAlbum(songs);
 

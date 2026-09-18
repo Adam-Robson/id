@@ -1,9 +1,8 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import SongCatalog from '@/app/components/song-catalog';
 import TrackList from '@/app/components/track-list';
-import { useAudio } from '@/contexts/audio-provider';
 import { orderedAlbums } from '@/lib/albums';
 import type { AccessLevel } from '@/types/access-level';
 import type { Song } from '@/types/song';
@@ -18,11 +17,6 @@ export default function AlbumShelf({
   accessLevel: AccessLevel;
 }) {
   const canPlay = accessLevel !== 'guest';
-  const { setSongs } = useAudio();
-
-  useEffect(() => {
-    if (canPlay) setSongs(songs as Song[]);
-  }, [songs, canPlay, setSongs]);
 
   if (!songs.length) return null;
 
@@ -30,6 +24,7 @@ export default function AlbumShelf({
 
   return (
     <div className='album-shelf'>
+      {canPlay && <SongCatalog songs={songs as Song[]} />}
       {albums.map(({ meta, songs: albumSongs }) => (
         <section
           key={meta.key}

@@ -17,6 +17,22 @@ const r2 = new S3Client({
     accessKeyId: process.env.ACCESS_KEY_ID ?? '',
     secretAccessKey: process.env.SECRET_ACCESS_KEY ?? '',
   },
+  /**
+   * Keep signed URLs on the endpoint host — `<endpoint>/<bucket>/<key>` —
+   * instead of the SDK default, which moves the bucket into a subdomain and
+   * signs for `<bucket>.<endpoint>`.
+   *
+   * This is what lets the CSP in proxy.ts allowlist exactly one origin, the
+   * one configured here. Playback follows a redirect out to these URLs, and
+   * CSP host matching is exact with no implicit subdomain wildcard — so
+   * without this the policy has to predict how this client spells a host,
+   * and gets it wrong silently the moment either side changes.
+   *
+   * Not the deprecated path it looks like: AWS retired path-style addressing
+   * for new S3 buckets, but R2 is not S3 and Cloudflare serves both styles.
+   * Verified against the bucket — both answer 206 to a ranged GET.
+   */
+  forcePathStyle: true,
 });
 
 export interface ContactSubmission {

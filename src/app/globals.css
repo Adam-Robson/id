@@ -51,6 +51,13 @@
   --content-max: 1210px;
   --bar-max: 900px;
 
+  /* Space a page reserves at its bottom so its last row is never hidden
+     under the bar pinned to the viewport — the player, or the sign-in prompt
+     for signed-out visitors. One value, so no page has to guess at the
+     height of something rendered from the root layout, and every page clears
+     it by the same margin. The inset keeps it clear of the iOS home bar too. */
+  --bar-clearance: calc(9rem + env(safe-area-inset-bottom, 0px));
+
   /*
   ── border effect: elevation --
   halo on light;
@@ -59,6 +66,14 @@
   --player-elevation:
     0 -3px 24px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Touch layouts grow every control to a 44px tap target, which makes the
+   player about a row taller — reserve to match. */
+@media (pointer: coarse) {
+  :root {
+    --bar-clearance: calc(10.5rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 @theme inline {
