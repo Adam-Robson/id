@@ -1,0 +1,229 @@
+/* ── One frame, three photos ──────────────────────────────────────────
+   The photos are stacked in the card and dissolve between each other.
+   Only the upper two layers fade: the bottom one is always opaque, so
+   every dissolve either lays a photo over a photo or lifts one away to
+   reveal a photo, and never dips toward the empty card the way three
+   layers fading symmetrically past each other would. */
+
+.about-gallery {
+  margin: 0;
+  padding: 0.5rem 0 1rem;
+}
+
+.about-frame {
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+  animation: frame-in 0.75s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes frame-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-frame-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--card);
+  border: 1px solid var(--card-edge);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 10px 28px -14px rgba(0, 0, 0, 0.3);
+  /* Hung slightly off true, and straightened on hover. */
+  transform: rotate(-1.2deg);
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 0.5s ease;
+  /* The photos are square; the frame follows rather than fixing a height. */
+  aspect-ratio: 1;
+}
+
+/* Sits the photo back into the page instead of letting it shout — these are
+   saturated shots (teal, gold, magenta) on a quiet ground. A wash of the
+   page's own colour rather than a flat opacity, so the border and the shadow
+   underneath stay crisp, and so it reads the same in both themes. */
+.about-frame-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--background);
+  opacity: 0.18;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.about-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.about-layer:nth-child(1) {
+  opacity: 1;
+}
+
+.about-layer:nth-child(2) {
+  animation: layer-two var(--cycle) linear infinite;
+}
+
+.about-layer:nth-child(3) {
+  animation: layer-three var(--cycle) linear infinite;
+}
+
+/* ── The cycle ────────────────────────────────────────────────────────
+   24s, but deliberately not three equal turns of 8s: the photos hold for
+   7s, 9s and 8s, so the changes land off the beat and the sequence
+   doesn't tick like a clock. Every dissolve runs 2.4s (10%) and finishes
+   exactly on the hand-over, so the incoming photo is already at full
+   strength when the one above it clears.
+
+     0%      7s        16s          24s
+     |  p1   |    p2   |     p3     |
+     0    29.167%   66.667%       100%                                  */
+
+.about-frame-card {
+  --cycle: 24s;
+}
+
+@keyframes layer-two {
+  0%,
+  19.167% {
+    opacity: 0;
+  }
+  29.167%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes layer-three {
+  0%,
+  56.667% {
+    opacity: 0;
+  }
+  66.667%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.about-layer-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Hover only where hovering is real — on a touchscreen these states stick
+   after a tap and the photo stays crooked-straightened until you tap away. */
+@media (hover: hover) {
+  .about-frame-card:hover {
+    /* Straightens, lifts, and comes up to full colour. */
+    transform: rotate(0deg) translateY(-6px) scale(1.02);
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.06),
+      0 22px 44px -18px rgba(0, 0, 0, 0.4);
+  }
+
+  .about-frame-card:hover::after {
+    opacity: 0;
+  }
+
+  .about-frame-card:hover .about-layer-img {
+    transform: scale(1.05);
+  }
+}
+
+@media (min-width: 900px) {
+  .about-frame {
+    max-width: 480px;
+  }
+
+  .about-frame-card {
+    border-radius: 1rem;
+  }
+}
+
+/* ── Without motion ───────────────────────────────────────────────────
+   The cycle is the only way the second and third photos are ever seen, so
+   removing it has to lay them out instead: the card stops being a stack
+   and becomes a column, and each photo takes the frame's chrome for
+   itself. Placed last so these win on equal specificity. */
+
+@media (prefers-reduced-motion: reduce) {
+  .about-frame {
+    animation: none;
+  }
+
+  .about-frame-card {
+    aspect-ratio: auto;
+    display: grid;
+    gap: 1rem;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    overflow: visible;
+    transform: none;
+    transition: none;
+  }
+
+  .about-frame-card::after {
+    display: none;
+  }
+
+  .about-layer,
+  .about-layer:nth-child(1) {
+    position: static;
+    opacity: 1;
+    overflow: hidden;
+    aspect-ratio: 1;
+    border-radius: 0.75rem;
+    border: 1px solid var(--card-edge);
+  }
+
+  .about-layer:nth-child(2),
+  .about-layer:nth-child(3) {
+    animation: none;
+  }
+
+  .about-layer-img {
+    transition: none;
+  }
+
+  .about-frame-card:hover {
+    transform: none;
+  }
+
+  .about-frame-card:hover .about-layer-img {
+    transform: none;
+  }
+}
+
+/* The set is described once here rather than three times in alt text. */
+.about-gallery-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

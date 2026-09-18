@@ -1,7 +1,7 @@
 .interior-main.about-interior {
   max-width: 1210px;
   padding-top: 2rem;
-  padding-bottom: 5rem;
+  padding-bottom: var(--bar-clearance);
 }
 
 .about-interior .page-eyebrow {
@@ -18,18 +18,6 @@
   gap: 1.5rem;
 }
 
-.about-image {
-  width: 100%;
-  aspect-ratio: 400 / 176;
-  border-radius: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
-  background-color: var(--card);
-  background-image: url('/images/og.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 .about-text {
   min-width: 0;
 }
@@ -37,10 +25,6 @@
 @media (min-width: 768px) {
   .about-layout {
     gap: 2.5rem;
-  }
-
-  .about-image {
-    border-radius: 1rem;
   }
 
   .about-layout .about-text {
