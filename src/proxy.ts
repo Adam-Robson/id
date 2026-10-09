@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { clerkMiddleware } from '@clerk/nextjs/server';
 import { SITE_URL } from '@/lib/constants/site-url';
 
 const PRODUCTION_HOST = new URL(SITE_URL).host;
