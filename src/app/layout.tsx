@@ -1,4 +1,5 @@
 import { ClerkProvider } from '@clerk/nextjs';
+import { Analytics } from '@vercel/analytics/react';
 import { cookies } from 'next/headers';
 import { ebGaramond, jetbrainsMono, karla } from '@/app/fonts';
 import SignInPrompt from '@/components/auth/sign-in-prompt';
@@ -39,6 +40,7 @@ export default async function RootLayout({
             {accessLevel === 'guest' && <SignInPrompt />}
           </GlobalProvider>
         </ClerkProvider>
+        <Analytics />
       </body>
     </html>
   );
