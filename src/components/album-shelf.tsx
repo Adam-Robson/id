@@ -1,0 +1,74 @@
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import SongCatalog from '@/components/song-catalog';
+import TrackList from '@/components/track-list';
+import type { AccessLevel } from '@/lib/types/access-level';
+import type { Song } from '@/lib/types/song';
+import type { SongMeta } from '@/lib/types/song-meta';
+import { orderedAlbums } from '@/lib/utils/ordered-albums';
+import '@/components/styles/album-shelf.css';
+export default function AlbumShelf({
+  songs,
+  accessLevel,
+}: {
+  songs: SongMeta[];
+  accessLevel: AccessLevel;
+}) {
+  const canPlay = accessLevel !== 'guest';
+
+  if (!songs.length) return null;
+
+  const albums = orderedAlbums(songs);
+
+  return (
+    <div className='album-shelf'>
+      {canPlay && <SongCatalog songs={songs as Song[]} />}
+      {albums.map(({ meta, songs: albumSongs }) => (
+        <section
+          key={meta.key}
+          className='tape-card'
+          aria-labelledby={`album-${meta.key}`}
+        >
+          <header className='tape-card-label'>
+            <span className='tape-card-catalog'>
+              {meta.catalog}
+              {meta.year ? ` · ${meta.year}` : ''}
+            </span>
+            <span className='tape-card-count'>{albumSongs.length} songs</span>
+          </header>
+
+          {meta.cover && (
+            <div className='tape-card-cover'>
+              <Image
+                src={meta.cover}
+                alt={`Cover art for ${meta.title} by LE FOG`}
+                fill
+                sizes='(max-width: 640px) 100vw, 420px'
+                className='tape-card-cover-img'
+              />
+            </div>
+          )}
+
+          <div className='tape-card-body'>
+            <h2 id={`album-${meta.key}`} className='tape-card-title'>
+              <Link
+                href={`/albums/${meta.slug}`}
+                className='tape-card-title-link'
+              >
+                {meta.title}
+              </Link>
+            </h2>
+            {meta.blurb && <p className='tape-card-blurb'>{meta.blurb}</p>}
+
+            <TrackList
+              catalog={songs}
+              albumSongs={albumSongs}
+              accessLevel={accessLevel}
+            />
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
