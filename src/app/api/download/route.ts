@@ -1,9 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getAccessLevel } from '@/lib/auth/get-access-level';
+import { WINDOW_MS } from '@/lib/constants/contact-information';
 import { getDownloadUrl } from '@/lib/db/r2/get-download-url';
-import { rateLimit } from '@/lib/utils/rate-limit';
 import { clientKey } from '@/lib/utils/client-key';
-import { WINDOW_MS, LIMIT } from '@/lib/constants/contact-information';
+import { rateLimit } from '@/lib/utils/rate-limit';
 
 export async function GET(req: NextRequest) {
   // Checked before the access lookup on purpose: every access check is a
