@@ -21,6 +21,8 @@ export default function useSignInFlow({
     emailAddress: string;
     password: string;
   }) {
+    setBlocked('');
+
     const { error } = await signIn.password({ emailAddress, password });
     if (error) {
       setBlocked(error.message);

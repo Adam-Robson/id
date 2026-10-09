@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import AudioPlayer from '@/components/audio-player';
 import { AudioProvider } from '@/context/audio-provider';
 import { IconProvider } from '@/context/icon-provider';
 import { ThemeProvider } from '@/context/theme-provider';
@@ -20,6 +21,7 @@ export default function GlobalProvider({
       <AudioProvider>
         <IconProvider>
           <div>{children}</div>
+          <AudioPlayer />
         </IconProvider>
       </AudioProvider>
     </ThemeProvider>

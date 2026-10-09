@@ -1,5 +1,6 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { STREAM_URL_TTL_SECONDS } from '@/lib/constants/stream-url';
 import { s3 } from '@/lib/db/r2/s3';
 import { isAudioExtension } from '@/lib/utils/is-audio-extension';
 
@@ -27,6 +28,6 @@ export async function signObject(
         ? { ResponseContentDisposition: `attachment; filename="${filename}"` }
         : {}),
     }),
-    { expiresIn: attachment ? 300 : 120 },
+    { expiresIn: attachment ? 300 : STREAM_URL_TTL_SECONDS },
   );
 }

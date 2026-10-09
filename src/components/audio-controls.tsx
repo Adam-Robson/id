@@ -35,6 +35,11 @@ export default function AudioControls({
         value={progress}
         onChange={seek}
         className='seek'
+        style={
+          {
+            '--seek-progress': `${duration ? (progress / duration) * 100 : 0}%`,
+          } as React.CSSProperties
+        }
         aria-label='Seek'
         aria-valuetext={`${fmt(progress)} of ${fmt(duration)}`}
       />

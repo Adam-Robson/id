@@ -15,8 +15,8 @@ a.contact-value {
 
 .contact-label {
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--text-muted);
 }
@@ -77,12 +77,10 @@ a.contact-value {
   background-color: transparent;
   color: var(--text);
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  transition: background-color 0.25s var(--ease-out);
 }
 
 .form-input:disabled,
@@ -106,8 +104,7 @@ a.contact-value {
   }
 
   .form-submit:hover:not(:disabled) {
-    background-color: var(--text);
-    color: var(--bg);
+    background-color: var(--hover-wash);
   }
 }
 

@@ -54,7 +54,9 @@ export default function UserMenu() {
         aria-expanded={open}
         aria-label='Account menu'
       >
-        {user.imageUrl ? (
+        {/* Clerk's generated default avatar is off-palette, so only show
+            a photo the user uploaded and fall back to our own initial. */}
+        {user.hasImage ? (
           <Image
             src={user.imageUrl}
             alt=''
@@ -68,12 +70,17 @@ export default function UserMenu() {
           </span>
         )}
       </button>
-      <Link href='/privacy' className='user-menu-link'>
-        Privacy
-      </Link>
       {open && (
         <div className='user-menu-popover' role='menu'>
           <p className='user-menu-email'>{email}</p>
+          <Link
+            href='/privacy'
+            className='user-menu-link'
+            role='menuitem'
+            onClick={() => setOpen(false)}
+          >
+            Privacy
+          </Link>
           <button
             type='button'
             className='user-menu-signout'

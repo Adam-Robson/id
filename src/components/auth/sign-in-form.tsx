@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import AuthInput from '@/components/auth/auth-field';
 import AuthField from '@/components/auth/auth-field';
 import FormFeedback from '@/components/auth/form-feedback';
 import SubmitButton from '@/components/auth/submit-button';
@@ -31,24 +30,22 @@ export default function SignInForm() {
         const password = readField(form, 'password');
 
         submit({
-          emailAddress: String(email ?? ''),
-          password: String(password ?? ''),
+          emailAddress: email ?? '',
+          password: password ?? '',
         });
       }}
       noValidate
     >
-      <AuthInput
+      <AuthField
         id='email'
         label='Email'
         name='email'
         type='email'
         error={errors.fields.identifier ?? null}
-        className='auth-input'
         autoComplete='email'
         required
         disabled={isSubmitting}
       />
-      <FormFeedback message={errors.fields.identifier?.message} />
 
       <AuthField
         id='password'
@@ -57,11 +54,9 @@ export default function SignInForm() {
         type='password'
         autoComplete='current-password'
         error={errors.fields.password ?? null}
-        className='auth-input'
         required
         disabled={isSubmitting}
       />
-      <FormFeedback message={errors.fields.password?.message} />
 
       {feedback}
 
@@ -70,7 +65,7 @@ export default function SignInForm() {
       </SubmitButton>
 
       <p className='auth-switch'>
-        No account? <Link href='/sign-up'>Create one</Link>
+        No account? <Link href='/sign-up'>Create one for free</Link>
       </p>
     </form>
   );

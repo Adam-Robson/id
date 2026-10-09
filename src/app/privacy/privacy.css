@@ -30,7 +30,7 @@
 .policy-updated {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--text-muted);
 }

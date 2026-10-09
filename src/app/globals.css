@@ -66,15 +66,28 @@
   --content-max: 75.625rem;
   --bar-max: 56.25rem;
   --bar-clearance: calc(9rem + env(safe-area-inset-bottom, 0px));
-  --player-elevation:
-    0 -3px 24px rgb(0 0 0 / 0.12),
-    inset 0 1px 0 rgb(255 255 255 / 0.06);
   --z-bar: 999;
   --grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --stamp-filter: none;
   --watermark: var(--text);
 
   --danger: #8f4a5a;
+
+  /*----------Dock: the frosted bars pinned to the bottom (player, sign-in)----------*/
+  --dock-surface: color-mix(in oklab, var(--color-lilac) 35%, var(--color-mono-0));
+  --dock-surface-hover: color-mix(in oklab, var(--color-lilac) 70%, var(--color-mono-0));
+  --dock-edge: color-mix(in oklab, var(--color-iris) 30%, transparent);
+  --dock-alpha: 72%;
+  --dock-blur: blur(24px) saturate(160%);
+  --dock-elevation: 0 -18px 48px -24px rgb(0 0 0 / 0.18);
+
+  /*----------Interaction----------*/
+  --hover-wash: color-mix(in oklab, var(--text) 6%, transparent);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*----------Labels: small caps, quiet weight----------*/
+  --label-weight: 500;
+  --label-tracking: 0.14em;
 
   color-scheme: light;
 }
@@ -96,6 +109,10 @@
   --text-muted: var(--color-mono-400);
   --watermark: var(--accent);
   --danger: #cf8f9c;
+  --dock-surface: color-mix(in oklab, var(--color-iris) 16%, var(--color-mono-950));
+  --dock-surface-hover: color-mix(in oklab, var(--color-iris) 28%, var(--color-mono-950));
+  --dock-edge: color-mix(in oklab, var(--color-iris) 28%, transparent);
+  --dock-elevation: 0 -18px 48px -24px rgb(0 0 0 / 0.7);
   --stamp-filter: invert(0.92);
   /*----------Accents safe for text----------*/
   --ink-robin: #537a87;
@@ -114,6 +131,10 @@
     --text-muted: var(--color-mono-400);
     --watermark: var(--accent);
     --danger: #cf8f9c;
+    --dock-surface: color-mix(in oklab, var(--color-iris) 16%, var(--color-mono-950));
+    --dock-surface-hover: color-mix(in oklab, var(--color-iris) 28%, var(--color-mono-950));
+    --dock-edge: color-mix(in oklab, var(--color-iris) 28%, transparent);
+    --dock-elevation: 0 -18px 48px -24px rgb(0 0 0 / 0.7);
     --stamp-filter: invert(0.92);
     /*----------Accents safe for text----------*/
     --ink-robin: #537a87;
@@ -131,6 +152,7 @@
   --color-muted: var(--text-muted);
   --color-accent: var(--accent);
   --color-on-accent: var(--on-accent);
+  --color-dock-surface: var(--dock-surface);
 
   /*----------Font Sets----------*/
   --font-display: var(--font-display-face),
@@ -246,14 +268,14 @@
 
 /*----------Components----------*/
 @layer components {
+  /* Full window width so the header (and the account avatar at its end)
+     reaches the window edges. Each page's content sets its own max-width. */
   .page-wrapper {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: var(--content-max);
     min-height: 100dvh;
-    margin-inline: auto;
   }
 
   .site-header {
@@ -276,6 +298,20 @@
 
   .site-header > .site-header-actions {
     justify-self: end;
+  }
+
+  .site-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Touch targets are enlarged to 2.75rem around each control; this gap lets
+     them meet without overlapping. */
+  @media (pointer: coarse) {
+    .site-header-actions {
+      gap: 0.5rem;
+    }
   }
 
   .brand-stamp {

@@ -125,9 +125,8 @@ describe('<SignInForm />', () => {
 
   it('links to sign up', () => {
     render(<SignInForm />);
-    expect(screen.getByRole('link', { name: 'Create one' })).toHaveAttribute(
-      'href',
-      '/sign-up',
-    );
+    expect(
+      screen.getByRole('link', { name: 'Create one for free' }),
+    ).toHaveAttribute('href', '/sign-up');
   });
 });

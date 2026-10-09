@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { STREAM_URL_REFRESH_MS } from '@/lib/constants/stream-url';
 import type { AudioProviderType } from '@/lib/types/audio-provider';
 import type { Song } from '@/lib/types/song';
 
@@ -26,6 +27,40 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   // Tracks the URL we've loaded imperatively so the sync effect below doesn't
   // reload (and interrupt) a track we just started inside a user gesture.
   const loadedSrcRef = useRef('');
+  // When that source was last resolved through /api/stream. The element keeps
+  // reusing the signed R2 URL it was redirected to, which eventually expires —
+  // after that it plays whatever it buffered, then stalls without an error.
+  const loadedAtRef = useRef(0);
+
+  const markLoaded = useCallback((url: string) => {
+    loadedSrcRef.current = url;
+    loadedAtRef.current = Date.now();
+  }, []);
+
+  const isStale = useCallback(
+    () => Date.now() - loadedAtRef.current > STREAM_URL_REFRESH_MS,
+    [],
+  );
+
+  // Re-resolve the current track through /api/stream for a freshly signed
+  // URL, picking up where it left off.
+  const reload = useCallback(
+    (audio: HTMLAudioElement, url: string) => {
+      const resumeAt = audio.currentTime;
+      audio.src = url;
+      markLoaded(url);
+      if (resumeAt > 0) {
+        audio.addEventListener(
+          'loadedmetadata',
+          () => {
+            audio.currentTime = resumeAt;
+          },
+          { once: true },
+        );
+      }
+    },
+    [markLoaded],
+  );
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -54,16 +89,20 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         // from an error on the same source.
         if (loadedSrcRef.current !== url) {
           audio.src = url;
+          markLoaded(url);
+        } else if (isStale()) {
+          // Re-resolve for a freshly signed URL (assigning src reloads).
+          audio.src = url;
+          markLoaded(url);
         } else if (audio.error) {
           audio.load();
         }
-        loadedSrcRef.current = url;
         setProgress(0);
         audio.play().catch(() => {});
       }
       setCurrent(idx);
     },
-    [songs],
+    [songs, markLoaded, isStale],
   );
 
   const prev = useCallback(() => {
@@ -83,19 +122,23 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       const url = songs[current]?.url;
       // Recover if the element errored or lost its source — calling play() on
       // an errored element just rejects, so reset the source and reload first.
+      // Also refresh a source that's been sitting long enough for its signed
+      // URL to be near expiry, or playback would stop after the buffered bit.
       if (
         url &&
-        (audio.error || loadedSrcRef.current !== url || audio.readyState === 0)
+        (audio.error ||
+          loadedSrcRef.current !== url ||
+          audio.readyState === 0 ||
+          isStale())
       ) {
-        audio.src = url;
-        loadedSrcRef.current = url;
+        reload(audio, url);
         audio.load();
       }
       audio.play().catch(() => {});
     } else {
       audio.pause();
     }
-  }, [current, songs]);
+  }, [current, songs, isStale, reload]);
 
   const playAt = useCallback(
     (idx: number) => {
@@ -131,13 +174,20 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       setProgress(0);
       setIsPlaying(false);
       audio.src = url; // assigning src starts the load on its own
-      loadedSrcRef.current = url;
+      markLoaded(url);
     }
 
     const onTimeUpdate = () => setProgress(audio.currentTime);
     const onLoadedMetadata = () => setDuration(audio.duration);
     const onPlay = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
+    // A stall on an expired URL never recovers by itself, so fetch a fresh
+    // one and carry on from the same spot.
+    const onStalled = () => {
+      if (audio.paused || !isStale()) return;
+      reload(audio, url);
+      audio.play().catch(() => {});
+    };
     const onError = () => {
       setIsPlaying(false);
       loadedSrcRef.current = ''; // allow the next attempt to reload from scratch
@@ -154,7 +204,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       const nextUrl = songs[nextIdx]?.url;
       if (nextUrl) {
         audio.src = nextUrl;
-        loadedSrcRef.current = nextUrl;
+        markLoaded(nextUrl);
         audio.play().catch(() => {});
       }
       setCurrent(nextIdx);
@@ -164,6 +214,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     audio.addEventListener('loadedmetadata', onLoadedMetadata);
     audio.addEventListener('play', onPlay);
     audio.addEventListener('pause', onPause);
+    audio.addEventListener('stalled', onStalled);
     audio.addEventListener('error', onError);
     audio.addEventListener('ended', onEnded);
 
@@ -172,10 +223,11 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       audio.removeEventListener('loadedmetadata', onLoadedMetadata);
       audio.removeEventListener('play', onPlay);
       audio.removeEventListener('pause', onPause);
+      audio.removeEventListener('stalled', onStalled);
       audio.removeEventListener('error', onError);
       audio.removeEventListener('ended', onEnded);
     };
-  }, [songs, current]);
+  }, [songs, current, markLoaded, isStale, reload]);
 
   return (
     <AudioContext.Provider

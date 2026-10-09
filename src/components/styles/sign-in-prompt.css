@@ -15,16 +15,27 @@
   gap: 1rem;
   padding-block: 0.9rem calc(0.9rem + env(safe-area-inset-bottom, 0px));
   padding-inline: var(--spacing-gutter);
-  background-color: var(--bg);
-  border-top: 1px solid var(--border);
-  border-radius: 0.25rem 0.25rem 0 0;
-  box-shadow: var(--player-elevation);
+  /* Same frosted dock as the audio player. */
+  background: color-mix(in oklab, var(--dock-surface) var(--dock-alpha), transparent);
+  backdrop-filter: var(--dock-blur);
+  -webkit-backdrop-filter: var(--dock-blur);
+  border: 1px solid var(--dock-edge);
+  border-bottom: 0;
+  border-radius: 0.75rem 0.75rem 0 0;
+  box-shadow: var(--dock-elevation);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .sign-in-prompt-inner {
+    background: var(--dock-surface);
+  }
 }
 
 .sign-in-prompt-text {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-style: italic;
   color: var(--text-muted);
 }
 
@@ -38,22 +49,22 @@
 
 .sign-in-prompt-cta {
   padding: 0.45rem 1.1rem;
-  border: 1px solid var(--text);
+  border: 1px solid var(--text-muted);
   border-radius: 999px;
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   text-decoration-line: none;
   transition:
-    background-color 0.2s,
-    color 0.2s;
+    background-color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out);
 }
 
 @media (hover: hover) {
   .sign-in-prompt-cta:hover {
-    background-color: var(--text);
-    color: var(--bg);
+    background-color: var(--hover-wash);
+    border-color: var(--text);
   }
 }
 

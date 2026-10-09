@@ -23,16 +23,16 @@
   gap: 0.5rem;
   padding: 0.25rem;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-size: 0.875rem;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--text);
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
   text-decoration-color: transparent;
   text-underline-offset: 0.45em;
-  transition: text-decoration-color 0.2s;
+  transition: text-decoration-color 0.3s var(--ease-out);
 }
 
 .nav-li:first-child .nav-link {
@@ -71,7 +71,7 @@
 
   .nav-link {
     padding: 0.25rem 0.5rem;
-    font-size: 0.8125rem;
+    font-size: 0.9375rem;
   }
 
   .nav-link svg {
@@ -86,10 +86,10 @@
 
   .nav-link svg {
     opacity: 0;
-    translate: 0 -0.25rem;
+    translate: 0 -0.125rem;
     transition:
-      opacity 180ms ease,
-      translate 180ms ease;
+      opacity 0.3s var(--ease-out),
+      translate 0.3s var(--ease-out);
   }
 
   .nav-link:hover svg,

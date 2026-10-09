@@ -1,28 +1,31 @@
 'use client';
 import '@/components/styles/theme-toggle.css';
 
+import { MoonIcon, SunIcon } from '@phosphor-icons/react';
+import PhosphorIcon from '@/components/phosphor-icon';
 import { useTheme } from '@/context/theme-provider';
 
+/**
+ * A small round icon button, sized to sit beside the account avatar. Shows
+ * the theme it will switch to.
+ */
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
 
-  const handleToggle = () => {
-    setTheme(isDark ? 'light' : 'dark');
-  };
-
   return (
-    <div className='theme-toggle-wrapper'>
-      <button
-        type='button'
-        onClick={handleToggle}
-        className={`theme-toggle${isDark ? ' is-dark' : ''}`}
-        aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-        aria-pressed={isDark}
-      >
-        <span className='theme-toggle-knob' />
-      </button>
-      <span className='theme-toggle-label'>Toggle theme</span>
-    </div>
+    <button
+      type='button'
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className='theme-toggle'
+      aria-label='Dark theme'
+      aria-pressed={isDark}
+    >
+      <PhosphorIcon
+        as={isDark ? SunIcon : MoonIcon}
+        size={16}
+        aria-hidden='true'
+      />
+    </button>
   );
 }

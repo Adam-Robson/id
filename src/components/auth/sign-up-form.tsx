@@ -8,7 +8,6 @@ import { FIELD_LABELS } from '@/lib/constants/field-labels';
 import useSignUpFlow from '@/lib/hooks/use-sign-up-flow';
 import { isCollectable } from '@/lib/utils/is-collectable';
 import { readField } from '@/lib/utils/read-field';
-import '@/components/styles/auth-form.css';
 
 export default function SignUpForm({
   requiredFields = [],
@@ -42,6 +41,10 @@ export default function SignUpForm({
     <AuthField
       id='username'
       label='Username'
+      name='username'
+      type='text'
+      autoComplete='username'
+      required
       error={errors.fields.username ?? null}
       autoFocus={autoFocus}
       disabled={isSubmitting}
@@ -94,9 +97,7 @@ export default function SignUpForm({
         className='auth-form'
         onSubmit={(e) => {
           e.preventDefault();
-          submitUsername(
-            (document.getElementById('username') as HTMLInputElement).value,
-          );
+          submitUsername(readField(e.currentTarget, 'username') ?? '');
         }}
         noValidate
       >
@@ -185,7 +186,7 @@ export default function SignUpForm({
         <Link href='/privacy'>privacy policy</Link>.
       </p>
       <p className='auth-switch'>
-        Already have an account? <a href='/sign-in'>Sign in</a>
+        Already have an account? <Link href='/sign-in'>Sign in</Link>
       </p>
     </form>
   );

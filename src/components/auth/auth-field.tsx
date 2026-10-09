@@ -15,13 +15,21 @@ export default function AuthField({
   label: string;
   error?: { message: string } | null;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
+  const errorId = `${id}-error`;
+
   return (
     <div className='auth-field'>
       <label htmlFor={id} className='auth-label'>
         {label}
       </label>
-      <input className='auth-input' id={id} {...input} />
-      <FormFeedback message={error?.message} />
+      <input
+        {...input}
+        className='auth-input'
+        id={id}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+      />
+      <FormFeedback id={errorId} message={error?.message} />
     </div>
   );
 }

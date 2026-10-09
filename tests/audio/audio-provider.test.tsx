@@ -1,8 +1,9 @@
 import { act, render, renderHook, screen } from '@testing-library/react';
 import type { ChangeEvent } from 'react';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import SongCatalog from '@/components/song-catalog';
 import { AudioProvider, useAudio } from '@/context/audio-provider';
+import { STREAM_URL_REFRESH_MS } from '@/lib/constants/stream-url';
 import { fakeMediaElement } from '../helpers/media';
 import { SONGS } from '../helpers/songs';
 
@@ -254,6 +255,56 @@ describe('AudioProvider', () => {
       act(() => result.current.togglePlay());
       expect(media.load).toHaveBeenCalledTimes(1);
       expect(result.current.isPlaying).toBe(true);
+    });
+  });
+
+  describe('expiring stream URLs', () => {
+    // The element reuses the signed URL it was redirected to, so once that
+    // expires it plays its buffer and then stalls with no error.
+    const later = () =>
+      vi
+        .spyOn(Date, 'now')
+        .mockReturnValue(Date.now() + STREAM_URL_REFRESH_MS + 1);
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it('re-resolves a stale source before playing, keeping its position', () => {
+      const { result } = setup();
+      media.setCurrentTime(42);
+      later();
+
+      act(() => result.current.togglePlay());
+
+      expect(media.load).toHaveBeenCalledTimes(1);
+      expect(media.play).toHaveBeenCalledTimes(1);
+      media.setCurrentTime(0);
+      fire('loadedmetadata');
+      expect(audioEl().currentTime).toBe(42);
+    });
+
+    it('recovers from a stall on a stale source while playing', () => {
+      const { result } = setup();
+      act(() => result.current.togglePlay());
+      const srcSet = vi.spyOn(HTMLMediaElement.prototype, 'src', 'set');
+      later();
+
+      fire('stalled');
+
+      expect(srcSet).toHaveBeenCalledWith(SONGS[0].url);
+      expect(media.play).toHaveBeenCalledTimes(2);
+    });
+
+    it('leaves an ordinary network stall alone', () => {
+      const { result } = setup();
+      act(() => result.current.togglePlay());
+      const srcSet = vi.spyOn(HTMLMediaElement.prototype, 'src', 'set');
+
+      fire('stalled');
+
+      expect(srcSet).not.toHaveBeenCalled();
+      expect(media.play).toHaveBeenCalledTimes(1);
     });
   });
 
