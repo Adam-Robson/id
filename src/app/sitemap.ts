@@ -1,13 +1,13 @@
 import type { MetadataRoute } from 'next';
-import { orderedAlbumMeta } from '@/lib/albums';
-import { albumLastModified } from '@/lib/r2';
-import { SITE_URL } from '@/lib/site';
+import { SITE_URL } from '@/lib/constants/site-url';
+import { albumLastModified } from '@/lib/utils/album-last-modified';
+import { orderedAlbumMeta } from '@/lib/utils/ordered-album-meta';
 
 /**
  * Fallback date for pages whose content lives in the repo rather than in
  * R2. Bump when the copy on /about or /contact actually changes.
  */
-const CONTENT_LAST_EDITED = new Date('2026-04-16');
+const CONTENT_LAST_EDITED = new Date('2026-09-16');
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Album pages date themselves from the tracks in the bucket, so uploading

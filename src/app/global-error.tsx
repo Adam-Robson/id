@@ -36,7 +36,7 @@ export default function GlobalError({
       >
         <main>
           <h1 style={{ fontSize: '1.5rem', margin: '0 0 0.75rem' }}>
-            LE FOG's website is temporarily unavailable.
+            A temporary error has occurred.
           </h1>
           <p style={{ margin: '0 0 1.5rem', color: '#736b61' }}>
             Something went wrong loading the site. Please try again.

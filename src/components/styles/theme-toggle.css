@@ -1,0 +1,40 @@
+/* Same footprint as the account avatar, so the two read as a pair. */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  transition:
+    color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .theme-toggle:hover {
+    color: var(--text);
+    border-color: var(--text-muted);
+  }
+}
+
+@media (pointer: coarse) {
+  .theme-toggle {
+    position: relative;
+  }
+
+  .theme-toggle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2.75rem;
+    height: 2.75rem;
+    translate: -50% -50%;
+  }
+}

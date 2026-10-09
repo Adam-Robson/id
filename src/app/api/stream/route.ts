@@ -1,30 +1,15 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { getAccessLevel } from '@/lib/auth';
-import { getStreamUrl } from '@/lib/r2';
-import { clientKey, rateLimit } from '@/lib/rate-limit';
-
-/** Generous for a listener (one request per track switch), tight for a bot. */
-const LIMIT = 60;
-const WINDOW_MS = 60 * 1000;
-
+import { getAccessLevel } from '@/lib/auth/get-access-level';
+import { REQUEST_LIMIT, WINDOW_MS } from '@/lib/constants/request-limits';
+import { getStreamUrl } from '@/lib/db/r2/get-stream-url';
+import { clientKey } from '@/lib/utils/client-key';
+import { rateLimit } from '@/lib/utils/rate-limit';
 /**
- * Resolves a track to a freshly signed R2 URL and redirects to it.
- *
- * The page embeds this route's URL in the audio element rather than a
- * presigned one, so playback can't break in a long-open tab: the signature
- * is minted per request and followed immediately. Access is re-checked here
- * rather than trusted from whatever rendered the page.
- *
- * The redirect keeps audio bytes flowing straight from R2 to the listener —
- * only the signing round-trip passes through here. Range requests are
- * re-issued by the browser against the redirect target, so seeking works.
+ * Get the stream URL for the currently authenticated user.
  */
 export async function GET(req: NextRequest) {
-  // Checked before the access lookup on purpose: every access check is a
-  // Clerk Backend API call, and that quota is shared by the whole site —
-  // an unthrottled client here could starve auth everywhere else.
-  const limit = rateLimit(`stream:${clientKey(req.headers)}`, {
-    limit: LIMIT,
+  const limit = await rateLimit(`stream:${clientKey(req.headers)}`, {
+    limit: REQUEST_LIMIT,
     windowMs: WINDOW_MS,
   });
   if (!limit.ok) {
@@ -59,8 +44,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
-  // 302 rather than 307/308: this is a per-request lookup, and the signed
-  // target must never be cached by a shared cache.
   const res = NextResponse.redirect(url, 302);
   res.headers.set('Cache-Control', 'private, no-store');
   return res;

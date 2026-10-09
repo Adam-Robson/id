@@ -1,7 +1,11 @@
-import SiteHeader from '@/app/components/site-header';
-import '@/app/components/interior-pages.css';
-import '@/app/components/skeleton.css';
+import SiteHeader from '@/components/site-header';
+import '@/components/styles/interior-pages.css';
+import '@/components/styles/skeleton.css';
 
+/**
+ * Streams the page shell while the album's tracks load, so a slow R2 response
+ * shows the header and a placeholder rather than a blank document.
+ */
 export default function Loading() {
   return (
     <div className='page-wrapper page-wrapper--interior'>

@@ -1,17 +1,15 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { getAccessLevel } from '@/lib/auth';
-import { getDownloadUrl } from '@/lib/r2';
-import { clientKey, rateLimit } from '@/lib/rate-limit';
-
-/** A person saves a handful of tracks; a scraper asks for the catalog. */
-const LIMIT = 20;
-const WINDOW_MS = 60 * 1000;
+import { getAccessLevel } from '@/lib/auth/get-access-level';
+import { WINDOW_MS } from '@/lib/constants/contact-information';
+import { getDownloadUrl } from '@/lib/db/r2/get-download-url';
+import { clientKey } from '@/lib/utils/client-key';
+import { rateLimit } from '@/lib/utils/rate-limit';
 
 export async function GET(req: NextRequest) {
   // Checked before the access lookup on purpose: every access check is a
   // Clerk Backend API call, and that quota is shared by the whole site.
   const limit = rateLimit(`download:${clientKey(req.headers)}`, {
-    limit: LIMIT,
+    limit: 20,
     windowMs: WINDOW_MS,
   });
   if (!limit.ok) {

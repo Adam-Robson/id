@@ -1,24 +1,10 @@
 .contact-intro {
-  margin-bottom: 1.5rem;
+  margin-block-end: 1.5rem;
 }
 
-.contact-inline-link {
-  color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-  transition: opacity 0.2s;
-}
-
-.contact-inline-link:hover {
-  opacity: 0.7;
-}
-
-.contact-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 0.5rem;
+.contact-inline-link,
+a.contact-value {
+  transition: text-decoration-color 0.2s;
 }
 
 .contact-item {
@@ -28,30 +14,23 @@
 }
 
 .contact-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 
 .contact-value {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 300;
-  color: var(--foreground);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-a.contact-value:hover {
-  color: var(--accent);
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-block-start: 2rem;
 }
 
 .form-field {
@@ -61,78 +40,80 @@ a.contact-value:hover {
 }
 
 .form-input {
-  background: transparent;
-  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
-  border-radius: 0.5rem;
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
-  font-size: 0.9rem;
-  font-weight: 300;
-  padding: 0.6rem 0.75rem;
-  transition: border-color 0.2s;
-  outline: none;
   width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--text-muted);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 300;
+  transition: border-color 0.2s;
 }
 
-.form-input:focus {
-  border-color: var(--accent);
+.form-input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
 }
 
-.form-input:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.form-input:focus-visible {
+  border-color: var(--text);
+}
+
+.form-input[aria-invalid="true"] {
+  border-color: var(--danger);
 }
 
 .form-textarea {
+  min-height: 7.5rem;
   resize: vertical;
-  min-height: 120px;
 }
 
 .form-submit {
   align-self: flex-start;
-  background: transparent;
-  border: 1px solid var(--foreground);
-  border-radius: 999px;
-  color: var(--foreground);
-  cursor: pointer;
-  font-family: var(--font-sans), sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
   padding: 0.55rem 1.5rem;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
   text-transform: uppercase;
-  transition:
-    background 0.2s,
-    color 0.2s;
+  transition: background-color 0.25s var(--ease-out);
 }
 
-.form-submit:hover:not(:disabled) {
-  background: var(--foreground);
-  color: var(--background);
-}
-
+.form-input:disabled,
 .form-submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 .form-feedback {
-  font-size: 0.8rem;
-  font-weight: 400;
-  margin: 0;
+  font-size: 0.875rem;
 }
 
 .form-feedback--error {
-  color: var(--muted);
+  color: var(--danger);
 }
 
-.form-feedback--success {
-  color: var(--accent);
+@media (hover: hover) {
+  .contact-inline-link:hover,
+  a.contact-value:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  .form-submit:hover:not(:disabled) {
+    background-color: var(--hover-wash);
+  }
 }
 
-/* Honeypot — kept out of the layout, out of the tab order, and out of the
-   accessibility tree, but still submitted with the form so a bot that fills
-   every input reveals itself. Not `display: none`, which some bots skip. */
+@media (pointer: coarse) {
+  .form-submit {
+    min-height: 2.75rem;
+  }
+}
+
 .form-honeypot {
   position: absolute;
   width: 1px;

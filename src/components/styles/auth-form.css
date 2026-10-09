@@ -1,0 +1,133 @@
+.auth-main {
+  max-width: 26rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 22.5rem;
+  margin-inline: auto;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.auth-label {
+  font-size: 0.75rem;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 300;
+  transition: border-color 0.2s;
+}
+
+.auth-input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.auth-input:hover:not(:disabled) {
+  border-color: var(--text-muted);
+}
+
+.auth-input:focus-visible {
+  border-color: var(--text);
+}
+
+.auth-input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.auth-submit {
+  align-self: center;
+  margin-block-start: 0.25rem;
+  padding: 0.55rem 1.5rem;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+  transition: background-color 0.25s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .auth-submit:hover:not(:disabled) {
+    background-color: var(--hover-wash);
+  }
+}
+
+@media (pointer: coarse) {
+  .auth-input,
+  .auth-submit {
+    min-height: 2.75rem;
+  }
+}
+
+.auth-input:disabled,
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-feedback,
+.auth-hint,
+.auth-legal,
+.auth-switch {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.auth-feedback--error {
+  color: var(--danger);
+}
+
+.auth-hint,
+.auth-legal,
+.auth-switch {
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+.auth-legal {
+  font-size: 0.8125rem;
+}
+
+.auth-switch {
+  align-self: stretch;
+  padding-block-start: 1.25rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.auth-legal a,
+.auth-switch a {
+  color: var(--text);
+}
+
+/* Clerk mounts its CAPTCHA here; collapse it until it has content so the
+   empty div doesn't add an extra gap to the form. */
+#clerk-captcha:empty {
+  display: none;
+}

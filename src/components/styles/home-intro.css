@@ -1,0 +1,80 @@
+.home-intro {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 48.75rem;
+  margin-inline: auto;
+  padding-block: clamp(2rem, 1.5rem + 2.5vw, 3.5rem) var(--bar-clearance);
+  padding-inline: var(--spacing-gutter);
+}
+
+.home-intro-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+}
+
+.home-intro-lede-display {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.home-intro-kicker {
+  margin-block-start: 1rem;
+  margin-inline: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.home-intro-mark {
+  color: var(--text);
+  white-space: nowrap;
+  letter-spacing: 0.14em;
+  word-spacing: 0.3em;
+  margin-inline-end: -0.14em;
+}
+
+.home-intro-aside {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* The six palette colours as a short, fine mark above the kicker. */
+.home-intro-kicker::before {
+  content: "";
+  display: block;
+  width: 4.5rem;
+  height: 2px;
+  margin-inline: auto;
+  margin-block-end: 1.25rem;
+  background: linear-gradient(
+    to right,
+    var(--color-robin) 0% 16.667%,
+    var(--color-petal) 16.667% 33.333%,
+    var(--color-sand) 33.333% 50%,
+    var(--color-lilac) 50% 66.667%,
+    var(--color-iris) 66.667% 83.333%,
+    var(--color-wheat) 83.333% 100%
+  );
+}
+
+@media (width < 30rem) {
+  .home-intro-lede-display {
+    max-width: 12ch;
+  }
+}

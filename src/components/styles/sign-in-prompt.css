@@ -1,0 +1,85 @@
+.sign-in-prompt {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.sign-in-prompt-inner {
+  pointer-events: auto;
+  max-width: var(--bar-max);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.9rem calc(0.9rem + env(safe-area-inset-bottom, 0px));
+  padding-inline: var(--spacing-gutter);
+  /* Same frosted dock as the audio player. */
+  background: color-mix(in oklab, var(--dock-surface) var(--dock-alpha), transparent);
+  backdrop-filter: var(--dock-blur);
+  -webkit-backdrop-filter: var(--dock-blur);
+  border: 1px solid var(--dock-edge);
+  border-bottom: 0;
+  border-radius: 0.75rem 0.75rem 0 0;
+  box-shadow: var(--dock-elevation);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .sign-in-prompt-inner {
+    background: var(--dock-surface);
+  }
+}
+
+.sign-in-prompt-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.sign-in-prompt-links {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.sign-in-prompt-cta {
+  padding: 0.45rem 1.1rem;
+  border: 1px solid var(--text-muted);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+  text-decoration-line: none;
+  transition:
+    background-color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .sign-in-prompt-cta:hover {
+    background-color: var(--hover-wash);
+    border-color: var(--text);
+  }
+}
+
+@media (width < 30rem) {
+  .sign-in-prompt-inner {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (pointer: coarse) {
+  .sign-in-prompt-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+}

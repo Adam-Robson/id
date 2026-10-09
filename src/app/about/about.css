@@ -1,11 +1,6 @@
 .interior-main.about-interior {
-  max-width: 1210px;
-  padding-top: 2rem;
-  padding-bottom: var(--bar-clearance);
-}
-
-.about-interior .page-eyebrow {
-  margin-bottom: 1rem;
+  max-width: var(--content-max);
+  padding-block-start: 2rem;
 }
 
 .about-interior .page-body {
@@ -15,24 +10,15 @@
 .about-layout {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: clamp(1.5rem, 1.167rem + 1.667vw, 2.5rem);
 }
 
 .about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 65ch;
   min-width: 0;
-}
-
-@media (min-width: 768px) {
-  .about-layout {
-    gap: 2.5rem;
-  }
-
-  .about-layout .about-text {
-    max-width: 65ch;
-    margin-inline: auto;
-  }
-
-  .about-layout .page-body {
-    margin: 0 0 1rem;
-  }
+  margin-inline: auto;
 }
