@@ -12,7 +12,7 @@ import { orderedAlbumMeta } from '@/lib/utils/ordered-album-meta';
 import { toPlayableUrl } from '@/lib/utils/to-playable-url';
 import '@/components/styles/interior-pages.css';
 import '@/components/styles/album-shelf.css';
-import '@/components/styles/album-page.css';
+import '@/app/albums/[slug]/album-page.css';
 
 const COVER_SIZE = 900;
 
