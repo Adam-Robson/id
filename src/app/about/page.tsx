@@ -25,8 +25,8 @@ export default function AboutPage() {
           <AboutGallery />
           <div className='about-text'>
             <p className='page-body'>
-              LE FOG makes independently produced music that is confronting
-              in an understated way. Dreamy, yet grounded.
+              LE FOG makes independently produced music that is confronting in
+              an understated way. Dreamy, yet grounded.
             </p>
             <p className='page-body'>
               LE FOG's music is entirely independent; the songs are crafted,
