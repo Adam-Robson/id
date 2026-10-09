@@ -1,36 +1,27 @@
 /**
- * Builds the site's Open Graph card from the three about-page portraits.
+ * Build the Open Graph card from three portraits.
  *
- * The card is a committed asset rather than something rendered per request:
- * social scrapers fetch it cold, often with a short timeout, and there is no
- * reason to pay for compositing on every crawl. Re-run this whenever the
- * portraits or the wordmark change:
- *
- *   npm run og:build
- *
- * Layout mirrors the about page — the wordmark over a triptych hung by hand,
- * ordered cool -> warm -> hot, with the middle frame sitting lower than its
- * neighbours.
+ * The card is a committed asset rather than something rendered per request.
+ * Rerun when portraits change: npm run og:build
  */
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
-import sharp from 'sharp';
+import sharp from 'sharp';f
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const OUT = path.join(ROOT, 'public/images/og-image.jpg');
+const OUT = path.join(ROOT, 'public/images/og-image.webp');
 
-/** 1200x630 is the size every major scraper crops to. */
 const W = 1200;
 const H = 630;
 
-/* Straight from globals.css: --ink and --paper. */
+/* from globals.css: --ink and --paper. */
 const INK = '#2e2a26';
 const PAPER = '#f6f2e9';
 
 const FRAME = 330;
 const GAP = 26;
 const RADIUS = 18;
-/** The middle frame hangs lower, as it does on the about page. */
+/** middle image is lower */
 const DROP = 16;
 
 const PORTRAITS = ['facedeer', 'coffeecup', 'facestars'];
