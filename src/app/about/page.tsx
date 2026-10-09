@@ -1,9 +1,9 @@
-import AboutGallery from '@/app/components/about-gallery';
-import SiteHeader from '@/app/components/site-header';
 import '@/app/about/about.css';
-import '@/app/components/interior-pages.css';
+import '@/components/styles/interior-pages.css';
 import type { Metadata } from 'next';
-import { sharedOgImage } from '@/app/components/shared-metadata';
+import AboutGallery from '@/components/about-gallery';
+import { sharedOgImage } from '@/components/shared-og-image';
+import SiteHeader from '@/components/site-header';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -25,21 +25,22 @@ export default function AboutPage() {
           <AboutGallery />
           <div className='about-text'>
             <p className='page-body'>
-              LE FOG makes music that is independent and unpretentious. The
-              songs are understated yet confronting, and are wholly homemade.
+              LE FOG makes independently produced music for people who
+              have an ear for intentional and carefully created arrangements. The
+              sounds are confronting while understated, and dreamy but grounded.
             </p>
             <p className='page-body'>
-              Each instrument is recorded and played at home, and every song is
-              mixed, produced and released the same way. The sounds are not
-              decorative; every note is placed with intention. It draws you in
-              the way an easy & unexpected conversation does - tethering you for
-              the moment and folding time so it passes unnoticed.
+              LE FOG's music is entirely independent; the songs are crafted, recorded,
+              mixed, produced and released by the artist. The composition holds nothing for
+              decoration; every note is placed with intention. It draws you in
+              like an unexpected and fluid conversation - tethering you for
+              the moment, folding time as it passes, unnoticed.
             </p>
             <p className='page-body'>
               The lyrics lead you to yourself. They surface and linger, like a
-              fragment of your inner monologue, something you forgot along the
-              way, and is still immediately familiar. Existential without
-              theatrics; rebellious, thoughtful. The catalog stands on its own,
+              fragment of an inner monologue, something forgotten along the
+              way, but is immediately familiar when witnessed. Simultaneously existential
+              and unpretentious; a thoughtful rebellion. The catalog stands on its own,
               and there is plenty to explore.
             </p>
           </div>

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import AlbumShelf from '@/app/components/album-shelf';
-import { sharedOgImage } from '@/app/components/shared-metadata';
-import SiteHeader from '@/app/components/site-header';
-import '@/app/components/interior-pages.css';
-import { getAccessLevel } from '@/lib/auth';
-import { listSongs, toPlayable } from '@/lib/r2';
+import AlbumShelf from '@/components/album-shelf';
+import { sharedOgImage } from '@/components/shared-og-image';
+import SiteHeader from '@/components/site-header';
+import { getAccessLevel } from '@/lib/auth/get-access-level';
+import { listSongs } from '@/lib/db/r2/list-songs';
+import { toPlayableUrl } from '@/lib/utils/to-playable-url';
+import '@/components/styles/interior-pages.css';
 
 export const metadata: Metadata = {
   title: 'Albums',
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 export default async function AlbumsPage() {
   const accessLevel = await getAccessLevel();
   const catalog = await listSongs();
-  const songs = accessLevel === 'guest' ? catalog : toPlayable(catalog);
+  const songs = accessLevel === 'guest' ? catalog : toPlayableUrl(catalog);
 
   return (
     <div className='page-wrapper page-wrapper--interior'>
