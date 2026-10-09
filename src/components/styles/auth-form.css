@@ -1,0 +1,111 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 22.5rem;
+  margin-inline: auto;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.auth-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--text-muted);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 300;
+  transition: border-color 0.2s;
+}
+
+.auth-input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.auth-input:focus-visible {
+  border-color: var(--text);
+}
+
+.auth-input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.auth-submit {
+  align-self: flex-start;
+  padding: 0.55rem 1.5rem;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.auth-legal {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+@media (hover: hover) {
+  .auth-submit:hover:not(:disabled) {
+    background-color: var(--text);
+    color: var(--bg);
+  }
+}
+
+@media (pointer: coarse) {
+  .auth-submit {
+    min-height: 2.75rem;
+  }
+}
+
+.auth-input:disabled,
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-feedback,
+.auth-hint,
+.auth-switch {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.auth-feedback--error {
+  color: var(--danger);
+}
+
+.auth-hint,
+.auth-switch {
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+.auth-switch a {
+  color: var(--text);
+  text-decoration-line: underline;
+}

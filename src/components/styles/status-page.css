@@ -1,0 +1,42 @@
+.status-page {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.status-page .page-body {
+  max-width: 46ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
+.status-page-code {
+  margin-block-end: 0.5rem;
+  /* Letter-spacing adds space after the last character too, which pushes
+     centred text left. Matching padding at the start re-centres it. */
+  padding-inline-start: 0.22em;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+}
+
+.status-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-block-start: 2rem;
+}
+
+.status-page-digest {
+  margin-block-start: 2.5rem;
+  padding-inline-start: 0.1em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+  user-select: all;
+}

@@ -1,0 +1,89 @@
+.theme-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-toggle {
+  --toggle-w: 2.8rem;
+  --toggle-h: 1.5rem;
+  --toggle-pad: 0.1875rem;
+  --toggle-knob: calc(var(--toggle-h) - var(--toggle-pad) * 2);
+
+  appearance: none;
+  position: relative;
+  flex-shrink: 0;
+  width: var(--toggle-w);
+  height: var(--toggle-h);
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background-color: var(--accent);
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.theme-toggle.is-dark {
+  background-color: var(--text-muted);
+}
+
+.theme-toggle-knob {
+  position: absolute;
+  top: var(--toggle-pad);
+  left: var(--toggle-pad);
+  width: var(--toggle-knob);
+  height: var(--toggle-knob);
+  border-radius: 50%;
+  background-color: var(--on-accent);
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.4s;
+}
+
+.theme-toggle.is-dark .theme-toggle-knob {
+  transform: translateX(calc(var(--toggle-w) - var(--toggle-h)));
+  background-color: var(--bg);
+}
+
+.theme-toggle-label {
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  user-select: none;
+  transition:
+    opacity 0.2s,
+    visibility 0.2s;
+}
+
+@media (hover: hover) {
+  .theme-toggle-wrapper {
+    position: relative;
+  }
+
+  .theme-toggle-label {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 50%;
+    translate: -50% 0;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .theme-toggle:hover + .theme-toggle-label,
+  .theme-toggle:focus-visible + .theme-toggle-label {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+@media (pointer: coarse) {
+  .theme-toggle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2.75rem;
+    height: 2.75rem;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -1,0 +1,215 @@
+.album-shelf {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 2.167rem + 1.667vw, 3.5rem);
+  width: 100%;
+  max-width: 30rem;
+  margin-inline: auto;
+  padding-block-start: clamp(0.5rem, 0.333rem + 0.833vw, 1rem);
+  padding-inline: 1.25rem;
+}
+
+/* ── The J-card ─────────────────────────────────────────────── */
+
+.tape-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background-color: var(--surface);
+  box-shadow:
+    0 1px 0 var(--border),
+    var(--shadow-card);
+}
+
+/* grain, slightly heavier inside the card than on the page */
+.tape-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain-texture);
+  background-size: 160px 160px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.tape-card-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px dashed var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.tape-card-cover {
+  position: relative;
+  aspect-ratio: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.tape-card-cover-img {
+  object-fit: cover;
+}
+
+.tape-card-body {
+  position: relative;
+  padding: 1.1rem 1.1rem 1.25rem;
+}
+
+.tape-card-title {
+  margin-block-end: 0.35rem;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.tape-card-title-link {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 0.2s;
+}
+
+.tape-card-blurb {
+  margin-block-end: 1rem;
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* ── Track list ─────────────────────────────────────────────── */
+
+.tape-card-tracks {
+  margin-block-start: 0.75rem;
+  border-top: 1px dashed var(--border);
+}
+
+.tape-track-row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px dashed var(--border);
+}
+
+.tape-track {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.55rem 0.25rem;
+  text-align: left;
+  transition: background-color 0.15s;
+}
+
+.tape-track.active {
+  font-weight: 600;
+}
+
+.tape-track.tape-track--locked {
+  color: var(--text-muted);
+}
+
+.tape-track-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding-inline: 0.75rem;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+
+.tape-track-num {
+  min-width: 1.6em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.tape-track.active .tape-track-num {
+  color: var(--text);
+}
+
+.tape-track-title {
+  flex: 1;
+  font-size: 1rem;
+}
+
+@media (hover: hover) {
+  .tape-card-title-link:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  .tape-track:not(.tape-track--locked):hover {
+    background-color: var(--bg);
+  }
+
+  .tape-track-download:hover {
+    color: var(--text);
+  }
+}
+
+/* ── Now-playing meter ──────────────────────────────────────── */
+
+.tape-track-meter {
+  display: inline-flex;
+  align-items: flex-end;
+  align-self: center;
+  gap: 0.125rem;
+  height: 0.75rem;
+}
+
+.tape-track-meter i {
+  width: 0.1875rem;
+  height: 100%;
+  border-radius: 1px;
+  background-color: var(--accent);
+  transform-origin: bottom;
+  scale: 1 0.33;
+}
+
+.tape-track-meter.playing i {
+  scale: 1 0.67;
+}
+
+@keyframes meter {
+  0%,
+  100% {
+    scale: 1 0.33;
+  }
+  50% {
+    scale: 1 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tape-track-meter.playing i {
+    animation: meter 0.9s ease-in-out infinite;
+  }
+
+  .tape-track-meter.playing i:nth-child(2) {
+    animation-delay: 0.25s;
+  }
+
+  .tape-track-meter.playing i:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+}
+
+@media (pointer: coarse) {
+  .tape-track {
+    padding-block: 0.85rem;
+  }
+
+  .tape-track-download {
+    min-width: 2.75rem;
+  }
+}
