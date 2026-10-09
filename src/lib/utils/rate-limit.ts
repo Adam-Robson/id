@@ -1,7 +1,5 @@
-
 import type { RateLimitResult } from '@/lib/types/rate-limit-result';
-import { pruneExpiredWindows } from '@/lib/utils/prune';
-import { WINDOWS } from '@/lib/utils/prune';
+import { pruneExpiredWindows, WINDOWS } from '@/lib/utils/prune';
 
 export function rateLimit(
   key: string,
@@ -26,4 +24,3 @@ export function rateLimit(
 
   return { ok: true, retryAfter: 0 };
 }
-

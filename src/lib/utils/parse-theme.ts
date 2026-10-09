@@ -1,5 +1,5 @@
-import { THEMES } from '@/lib/constants/theme';
 import type { Theme } from '@/lib//types/theme';
+import { THEMES } from '@/lib/constants/theme';
 /**
  * Parses the given theme value and returns a valid Theme.
  * @param value The theme value to parse.

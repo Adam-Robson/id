@@ -1,6 +1,6 @@
 import { ListObjectsV2Command } from '@aws-sdk/client-s3';
-import type { AudioObject } from '@lib/types/audio-object';
 import { s3 } from '@/lib/db/r2/s3';
+import type { AudioObject } from '@/lib/types/audio-object';
 import { parseSongTitle } from '@/lib/utils/parse-song-title';
 
 /**

@@ -1,7 +1,7 @@
-import type { SongMeta } from '@/lib/types/song-meta';
-import { parseSongTitle } from '@/lib/utils/parse-song-title';
 import type { RawSong } from '@/lib/types/raw-song';
+import type { SongMeta } from '@/lib/types/song-meta';
 import { detectNumbering } from '@/lib/utils/detect-numbering';
+import { parseSongTitle } from '@/lib/utils/parse-song-title';
 import { titleCase } from '@/lib/utils/title-case';
 
 /**

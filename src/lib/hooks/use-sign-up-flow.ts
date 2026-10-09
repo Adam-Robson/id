@@ -1,18 +1,20 @@
-import { useState } from 'react';
 import { useSignUp } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import { describe } from '@/lib/utils/describe';
+import { useState } from 'react';
 import type { SignUpStep } from '@/lib/types/sign-up-step';
+import { describe } from '@/lib/utils/describe';
 /**
  * Custom hook to manage the sign-up flow with Clerk.
  * Manages the different steps of the sign-up process, including collecting user details,
  * handling username selection, and verifying the email code.
  * Provides handlers and state for each step of the sign-up flow.
  */
-export default function useSignUpFlow({ redirectTo = '/'}: { redirectTo?: string }) {
-  const [step, setStep] = useState<SignUpStep>(
-      'details',
-    );
+export default function useSignUpFlow({
+  redirectTo = '/',
+}: {
+  redirectTo?: string;
+}) {
+  const [step, setStep] = useState<SignUpStep>('details');
   const [email, setEmail] = useState('');
   const [blocked, setBlocked] = useState('');
   const { signUp, errors, fetchStatus } = useSignUp();
@@ -99,7 +101,14 @@ export default function useSignUpFlow({ redirectTo = '/'}: { redirectTo?: string
     router.push(redirectTo);
   }
 
-      return { step, email, blocked, errors, isSubmitting, submitDetails, submitUsername: submitUsername, submitCode };
-
-
+  return {
+    step,
+    email,
+    blocked,
+    errors,
+    isSubmitting,
+    submitDetails,
+    submitUsername: submitUsername,
+    submitCode,
+  };
 }

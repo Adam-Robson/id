@@ -6,6 +6,8 @@ import { FIELD_LABELS } from '@/lib/constants/field-labels';
  */
 export const describe = (fields: readonly string[]) => {
   return fields
-    .map((field) => (FIELD_LABELS[field] ?? field.replace(/_/g, ' ')).toLowerCase())
+    .map((field) =>
+      (FIELD_LABELS[field] ?? field.replace(/_/g, ' ')).toLowerCase(),
+    )
     .join(', ');
 };

@@ -59,7 +59,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         }
         loadedSrcRef.current = url;
         setProgress(0);
-        audio.play().catch(() => { });
+        audio.play().catch(() => {});
       }
       setCurrent(idx);
     },
@@ -91,7 +91,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         loadedSrcRef.current = url;
         audio.load();
       }
-      audio.play().catch(() => { });
+      audio.play().catch(() => {});
     } else {
       audio.pause();
     }
@@ -145,7 +145,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     const onEnded = () => {
       if (songs.length <= 1) {
         audio.currentTime = 0;
-        audio.play().catch(() => { });
+        audio.play().catch(() => {});
         return;
       }
       // Auto-advance. play() is allowed here because the element already had
@@ -155,7 +155,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       if (nextUrl) {
         audio.src = nextUrl;
         loadedSrcRef.current = nextUrl;
-        audio.play().catch(() => { });
+        audio.play().catch(() => {});
       }
       setCurrent(nextIdx);
     };

@@ -7,6 +7,7 @@ import SubmitButton from '@/components/auth/submit-button';
 import { FIELD_LABELS } from '@/lib/constants/field-labels';
 import useSignUpFlow from '@/lib/hooks/use-sign-up-flow';
 import { isCollectable } from '@/lib/utils/is-collectable';
+import { readField } from '@/lib/utils/read-field';
 import '@/components/styles/auth-form.css';
 
 export default function SignUpForm({
@@ -116,11 +117,11 @@ export default function SignUpForm({
         e.preventDefault();
         const form = e.currentTarget;
         submitDetails({
-          email: (form.email as HTMLInputElement).value,
-          password: (form.password as HTMLInputElement).value,
-          username: (form.username as HTMLInputElement)?.value,
-          firstName: (form.first_name as HTMLInputElement)?.value,
-          lastName: (form.last_name as HTMLInputElement)?.value,
+          email: readField(form, 'email') ?? '',
+          password: readField(form, 'password') ?? '',
+          username: readField(form, 'username') ?? undefined,
+          firstName: readField(form, 'first_name') ?? undefined,
+          lastName: readField(form, 'last_name') ?? undefined,
         });
       }}
       noValidate
@@ -181,7 +182,7 @@ export default function SignUpForm({
       </SubmitButton>
       <p className='auth-legal'>
         By creating an account you agree to our{' '}
-          <Link href='/privacy'>privacy policy</Link>.
+        <Link href='/privacy'>privacy policy</Link>.
       </p>
       <p className='auth-switch'>
         Already have an account? <a href='/sign-in'>Sign in</a>

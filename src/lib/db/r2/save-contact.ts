@@ -1,6 +1,6 @@
-import type { ContactSubmission } from '@/lib/types/contact-submission';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { s3 } from '@/lib/db/r2/s3';
+import type { ContactSubmission } from '@/lib/types/contact-submission';
 /**
  * Saves a contact form submission to the R2 (S3-compatible) database.
  * @param data The contact form submission data, excluding the ID and submission timestamp.

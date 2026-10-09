@@ -11,7 +11,6 @@ type Props = {
 export default function SiteHeader({ variant }: Props) {
   return (
     <header className='site-header'>
-
       {variant === 'home' ? (
         <Link href='/' className='brand-stamp' aria-label='LE FOG — home'>
           <Image src='/images/logo.svg' alt='' width={52} height={52} />

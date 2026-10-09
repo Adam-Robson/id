@@ -6,9 +6,7 @@ import '@/components/styles/about-gallery.css';
  * A small interactive gallery component for the LE FOG website.
  * It cycles through three self-portraits with different color casts.
  */
-const PORTRAITS = [
-  '/images/facedeer.webp'
-];
+const PORTRAITS = ['/images/facedeer.webp'];
 
 export default function AboutGallery() {
   return (

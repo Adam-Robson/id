@@ -1,4 +1,3 @@
-
 /**
  * Represents a contact form submission.
  */
@@ -9,4 +8,3 @@ export interface ContactSubmission {
   message: string;
   submittedAt: string;
 }
-

@@ -1,4 +1,4 @@
-import { AUDIO_EXTENSIONS } from '@lib/constants/audio-extensions';
+import { AUDIO_EXTENSIONS } from '@/lib/constants/audio-extensions';
 /**
  * Whether a bucket key has an audio file extension.
  *

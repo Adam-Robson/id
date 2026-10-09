@@ -9,4 +9,3 @@ export const getAccessLevel = async (): Promise<AccessLevel> => {
   if (!userId) return 'guest';
   return sessionClaims?.metadata?.role === 'admin' ? 'admin' : 'member';
 };
-

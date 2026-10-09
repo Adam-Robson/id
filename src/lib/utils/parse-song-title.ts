@@ -23,4 +23,3 @@ export function parseSongTitle(key: string): RawSong {
 
   return { key, album, name };
 }
-

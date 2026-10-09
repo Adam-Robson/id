@@ -6,4 +6,4 @@ export type RawSong = {
   key: string;
   album: string;
   name: string;
-}
+};

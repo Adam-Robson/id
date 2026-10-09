@@ -9,7 +9,9 @@ import { readRoman } from '@/lib/utils/read-roman';
  * an album's tracks to agree keeps a title that merely starts with a number
  * or an "I" from being truncated.
  */
-export function detectNumbering(names: string[]): (name: string) => SongTitle | null {
+export function detectNumbering(
+  names: string[],
+): (name: string) => SongTitle | null {
   const majority = Math.max(2, Math.ceil(names.length * 0.6));
 
   const arabicHits = names.filter((name) => readArabic(name)).length;

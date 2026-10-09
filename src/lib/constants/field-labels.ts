@@ -7,5 +7,5 @@ export const FIELD_LABELS: Record<string, string> = {
   first_name: 'First Name',
   last_name: 'Last Name',
   phone_number: 'Phone Number',
-  legal_accepted: 'accepting the terms'
+  legal_accepted: 'accepting the terms',
 };

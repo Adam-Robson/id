@@ -1,4 +1,3 @@
-
 /**
  * Best available client identifier. Vercel sets `x-forwarded-for`; the first
  * entry is the real client, later ones are proxies. Falls back to a shared

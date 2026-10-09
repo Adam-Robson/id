@@ -30,7 +30,9 @@ export default function PageError({
           <button type='button' onClick={reset}>
             Try again
           </button>
-          <p>Or navigate<Link href='/'>{' '}Back home</Link>.</p>
+          <p>
+            Or navigate<Link href='/'> Back home</Link>.
+          </p>
         </div>
         {error.digest && (
           <p className='status-page-digest'>Reference: {error.digest}</p>

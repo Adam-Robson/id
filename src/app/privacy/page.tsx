@@ -44,16 +44,16 @@ export default function PrivacyPage() {
             </li>
             <li>
               <strong>Technical data.</strong> Like most websites, our hosting
-              provider automatically records basic request information, such
-              as IP address, browser type and the pages you visit, to run and
+              provider automatically records basic request information, such as
+              IP address, browser type and the pages you visit, to run and
               secure the site.
             </li>
             <li>
               <strong>Visit statistics.</strong> We use Vercel Web Analytics to
               count visits and see which pages are popular. It does not use
-              cookies and does not identify you. It records only general
-              details such as the page, the referring site, your country, and
-              your browser and device type.
+              cookies and does not identify you. It records only general details
+              such as the page, the referring site, your country, and your
+              browser and device type.
             </li>
           </ul>
 
@@ -61,8 +61,8 @@ export default function PrivacyPage() {
           <p>
             We use this information to run your account and let you stream the
             catalog, to reply to your messages, to remember your preferences,
-            and to keep the site secure. We do not sell your information, and
-            we do not use it for advertising.
+            and to keep the site secure. We do not sell your information, and we
+            do not use it for advertising.
           </p>
 
           <h2>Cookies</h2>
@@ -78,10 +78,19 @@ export default function PrivacyPage() {
             their part of the service:
           </p>
           <ul>
-            <li><strong>Clerk</strong> manages accounts and sign-in.</li>
-            <li><strong>Google</strong> handles sign-in, if you choose to sign in with Google.</li>
-            <li><strong>Vercel</strong> hosts the website.</li>
-            <li><strong>Cloudflare</strong> stores and delivers the music files.</li>
+            <li>
+              <strong>Clerk</strong> manages accounts and sign-in.
+            </li>
+            <li>
+              <strong>Google</strong> handles sign-in, if you choose to sign in
+              with Google.
+            </li>
+            <li>
+              <strong>Vercel</strong> hosts the website.
+            </li>
+            <li>
+              <strong>Cloudflare</strong> stores and delivers the music files.
+            </li>
           </ul>
 
           <h2>How long we keep it</h2>
@@ -122,7 +131,8 @@ export default function PrivacyPage() {
           <h2>Contact</h2>
           <p>
             Questions about this policy can go to{' '}
-            <Link href='mailto:lefogsongs@gmail.com'>lefogsongs@gmail.com</Link>.
+            <Link href='mailto:lefogsongs@gmail.com'>lefogsongs@gmail.com</Link>
+            .
           </p>
         </article>
       </main>

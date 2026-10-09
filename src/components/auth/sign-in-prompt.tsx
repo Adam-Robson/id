@@ -25,7 +25,9 @@ export default function SignInPrompt() {
             Sign up free
           </Link>
           <Link href='/sign-in'>Sign in</Link>
-          <Link href='/privacy' className='user-menu-link'>Privacy</Link>
+          <Link href='/privacy' className='user-menu-link'>
+            Privacy
+          </Link>
         </div>
       </div>
     </div>

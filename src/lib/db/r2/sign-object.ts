@@ -16,8 +16,8 @@ export async function signObject(
   if (!isAudioExtension(key)) return null;
 
   const filename = key
-  .slice(key.lastIndexOf('/') + 1)
-  .replace(/["\\\p{Cc}]/gu, '_');
+    .slice(key.lastIndexOf('/') + 1)
+    .replace(/["\\\p{Cc}]/gu, '_');
   return getSignedUrl(
     s3,
     new GetObjectCommand({

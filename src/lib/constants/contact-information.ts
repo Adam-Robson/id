@@ -1,4 +1,3 @@
-
 export const MAX_NAME_LENGTH = 200;
 export const MAX_EMAIL_LENGTH = 320;
 export const MAX_MESSAGE_LENGTH = 5000;

@@ -1,4 +1,3 @@
-
 /** URL-safe segment for an album that has no entry in `ALBUM_META`. */
 export function slugify(value: string): string {
   return value

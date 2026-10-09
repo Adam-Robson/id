@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link'
+import Link from 'next/link';
 import AuthInput from '@/components/auth/auth-field';
 import AuthField from '@/components/auth/auth-field';
 import FormFeedback from '@/components/auth/form-feedback';
@@ -8,8 +8,9 @@ import useSignInFlow from '@/lib/hooks/use-sign-in-flow';
 import { readField } from '@/lib/utils/read-field';
 
 export default function SignInForm() {
-
-  const { blocked, errors, submit, isSubmitting } = useSignInFlow({ redirectTo: '/' });
+  const { blocked, errors, submit, isSubmitting } = useSignInFlow({
+    redirectTo: '/',
+  });
 
   const feedback = (
     <>
@@ -30,7 +31,8 @@ export default function SignInForm() {
         const password = readField(form, 'password');
 
         submit({
-          emailAddress: String(email ?? ''), password: String(password ?? ''),
+          emailAddress: String(email ?? ''),
+          password: String(password ?? ''),
         });
       }}
       noValidate
@@ -63,10 +65,7 @@ export default function SignInForm() {
 
       {feedback}
 
-      <SubmitButton
-        pending={isSubmitting}
-        pendingLabel='Signing in…'
-      >
+      <SubmitButton pending={isSubmitting} pendingLabel='Signing in…'>
         Sign in
       </SubmitButton>
 

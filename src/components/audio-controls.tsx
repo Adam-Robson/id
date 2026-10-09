@@ -3,7 +3,7 @@ import { PlaylistIcon } from '@phosphor-icons/react';
 import PhosphorIcon from '@/components/phosphor-icon';
 import { useAudio } from '@/context/audio-provider';
 import type { AudioControlsProps } from '@/lib/types/audio-controls.props';
-import '@/app/components/audio-controls.css';
+import '@/components/styles/audio-controls.css';
 
 export default function AudioControls({
   onToggleList,

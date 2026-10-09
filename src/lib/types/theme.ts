@@ -1,4 +1,4 @@
-import { THEMES } from '../constants/theme';
+import type { THEMES } from '../constants/theme';
 
 export type Theme = (typeof THEMES)[number];
 
@@ -9,4 +9,3 @@ export interface ThemeContextValue {
   resolvedTheme: ResolvedTheme;
   setTheme: (theme: Theme) => void;
 }
-

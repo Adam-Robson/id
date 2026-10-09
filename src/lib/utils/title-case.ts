@@ -1,5 +1,5 @@
-import { capitalize } from '@/lib/utils/captialize';
 import { MINOR_WORDS } from '@/lib/types/minor-words';
+import { capitalize } from '@/lib/utils/captialize';
 /**
  * Title-cases a lowercase string derived from a filename or folder name.
  * Source names in R2 are lowercase, so this only ever has to add capitals —

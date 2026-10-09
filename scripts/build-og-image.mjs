@@ -6,7 +6,7 @@
  */
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
-import sharp from 'sharp';f
+import sharp from 'sharp';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(ROOT, 'public/images/og-image.webp');
