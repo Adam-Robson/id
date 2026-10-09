@@ -1,16 +1,15 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { saveContact } from '@/lib/r2';
-import { clientKey, rateLimit } from '@/lib/rate-limit';
-
-const MAX_NAME_LENGTH = 200;
-const MAX_EMAIL_LENGTH = 320;
-const MAX_MESSAGE_LENGTH = 5000;
-
-/** Deliberately loose — the point is to catch typos, not to police addresses. */
-const EMAIL_SHAPE = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
-
-const LIMIT = 3;
-const WINDOW_MS = 10 * 60 * 1000;
+import { rateLimit } from '@/lib/utils/rate-limit';
+import { clientKey } from '@/lib/utils/client-key';
+import { saveContact } from '@/lib/db/r2/save-contact';
+import {
+  MAX_NAME_LENGTH,
+  MAX_EMAIL_LENGTH,
+  MAX_MESSAGE_LENGTH,
+  EMAIL_SHAPE,
+  LIMIT,
+  WINDOW_MS,
+} from '@/lib/constants/contact-information';
 
 export async function POST(req: NextRequest) {
   // Every submission writes an object to the bucket, so the cost of an

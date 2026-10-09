@@ -1,15 +1,18 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import AlbumTracks from '@/app/components/album-tracks';
-import SiteHeader from '@/app/components/site-header';
-import { albumBySlug, orderedAlbumMeta } from '@/lib/albums';
-import { getAccessLevel } from '@/lib/auth';
-import { listSongs, toPlayable } from '@/lib/r2';
-import { SITE_URL } from '@/lib/site';
-import '@/app/components/interior-pages.css';
-import '@/app/components/album-shelf.css';
-import '@/app/albums/[slug]/album-page.css';
+import AlbumTracks from '@/components/album-tracks';
+import SiteHeader from '@/components/site-header';
+import { getAccessLevel } from '@/lib/auth/get-access-level';
+import { SITE_URL } from '@/lib/constants/site-url';
+import { listSongs } from '@/lib/db/r2/list-songs';
+import { albumBySlug } from '@/lib/utils/album-by-slug';
+import { orderedAlbumMeta } from '@/lib/utils/ordered-album-meta';
+import { toPlayableUrl } from '@/lib/utils/to-playable-url';
+import '@/components/styles/interior-pages.css';
+import '@/components/styles/album-shelf.css';
+import '@/components/styles/album-page.css';
 
 const COVER_SIZE = 900;
 
@@ -43,7 +46,6 @@ export async function generateMetadata({
       title: `${album.title} | LE FOG`,
       description,
       url: `${SITE_URL}/albums/${album.slug}`,
-      // Each album shares as its own cover rather than the one site-wide image.
       images: album.cover
         ? [
             {
@@ -76,13 +78,9 @@ export default async function AlbumPage({
   const accessLevel = await getAccessLevel();
   const catalog = await listSongs();
 
-  // One array instance: TrackList indexes album tracks against the full
-  // catalog by identity, so these must be the same objects.
-  const songs = accessLevel === 'guest' ? catalog : toPlayable(catalog);
+  const songs = accessLevel === 'guest' ? catalog : toPlayableUrl(catalog);
   const albumSongs = songs.filter((song) => song.album === album.key);
 
-  // Track counts come from the bucket, so this can't go stale the way a
-  // hardcoded number would.
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'MusicAlbum',
@@ -113,7 +111,7 @@ export default async function AlbumPage({
         </script>
 
         <nav className='album-page-back'>
-          <a href='/albums'>← All albums</a>
+          <Link href='/albums'>← All albums</Link>
         </nav>
 
         <header className='album-page-header'>
@@ -124,7 +122,7 @@ export default async function AlbumPage({
                 alt={`Cover art for ${album.title} by LE FOG`}
                 width={COVER_SIZE}
                 height={COVER_SIZE}
-                sizes='(max-width: 639px) 100vw, 320px'
+                sizes='(max-width: 639px) min(100vw, 320px), 220px'
                 className='album-page-cover-img'
                 priority
               />
@@ -145,6 +143,12 @@ export default async function AlbumPage({
             {album.blurb && <p className='album-page-blurb'>{album.blurb}</p>}
           </div>
         </header>
+        {accessLevel === 'guest' && albumSongs.length > 0 && (
+          <p className='album-page-note'>
+            Streaming is free with an account.{' '}
+            <Link href='/sign-up'>Sign up free</Link>
+          </p>
+        )}
 
         {albumSongs.length > 0 ? (
           <AlbumTracks
