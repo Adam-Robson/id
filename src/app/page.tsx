@@ -1,5 +1,4 @@
 import { PageMetadata } from '@/app/metadata';
-import BackgroundWord from '@/components/background-word';
 import HomeIntro from '@/components/home-intro';
 import SiteHeader from '@/components/site-header';
 import SongCatalog from '@/components/song-catalog';
@@ -14,8 +13,10 @@ export default async function Home() {
   const songs = accessLevel === 'guest' ? [] : toPlayableUrl(await listSongs());
 
   return (
-    <div className='page-wrapper page-wrapper--home'>
-      <BackgroundWord />
+    <div
+      className='page-wrapper page-wrapper--home'
+      data-pattern='electric-pink'
+    >
       <SiteHeader variant='home' />
       <HomeIntro />
       <main className='home-main'>

@@ -14,6 +14,7 @@ a.contact-value {
 }
 
 .contact-label {
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: var(--label-weight);
   letter-spacing: var(--label-tracking);
@@ -41,10 +42,10 @@ a.contact-value {
 
 .form-input {
   width: 100%;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--text-muted);
-  border-radius: 0.5rem;
-  background-color: transparent;
+  padding: 0.65rem 0.85rem;
+  border: var(--stroke) solid var(--border);
+  border-radius: var(--radius-inner);
+  background-color: color-mix(in oklab, var(--bg) 8%, var(--surface));
   color: var(--text);
   font-size: 1rem;
   font-weight: 300;
@@ -57,7 +58,8 @@ a.contact-value {
 }
 
 .form-input:focus-visible {
-  border-color: var(--text);
+  border-color: var(--edge);
+  outline-color: var(--pop);
 }
 
 .form-input[aria-invalid="true"] {
@@ -69,22 +71,12 @@ a.contact-value {
   resize: vertical;
 }
 
+/* Composes .button. */
 .form-submit {
   align-self: flex-start;
-  padding: 0.55rem 1.5rem;
-  border: 1px solid var(--text);
-  border-radius: 999px;
-  background-color: transparent;
-  color: var(--text);
-  font-size: 0.75rem;
-  font-weight: var(--label-weight);
-  letter-spacing: var(--label-tracking);
-  text-transform: uppercase;
-  transition: background-color 0.25s var(--ease-out);
 }
 
-.form-input:disabled,
-.form-submit:disabled {
+.form-input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -101,16 +93,6 @@ a.contact-value {
   .contact-inline-link:hover,
   a.contact-value:hover {
     text-decoration-color: var(--accent);
-  }
-
-  .form-submit:hover:not(:disabled) {
-    background-color: var(--hover-wash);
-  }
-}
-
-@media (pointer: coarse) {
-  .form-submit {
-    min-height: 2.75rem;
   }
 }
 

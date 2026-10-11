@@ -7,7 +7,7 @@ import '@/components/styles/home-intro.css';
 export default function HomeIntro() {
   return (
     <section className='home-intro'>
-      <div className='home-intro-copy'>
+      <div className='home-intro-copy sheet'>
         <h1 className='home-intro-lede-display'>
           <span className='home-intro-mark'>LE FOG</span>{' '}
           <em className='home-intro-aside'>music</em>

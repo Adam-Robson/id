@@ -1,5 +1,4 @@
 .status-page {
-  flex: 1;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -24,6 +23,7 @@
 
 .status-page-actions {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;

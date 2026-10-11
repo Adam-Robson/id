@@ -23,10 +23,10 @@ export default async function AlbumsPage() {
   const songs = accessLevel === 'guest' ? catalog : toPlayableUrl(catalog);
 
   return (
-    <div className='page-wrapper page-wrapper--interior'>
+    <div className='page-wrapper page-wrapper--interior' data-pattern='poppies'>
       <SiteHeader variant='interior' />
-      <main className='interior-main'>
-        <h1 className='page-eyebrow'>Albums</h1>
+      <main className='shelf-main'>
+        <h1 className='page-eyebrow page-eyebrow--label sheet'>Albums</h1>
         <AlbumShelf songs={songs} accessLevel={accessLevel} />
       </main>
     </div>

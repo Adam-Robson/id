@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className='page-wrapper page-wrapper--interior'>
+    <div className='page-wrapper page-wrapper--interior' data-pattern='pastels'>
       <SiteHeader variant='interior' />
-      <main className='interior-main'>
+      <main className='interior-main sheet'>
         <h1 className='page-eyebrow'>Privacy</h1>
 
         <article className='policy'>

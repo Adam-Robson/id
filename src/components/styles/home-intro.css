@@ -3,78 +3,82 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: 48.75rem;
-  margin-inline: auto;
-  padding-block: clamp(2rem, 1.5rem + 2.5vw, 3.5rem) var(--bar-clearance);
+  padding-block: clamp(2.5rem, 1.5rem + 5vw, 5rem) var(--bar-clearance);
   padding-inline: var(--spacing-gutter);
 }
 
+/* The wordmark as a paper label stuck onto the print; composes .sheet. */
 .home-intro-copy {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  justify-content: center;
+  max-width: 100%;
+  padding: clamp(1.75rem, 1rem + 3.5vw, 3.5rem) clamp(1.5rem, 0.75rem + 4vw, 4.5rem);
+  rotate: -2deg;
+}
 
+@media (prefers-reduced-motion: no-preference) {
+  .home-intro-copy {
+    animation: label-in 0.7s var(--ease-out) both;
+  }
+}
+
+@keyframes label-in {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+    rotate: -6deg;
+  }
 }
 
 .home-intro-lede-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: var(--font-display);
-  font-size: var(--text-4xl);
+  font-size: clamp(3.5rem, 1.5rem + 9vw, 9rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.home-intro-mark {
+  color: var(--text);
+  white-space: nowrap;
+  word-spacing: 0.1em;
+}
+
+.home-intro-aside {
+  margin-block-start: -0.05em;
+  font-size: 0.42em;
+  font-style: italic;
   font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
+  letter-spacing: 0;
+  color: var(--accent);
 }
 
 .home-intro-kicker {
-  margin-block-start: 1rem;
-  margin-inline: auto;
+  margin-block-start: 1.5rem;
   font-family: var(--font-mono);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
-.home-intro-mark {
-  color: var(--text);
-  white-space: nowrap;
-  letter-spacing: 0.14em;
-  word-spacing: 0.3em;
-  margin-inline-end: -0.14em;
-}
-
-.home-intro-aside {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--text-muted);
-}
-
-/* The six palette colours as a short, fine mark above the kicker. */
+/* A short, fat stroke of the pattern's loudest colour above the kicker. */
 .home-intro-kicker::before {
   content: "";
   display: block;
-  width: 4.5rem;
-  height: 2px;
+  width: 3.5rem;
+  height: 0.375rem;
   margin-inline: auto;
   margin-block-end: 1.25rem;
-  background: linear-gradient(
-    to right,
-    var(--color-robin) 0% 16.667%,
-    var(--color-petal) 16.667% 33.333%,
-    var(--color-sand) 33.333% 50%,
-    var(--color-lilac) 50% 66.667%,
-    var(--color-iris) 66.667% 83.333%,
-    var(--color-wheat) 83.333% 100%
-  );
-}
-
-@media (width < 30rem) {
-  .home-intro-lede-display {
-    max-width: 12ch;
-  }
+  border-radius: 999px;
+  background-color: var(--pop);
 }

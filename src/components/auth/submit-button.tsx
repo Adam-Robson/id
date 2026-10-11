@@ -8,7 +8,7 @@ export default function SubmitButton({
   children: React.ReactNode;
 }) {
   return (
-    <button className='auth-submit' type='submit' disabled={pending}>
+    <button className='auth-submit button' type='submit' disabled={pending}>
       {pending ? pendingLabel : children}
     </button>
   );

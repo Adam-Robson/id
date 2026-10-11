@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className='page-wrapper page-wrapper--interior'>
+    <div className='page-wrapper page-wrapper--interior' data-pattern='peonies'>
       <SiteHeader variant='interior' />
-      <main className='interior-main about-interior'>
+      <main className='interior-main sheet about-interior'>
         <h1 className='page-eyebrow'>About</h1>
         <div className='about-layout'>
           <AboutGallery />

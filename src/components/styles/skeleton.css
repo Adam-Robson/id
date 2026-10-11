@@ -28,20 +28,18 @@
   margin-inline: auto;
 }
 
+/* Composes .sheet, like the tape card it stands in for. */
 .skeleton-card {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.1rem;
-  border: 1px solid var(--border);
-  border-radius: 0.875rem;
-  background-color: var(--surface);
 }
 
 .skeleton-cover {
   aspect-ratio: 1;
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-inner);
 }
 
 .skeleton-cover--detail {
@@ -101,4 +99,11 @@
     width: 100%;
     max-width: 20rem;
   }
+}
+
+/* Where no sheet sits behind it, the status is its own small label;
+   composes .sheet. */
+.skeleton-status--label {
+  align-self: center;
+  padding: 0.4rem 1rem 0.4rem 1.12rem;
 }

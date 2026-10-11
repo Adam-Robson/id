@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className='page-wrapper page-wrapper--interior'>
+    <div className='page-wrapper page-wrapper--interior' data-pattern='pastels'>
       <SiteHeader variant='interior' />
-      <main className='interior-main status-page'>
+      <main className='interior-main sheet status-page'>
         <p className='status-page-code'>404</p>
         <h1 className='page-eyebrow'>Nothing here</h1>
         <p className='page-body'>

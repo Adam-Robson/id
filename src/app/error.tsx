@@ -20,14 +20,14 @@ export default function PageError({
   }, [error]);
 
   return (
-    <div className='page-wrapper page-wrapper--interior'>
-      <main className='interior-main status-page'>
+    <div className='page-wrapper page-wrapper--interior' data-pattern='pastels'>
+      <main className='interior-main sheet status-page'>
         <h1 className='page-eyebrow'>Page Not Found</h1>
         <p className='page-body'>
           The page didn't load properly. It's usually temporary — try again.
         </p>
         <div className='status-page-actions'>
-          <button type='button' onClick={reset}>
+          <button type='button' className='button' onClick={reset}>
             Try again
           </button>
           <p>

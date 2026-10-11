@@ -27,7 +27,7 @@ export default function AlbumShelf({
       {albums.map(({ meta, songs: albumSongs }) => (
         <section
           key={meta.key}
-          className='tape-card'
+          className='tape-card sheet'
           aria-labelledby={`album-${meta.key}`}
         >
           <header className='tape-card-label'>

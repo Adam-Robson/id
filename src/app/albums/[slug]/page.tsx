@@ -103,9 +103,9 @@ export default async function AlbumPage({
   };
 
   return (
-    <div className='page-wrapper page-wrapper--interior'>
+    <div className='page-wrapper page-wrapper--interior' data-pattern='dahlias'>
       <SiteHeader variant='interior' />
-      <main className='interior-main album-page'>
+      <main className='interior-main sheet album-page'>
         <script type='application/ld+json'>
           {JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
         </script>

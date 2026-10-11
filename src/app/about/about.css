@@ -1,10 +1,9 @@
 .interior-main.about-interior {
-  max-width: var(--content-max);
-  padding-block-start: 2rem;
+  max-width: 64rem;
 }
 
 .about-interior .page-body {
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .about-layout {
@@ -21,4 +20,20 @@
   max-width: 65ch;
   min-width: 0;
   margin-inline: auto;
+}
+
+/* Portrait beside the words once there's room for both. */
+@media (width >= 56rem) {
+  .about-layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .about-layout .about-gallery {
+    flex: 0 0 clamp(18rem, 10rem + 14vw, 24rem);
+  }
+
+  .about-text {
+    margin-inline: 0;
+  }
 }

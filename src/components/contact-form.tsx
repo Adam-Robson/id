@@ -109,7 +109,7 @@ export default function ContactForm() {
       )}
 
       <button
-        className='form-submit'
+        className='form-submit button'
         type='submit'
         disabled={status === 'submitting'}
       >

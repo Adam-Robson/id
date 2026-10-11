@@ -21,7 +21,7 @@ export default function SignInPrompt() {
           Listen to every song for free, with an account
         </p>
         <div className='sign-in-prompt-links'>
-          <Link href='/sign-up' className='sign-in-prompt-cta'>
+          <Link href='/sign-up' className='sign-in-prompt-cta button'>
             Sign up free
           </Link>
           <Link href='/sign-in'>Sign in</Link>

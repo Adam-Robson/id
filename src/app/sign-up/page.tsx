@@ -14,9 +14,12 @@ export const metadata: Metadata = {
  */
 export default function SignUpPage() {
   return (
-    <div className='page-wrapper page-wrapper--interior'>
+    <div
+      className='page-wrapper page-wrapper--interior'
+      data-pattern='little-flowers'
+    >
       <SiteHeader variant='interior' />
-      <main className='interior-main auth-main'>
+      <main className='interior-main sheet auth-main'>
         <h1 className='page-eyebrow'>Sign Up</h1>
         <SignUpForm />
       </main>

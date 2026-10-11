@@ -48,8 +48,8 @@
   flex-direction: column;
   gap: 0.75rem;
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0.6rem;
+  border: var(--stroke) solid var(--edge);
+  border-radius: var(--radius-inner);
   box-shadow: var(--shadow-card);
   padding: 0.85rem;
   z-index: 20;

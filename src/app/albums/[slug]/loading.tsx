@@ -8,9 +8,9 @@ import '@/components/styles/skeleton.css';
  */
 export default function Loading() {
   return (
-    <div className='page-wrapper page-wrapper--interior'>
+    <div className='page-wrapper page-wrapper--interior' data-pattern='dahlias'>
       <SiteHeader variant='interior' />
-      <main className='interior-main'>
+      <main className='interior-main sheet'>
         <div className='skeleton-album' aria-hidden='true'>
           <div className='skeleton-block skeleton-cover skeleton-cover--detail' />
           <div className='skeleton-album-meta'>

@@ -19,9 +19,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className='page-wrapper page-wrapper--interior'>
+    <div
+      className='page-wrapper page-wrapper--interior'
+      data-pattern='little-flowers'
+    >
       <SiteHeader variant='interior' />
-      <main className='interior-main contact-interior'>
+      <main className='interior-main sheet contact-interior'>
         <h1 className='page-eyebrow'>Contact</h1>
         <p className='page-body contact-intro'>
           For questions, booking, press, or anything else, email{' '}
