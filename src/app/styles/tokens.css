@@ -1,22 +1,28 @@
 /* ----------Primitive raw utilities----------*/
 @theme static {
   /*----------Fluid Type Scale----------*/
-  --text-base: clamp(1rem, 0.958rem + 0.208vw, 1.125rem);
-  /* 16 → 18px */
+  --text-xs: clamp(0.75rem, 0.708rem + 0.208vw, 0.875rem);
+  /* 0.75 → 0.875rem, labels and captions */
+  --text-sm: clamp(0.875rem, 0.833rem + 0.208vw, 1rem);
+  /* 0.875 → 1rem, secondary text */
+  --text-md: clamp(0.9375rem, 0.896rem + 0.208vw, 1.0625rem);
+  /* 0.9375 → 1.0625rem, list items */
+  --text-base: clamp(1rem, 0.9375rem + 0.3125vw, 1.1875rem);
+  /* 1 → 1.1875rem */
   --text-lg: clamp(1.125rem, 1.083rem + 0.208vw, 1.25rem);
-  /* 18 → 20px */
+  /* 1.125 → 1.25rem */
   --text-xl: clamp(1.25rem, 1.167rem + 0.417vw, 1.5rem);
-  /* 20 → 24px */
+  /* 1.25 → 1.5rem */
   --text-2xl: clamp(1.5rem, 1.333rem + 0.833vw, 2rem);
-  /* 24 → 32px */
+  /* 1.5 → 2rem */
   --text-3xl: clamp(1.875rem, 1.583rem + 1.458vw, 2.75rem);
-  /* 30 → 44px */
+  /* 1.875 → 2.75rem */
   --text-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3.75rem);
-  /* 36 → 60px */
+  /* 2.25 → 3.75rem */
 
   /*----------Fluid Spacing----------*/
   --spacing-gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
-  /* 16 → 40px, page side padding */
+  /* 1 → 2.5rem, page side padding */
 }
 
 /*----------Font Sets----------*/

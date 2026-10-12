@@ -14,7 +14,7 @@
   /*----------Layout----------*/
   --content-max: 75.625rem;
   --bar-max: 56.25rem;
-  --bar-clearance: calc(9rem + env(safe-area-inset-bottom, 0px));
+  --bar-clearance: calc(9rem + env(safe-area-inset-bottom, 0rem));
   --z-bar: 999;
   --pattern-size: 26rem;
 
@@ -22,7 +22,7 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
   /*----------Labels: small caps, quiet weight----------*/
-  --label-size: 0.75rem;
+  --label-size: var(--text-xs);
   --label-weight: 500;
   --label-tracking: 0.14em;
 }
@@ -42,6 +42,6 @@
 /*----------Touch Layout Growth----------*/
 @media (pointer: coarse) {
   :root {
-    --bar-clearance: calc(10.5rem + env(safe-area-inset-bottom, 0px));
+    --bar-clearance: calc(10.5rem + env(safe-area-inset-bottom, 0rem));
   }
 }

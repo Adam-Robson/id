@@ -16,7 +16,7 @@ export default function AboutGallery() {
           alt=''
           width={2000}
           height={2000}
-          sizes='(max-width: 520px) 92vw, 480px'
+          sizes='(max-width: 32.5rem) 92vw, 30rem'
           className='about-portrait'
           priority
         />

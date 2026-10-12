@@ -36,7 +36,7 @@ export default function AlbumShelf({
                 src={meta.cover}
                 alt={`Cover art for ${meta.title} by LE FOG`}
                 fill
-                sizes='(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 400px'
+                sizes='(max-width: 39.9375rem) 100vw, (max-width: 63.9375rem) 50vw, 25rem'
                 className='album-tile-cover-img'
               />
             </div>

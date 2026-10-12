@@ -5,12 +5,12 @@
     width: 100%;
     padding: 0.6rem 0;
     border: 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 0.0625rem solid var(--border);
     border-radius: 0;
     background-color: transparent;
     color: var(--text);
     font: inherit;
-    font-size: 1rem;
+    font-size: var(--text-base);
     transition: border-color 0.2s var(--ease-out);
   }
 
