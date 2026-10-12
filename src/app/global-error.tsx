@@ -53,7 +53,7 @@ export default function GlobalError({
             style={{
               font: 'inherit',
               padding: '0.55rem 1.4rem',
-              border: '1px solid #151515',
+              border: '0.0625rem solid #151515',
               background: 'transparent',
               color: '#151515',
               cursor: 'pointer',
