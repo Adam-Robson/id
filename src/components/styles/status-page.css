@@ -16,7 +16,7 @@
      centred text left. Matching padding at the start re-centres it. */
   padding-inline-start: 0.22em;
   font-family: var(--font-mono);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   letter-spacing: 0.22em;
   color: var(--text-muted);
 }
@@ -34,7 +34,7 @@
   margin-block-start: 2.5rem;
   padding-inline-start: 0.1em;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   letter-spacing: 0.1em;
   color: var(--text-muted);
   overflow-wrap: anywhere;

@@ -7,7 +7,7 @@
   width: 1.75rem;
   height: 1.75rem;
   padding: 0;
-  border: 1px solid var(--border);
+  border: 0.0625rem solid var(--border);
   border-radius: 50%;
   background: transparent;
   color: var(--text-muted);

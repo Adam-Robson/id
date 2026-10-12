@@ -1,7 +1,7 @@
 /* A hairline that fills with the accent as the song plays; the thumb only
    appears on hover or focus so the bar stays quiet at rest. */
 .seek {
-  --seek-track: 2px;
+  --seek-track: 0.125rem;
   --seek-thumb: 0.85rem;
   --seek-fill: linear-gradient(
     to right,

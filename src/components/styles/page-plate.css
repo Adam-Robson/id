@@ -7,23 +7,33 @@
   padding-block-start: clamp(1.5rem, 1rem + 2vw, 2.5rem);
 }
 
+/* Every print hangs at one height on desktop, so the page below starts in
+   the same place as you move between pages. */
+.page-plate {
+  --plate-height: clamp(14rem, 40dvh, 28rem);
+}
+
+/* Below desktop the home print stands tall, filling the first screen like
+   a cover; on a wide screen the logo already marks the home page. */
+@media (width < 64rem) {
+  .page-plate--hero {
+    --plate-height: min(70dvh, 44rem);
+  }
+}
+
 /* The prints are seamless tiles, so the band repeats them at a fixed scale
    instead of stretching one copy to fit. */
 .page-plate-image {
-  height: clamp(14rem, 40vh, 28rem);
+  height: var(--plate-height);
   background-color: var(--border);
   background-repeat: repeat;
   background-size: var(--pattern-size);
   background-position: center;
 }
 
-.page-plate--hero .page-plate-image {
-  height: min(70vh, 44rem);
-}
-
 .page-plate-caption {
   padding-block: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 @media (prefers-reduced-motion: no-preference) {
