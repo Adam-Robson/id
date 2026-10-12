@@ -1,7 +1,8 @@
 import type { Viewport } from 'next';
+import { THEME_COLOUR } from '@/lib/constants/app-colours';
 
 export const viewport: Viewport = {
-  themeColor: '#2e2a26',
+  themeColor: THEME_COLOUR,
   width: 'device-width',
   initialScale: 1,
 };

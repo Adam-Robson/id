@@ -13,7 +13,7 @@ export default async function Home() {
   const songs = accessLevel === 'guest' ? [] : toPlayableUrl(await listSongs());
 
   return (
-    <PageShell pattern='electric-pink' plate='hero'>
+    <PageShell pattern='electric-pink' plate='hero' cycleLogo>
       <main className='page-content'>
         <HomeIntro />
         {songs.length > 0 && <SongCatalog songs={songs} />}

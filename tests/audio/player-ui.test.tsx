@@ -140,4 +140,12 @@ describe('audio controls', () => {
     await user.click(screen.getByRole('button', { name: 'Open song list' }));
     expect(onToggleList).toHaveBeenCalledTimes(1);
   });
+
+  // The toggle shows only an icon, so screen readers rely on the
+  // aria-label for its purpose and aria-expanded for its state.
+  it('announces whether the song list is open', () => {
+    renderPlayer();
+    const toggle = screen.getByRole('button', { name: 'Open song list' });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  });
 });
