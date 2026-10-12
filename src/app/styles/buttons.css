@@ -1,0 +1,39 @@
+/*----------Buttons----------*/
+@layer components {
+  /* Solid ink rectangle; hover inverts to an outline. */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--text);
+    background-color: var(--text);
+    color: var(--bg);
+    font-size: var(--label-size);
+    font-weight: var(--label-weight);
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    text-decoration-line: none;
+    transition:
+      background-color 0.25s var(--ease-out),
+      color 0.25s var(--ease-out);
+  }
+
+  .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (hover: hover) {
+    .button:hover:not(:disabled) {
+      background-color: transparent;
+      color: var(--text);
+    }
+  }
+
+  @media (pointer: coarse) {
+    .button {
+      min-height: 2.75rem;
+    }
+  }
+}

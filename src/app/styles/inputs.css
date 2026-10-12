@@ -1,0 +1,47 @@
+/*----------Inputs----------*/
+@layer components {
+  /* A classic form line: a single rule beneath the field, no box. */
+  .input {
+    width: 100%;
+    padding: 0.6rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 1rem;
+    transition: border-color 0.2s var(--ease-out);
+  }
+
+  .input::placeholder {
+    color: var(--text-muted);
+    opacity: 1;
+  }
+
+  @media (hover: hover) {
+    .input:hover:not(:disabled) {
+      border-bottom-color: var(--text-muted);
+    }
+  }
+
+  .input:focus,
+  .input:focus-visible {
+    border-bottom-color: var(--text);
+  }
+
+  .input[aria-invalid="true"] {
+    border-bottom-color: var(--danger);
+  }
+
+  .input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (pointer: coarse) {
+    .input {
+      min-height: 2.75rem;
+    }
+  }
+}

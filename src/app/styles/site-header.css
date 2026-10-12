@@ -1,0 +1,66 @@
+/*----------Site Header----------*/
+@layer components {
+  /* Aligned to the content column and ruled off with a hairline, like the
+     masthead of a printed page. */
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 2rem;
+    row-gap: 0.75rem;
+    width: calc(100% - 2 * var(--spacing-gutter));
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-block: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-wordmark {
+    justify-self: start;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration-line: none;
+    white-space: nowrap;
+  }
+
+  .site-header-end {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 2rem;
+  }
+
+  .site-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Touch targets are enlarged to 2.75rem around each control; this gap lets
+     them meet without overlapping. */
+  @media (pointer: coarse) {
+    .site-header-actions {
+      gap: 0.5rem;
+    }
+  }
+
+  /* On narrow screens the nav drops to its own row beneath the wordmark. */
+  @media (width < 40rem) {
+    .site-header-end {
+      display: contents;
+    }
+
+    .site-header .site-header-actions {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .site-header .site-nav {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+  }
+}

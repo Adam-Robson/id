@@ -1,0 +1,15 @@
+/*----------Colour Scheme----------
+  Every colour token is written once with light-dark(), so the scheme is
+  chosen here and nowhere else. With no class the OS preference decides;
+  the theme toggle pins one by setting .light or .dark on <html>. */
+:root {
+  color-scheme: light dark;
+}
+
+:root.light {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+}
