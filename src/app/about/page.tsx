@@ -2,8 +2,8 @@ import '@/app/about/about.css';
 import '@/components/styles/interior-pages.css';
 import type { Metadata } from 'next';
 import AboutGallery from '@/components/about-gallery';
+import PageShell from '@/components/page-shell';
 import { sharedOgImage } from '@/components/shared-og-image';
-import SiteHeader from '@/components/site-header';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -17,9 +17,8 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className='page-wrapper page-wrapper--interior' data-pattern='peonies'>
-      <SiteHeader variant='interior' />
-      <main className='interior-main sheet about-interior'>
+    <PageShell pattern='peonies'>
+      <main className='page-content about-interior'>
         <h1 className='page-eyebrow'>About</h1>
         <div className='about-layout'>
           <AboutGallery />
@@ -46,6 +45,6 @@ export default function AboutPage() {
           </div>
         </div>
       </main>
-    </div>
+    </PageShell>
   );
 }

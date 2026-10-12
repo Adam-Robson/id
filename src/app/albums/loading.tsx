@@ -1,4 +1,4 @@
-import SiteHeader from '@/components/site-header';
+import PageShell from '@/components/page-shell';
 import '@/components/styles/interior-pages.css';
 import '@/components/styles/skeleton.css';
 
@@ -9,28 +9,24 @@ import '@/components/styles/skeleton.css';
  */
 export default function Loading() {
   return (
-    <div className='page-wrapper page-wrapper--interior' data-pattern='poppies'>
-      <SiteHeader variant='interior' />
-      <main className='shelf-main'>
-        <h1 className='page-eyebrow page-eyebrow--label sheet'>Albums</h1>
+    <PageShell pattern='poppies'>
+      <main className='page-content'>
+        <h1 className='page-eyebrow'>Albums</h1>
         <div className='skeleton-shelf' aria-hidden='true'>
           {[0, 1, 2].map((i) => (
-            <div key={i} className='skeleton-card sheet'>
+            <div key={i} className='skeleton-card'>
               <div className='skeleton-block skeleton-cover' />
+              <div className='skeleton-block skeleton-line skeleton-line--short' />
               <div className='skeleton-block skeleton-line skeleton-line--title' />
               <div className='skeleton-block skeleton-line' />
               <div className='skeleton-block skeleton-line' />
-              <div className='skeleton-block skeleton-line skeleton-line--short' />
             </div>
           ))}
         </div>
-        <p
-          className='skeleton-status skeleton-status--label sheet'
-          role='status'
-        >
+        <p className='skeleton-status label' role='status'>
           Loading albums…
         </p>
       </main>
-    </div>
+    </PageShell>
   );
 }
