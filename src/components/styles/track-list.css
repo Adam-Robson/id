@@ -1,0 +1,123 @@
+/* A numbered tracklist ruled with hairlines; shared by the album shelf and
+   the album page. */
+.track-list {
+  margin-block-start: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.track-row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+}
+
+.track {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.6rem 0.25rem;
+  text-align: left;
+  transition: background-color 0.15s;
+}
+
+.track.active {
+  font-weight: 500;
+}
+
+.track.track--locked {
+  color: var(--text-muted);
+}
+
+.track-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding-inline: 0.75rem;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+
+.track-num {
+  min-width: 1.6em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.track.active .track-num {
+  color: var(--accent);
+}
+
+.track-title {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+@media (hover: hover) {
+  .track:not(.track--locked):hover {
+    background-color: var(--hover-wash);
+  }
+
+  .track-download:hover {
+    color: var(--text);
+  }
+}
+
+/* ── Now-playing meter ──────────────────────────────────────── */
+
+.track-meter {
+  display: inline-flex;
+  align-items: flex-end;
+  align-self: center;
+  gap: 0.125rem;
+  height: 0.75rem;
+}
+
+.track-meter i {
+  width: 0.125rem;
+  height: 100%;
+  background-color: var(--accent);
+  transform-origin: bottom;
+  scale: 1 0.33;
+}
+
+.track-meter.playing i {
+  scale: 1 0.67;
+}
+
+@keyframes meter {
+  0%,
+  100% {
+    scale: 1 0.33;
+  }
+  50% {
+    scale: 1 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .track-meter.playing i {
+    animation: meter 0.9s ease-in-out infinite;
+  }
+
+  .track-meter.playing i:nth-child(2) {
+    animation-delay: 0.25s;
+  }
+
+  .track-meter.playing i:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+}
+
+@media (pointer: coarse) {
+  .track {
+    padding-block: 0.85rem;
+  }
+
+  .track-download {
+    min-width: 2.75rem;
+  }
+}

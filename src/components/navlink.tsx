@@ -2,13 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import PhosphorIcon from '@/components/phosphor-icon';
 import type { NavlinkProps } from '@/lib/types/navlink.props';
 
 export default function Navlink({
   href,
   className,
-  icon,
   value,
   children,
 }: NavlinkProps) {
@@ -26,7 +24,6 @@ export default function Navlink({
     >
       {value}
       {children}
-      {icon && <PhosphorIcon as={icon} />}
     </Link>
   );
 }

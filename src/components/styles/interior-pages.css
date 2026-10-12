@@ -1,49 +1,14 @@
-/* The content column for interior pages. Most sit on one paper sheet
-   (.interior-main, composed with .sheet in markup); the albums shelf
-   (.shelf-main) has none, as every tape card is its own. */
-.interior-main,
-.shelf-main {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: calc(100% - 2 * var(--spacing-gutter));
-  max-width: 40rem;
-  margin-inline: auto;
-  margin-block: clamp(2rem, 1rem + 4vw, 4rem) var(--bar-clearance);
-}
-
-.interior-main {
-  padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
-}
-
+/* The page title: light Fraunces, left-aligned on the content column and
+   ruled off beneath, like a section opening in a catalogue. */
 .page-eyebrow {
-  margin-block-end: 1rem;
+  padding-block-end: 1.5rem;
+  border-bottom: 1px solid var(--border);
   font-family: var(--font-display);
   font-size: var(--text-4xl);
-  font-weight: 800;
+  font-weight: 300;
   line-height: 1;
-  letter-spacing: -0.02em;
-  text-align: center;
+  letter-spacing: -0.01em;
   text-wrap: balance;
-}
-
-.page-eyebrow::after {
-  content: "";
-  display: block;
-  width: 2.5rem;
-  height: 0.3125rem;
-  margin-block-start: 1rem;
-  margin-inline: auto;
-  border-radius: 999px;
-  background-color: var(--pop);
-}
-
-/* A heading that is its own label on the pattern; composes .sheet. */
-.page-eyebrow--label {
-  align-self: center;
-  margin-block-end: 0.5rem;
-  padding: 0.75rem 1.75rem 1rem;
-  rotate: -2deg;
 }
 
 .page-body {

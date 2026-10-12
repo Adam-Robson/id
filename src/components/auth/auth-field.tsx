@@ -24,7 +24,7 @@ export default function AuthField({
       </label>
       <input
         {...input}
-        className='auth-input'
+        className='input'
         id={id}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
