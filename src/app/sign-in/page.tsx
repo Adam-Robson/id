@@ -2,7 +2,7 @@ import '@/components/styles/interior-pages.css';
 import '@/components/styles/auth-form.css';
 import type { Metadata } from 'next';
 import SignInForm from '@/components/auth/sign-in-form';
-import SiteHeader from '@/components/site-header';
+import PageShell from '@/components/page-shell';
 
 export const metadata: Metadata = {
   title: 'Sign In',
@@ -15,15 +15,11 @@ export const metadata: Metadata = {
  */
 export default function SignInPage() {
   return (
-    <div
-      className='page-wrapper page-wrapper--interior'
-      data-pattern='little-flowers'
-    >
-      <SiteHeader variant='interior' />
-      <main className='interior-main sheet auth-main'>
+    <PageShell pattern='little-flowers'>
+      <main className='page-content'>
         <h1 className='page-eyebrow'>Sign In</h1>
         <SignInForm />
       </main>
-    </div>
+    </PageShell>
   );
 }
