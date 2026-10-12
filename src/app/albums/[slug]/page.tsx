@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AlbumTracks from '@/components/album-tracks';
-import SiteHeader from '@/components/site-header';
+import PageShell from '@/components/page-shell';
 import { getAccessLevel } from '@/lib/auth/get-access-level';
 import { SITE_URL } from '@/lib/constants/site-url';
 import { listSongs } from '@/lib/db/r2/list-songs';
@@ -11,7 +11,6 @@ import { albumBySlug } from '@/lib/utils/album-by-slug';
 import { orderedAlbumMeta } from '@/lib/utils/ordered-album-meta';
 import { toPlayableUrl } from '@/lib/utils/to-playable-url';
 import '@/components/styles/interior-pages.css';
-import '@/components/styles/album-shelf.css';
 import '@/app/albums/[slug]/album-page.css';
 
 const COVER_SIZE = 900;
@@ -103,14 +102,13 @@ export default async function AlbumPage({
   };
 
   return (
-    <div className='page-wrapper page-wrapper--interior' data-pattern='dahlias'>
-      <SiteHeader variant='interior' />
-      <main className='interior-main sheet album-page'>
+    <PageShell pattern='dahlias'>
+      <main className='page-content album-page'>
         <script type='application/ld+json'>
           {JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
         </script>
 
-        <nav className='album-page-back'>
+        <nav className='album-page-back label'>
           <Link href='/albums'>← All albums</Link>
         </nav>
 
@@ -122,7 +120,7 @@ export default async function AlbumPage({
                 alt={`Cover art for ${album.title} by LE FOG`}
                 width={COVER_SIZE}
                 height={COVER_SIZE}
-                sizes='(max-width: 639px) min(100vw, 320px), 220px'
+                sizes='(max-width: 639px) 100vw, 360px'
                 className='album-page-cover-img'
                 priority
               />
@@ -131,7 +129,7 @@ export default async function AlbumPage({
 
           <div className='album-page-meta'>
             <h1 className='album-page-title'>{album.title}</h1>
-            <p className='album-page-facts'>
+            <p className='album-page-facts label'>
               <span>{album.catalog}</span>
               {album.year && <span>{album.year}</span>}
               {albumSongs.length > 0 && (
@@ -162,6 +160,6 @@ export default async function AlbumPage({
           </p>
         )}
       </main>
-    </div>
+    </PageShell>
   );
 }

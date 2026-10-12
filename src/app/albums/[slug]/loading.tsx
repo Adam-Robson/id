@@ -1,4 +1,4 @@
-import SiteHeader from '@/components/site-header';
+import PageShell from '@/components/page-shell';
 import '@/components/styles/interior-pages.css';
 import '@/components/styles/skeleton.css';
 
@@ -8,9 +8,8 @@ import '@/components/styles/skeleton.css';
  */
 export default function Loading() {
   return (
-    <div className='page-wrapper page-wrapper--interior' data-pattern='dahlias'>
-      <SiteHeader variant='interior' />
-      <main className='interior-main sheet'>
+    <PageShell pattern='dahlias'>
+      <main className='page-content'>
         <div className='skeleton-album' aria-hidden='true'>
           <div className='skeleton-block skeleton-cover skeleton-cover--detail' />
           <div className='skeleton-album-meta'>
@@ -23,10 +22,10 @@ export default function Loading() {
             <div key={i} className='skeleton-block skeleton-line' />
           ))}
         </div>
-        <p className='skeleton-status' role='status'>
+        <p className='skeleton-status label' role='status'>
           Loading album…
         </p>
       </main>
-    </div>
+    </PageShell>
   );
 }

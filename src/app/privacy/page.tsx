@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import SiteHeader from '@/components/site-header';
+import PageShell from '@/components/page-shell';
 import '@/components/styles/interior-pages.css';
 import '@/app/privacy/privacy.css';
 
@@ -12,13 +12,12 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className='page-wrapper page-wrapper--interior' data-pattern='pastels'>
-      <SiteHeader variant='interior' />
-      <main className='interior-main sheet'>
+    <PageShell pattern='pastels'>
+      <main className='page-content page-content--text'>
         <h1 className='page-eyebrow'>Privacy</h1>
 
         <article className='policy'>
-          <p className='policy-updated'>Last updated: October 08, 2026</p>
+          <p className='policy-updated label'>Last updated: October 08, 2026</p>
 
           <p>
             This policy explains what information lefog.me collects, why, and
@@ -136,6 +135,6 @@ export default function PrivacyPage() {
           </p>
         </article>
       </main>
-    </div>
+    </PageShell>
   );
 }
