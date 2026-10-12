@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import PagePlate from '@/components/page-plate';
 import '@/components/styles/interior-pages.css';
 import '@/components/styles/status-page.css';
 
@@ -20,22 +21,22 @@ export default function PageError({
   }, [error]);
 
   return (
-    <div className='page-wrapper page-wrapper--interior' data-pattern='pastels'>
-      <main className='interior-main sheet status-page'>
-        <h1 className='page-eyebrow'>Page Not Found</h1>
+    <div className='page-wrapper' data-pattern='pastels'>
+      <PagePlate pattern='pastels' />
+      <main className='page-content status-page'>
+        <h1 className='page-eyebrow'>Something went wrong</h1>
         <p className='page-body'>
-          The page didn't load properly. It's usually temporary — try again.
+          This page ran into a problem while loading. It's usually temporary, so
+          trying again often fixes it.
         </p>
         <div className='status-page-actions'>
           <button type='button' className='button' onClick={reset}>
             Try again
           </button>
-          <p>
-            Or navigate<Link href='/'> Back home</Link>.
-          </p>
+          <Link href='/'>Back home</Link>
         </div>
         {error.digest && (
-          <p className='status-page-digest'>Reference: {error.digest}</p>
+          <p className='status-page-digest label'>Reference: {error.digest}</p>
         )}
       </main>
     </div>
