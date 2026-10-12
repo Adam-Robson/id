@@ -7,15 +7,13 @@ import '@/components/styles/home-intro.css';
 export default function HomeIntro() {
   return (
     <section className='home-intro'>
-      <div className='home-intro-copy sheet'>
-        <h1 className='home-intro-lede-display'>
-          <span className='home-intro-mark'>LE FOG</span>{' '}
-          <em className='home-intro-aside'>music</em>
-        </h1>
-        <p className='home-intro-kicker'>
-          est. MMXX <span aria-hidden='true'>·</span> Portland, OR
-        </p>
-      </div>
+      <h1 className='home-intro-title'>
+        <span className='home-intro-mark'>LE FOG</span>{' '}
+        <em className='home-intro-aside'>music</em>
+      </h1>
+      <p className='home-intro-kicker label'>
+        est. MMXX <span aria-hidden='true'>·</span> Portland, OR
+      </p>
     </section>
   );
 }

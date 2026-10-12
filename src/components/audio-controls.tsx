@@ -4,6 +4,7 @@ import PhosphorIcon from '@/components/phosphor-icon';
 import { useAudio } from '@/context/audio-provider';
 import type { AudioControlsProps } from '@/lib/types/audio-controls.props';
 import '@/components/styles/audio-controls.css';
+import '@/components/styles/seek-bar.css';
 
 export default function AudioControls({
   onToggleList,

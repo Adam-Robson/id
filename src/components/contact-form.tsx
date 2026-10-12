@@ -50,7 +50,7 @@ export default function ContactForm() {
           Name
         </label>
         <input
-          className='form-input'
+          className='input'
           id='name'
           name='name'
           type='text'
@@ -64,7 +64,7 @@ export default function ContactForm() {
           Email
         </label>
         <input
-          className='form-input'
+          className='input'
           id='email'
           name='email'
           type='email'
@@ -78,7 +78,7 @@ export default function ContactForm() {
           Message
         </label>
         <textarea
-          className='form-input form-textarea'
+          className='input form-textarea'
           id='message'
           name='message'
           rows={5}
