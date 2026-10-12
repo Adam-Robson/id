@@ -10,11 +10,12 @@ import type { PageShellProps } from '@/lib/types/page-shell.props';
 export default function PageShell({
   pattern,
   plate = 'band',
+  cycleLogo = false,
   children,
 }: PageShellProps) {
   return (
     <div className='page-wrapper' data-pattern={pattern}>
-      <SiteHeader />
+      <SiteHeader cycleLogo={cycleLogo} />
       <PagePlate pattern={pattern} size={plate} />
       {children}
     </div>

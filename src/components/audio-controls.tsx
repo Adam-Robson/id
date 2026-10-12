@@ -1,5 +1,11 @@
 'use client';
-import { PlaylistIcon } from '@phosphor-icons/react';
+import {
+  PauseIcon,
+  PlayIcon,
+  QueueIcon,
+  SkipBackIcon,
+  SkipForwardIcon,
+} from '@phosphor-icons/react';
 import PhosphorIcon from '@/components/phosphor-icon';
 import { useAudio } from '@/context/audio-provider';
 import type { AudioControlsProps } from '@/lib/types/audio-controls.props';
@@ -61,15 +67,12 @@ export default function AudioControls({
             onClick={prev}
             aria-label='Previous song'
           >
-            <svg
-              width='16'
-              height='16'
-              viewBox='0 0 24 24'
-              fill='currentColor'
+            <PhosphorIcon
+              as={SkipBackIcon}
+              size='1.25rem'
+              weight='fill'
               aria-hidden='true'
-            >
-              <path d='M6 6h2v12H6zm3.5 6 8.5 6V6z' />
-            </svg>
+            />
           </button>
           <button
             type='button'
@@ -77,27 +80,12 @@ export default function AudioControls({
             onClick={togglePlay}
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
-            {isPlaying ? (
-              <svg
-                width='18'
-                height='18'
-                viewBox='0 0 24 24'
-                fill='currentColor'
-                aria-hidden='true'
-              >
-                <path d='M6 19h4V5H6v14zm8-14v14h4V5h-4z' />
-              </svg>
-            ) : (
-              <svg
-                width='18'
-                height='18'
-                viewBox='0 0 24 24'
-                fill='currentColor'
-                aria-hidden='true'
-              >
-                <path d='M8 5v14l11-7z' />
-              </svg>
-            )}
+            <PhosphorIcon
+              as={isPlaying ? PauseIcon : PlayIcon}
+              size='1.25rem'
+              weight='fill'
+              aria-hidden='true'
+            />
           </button>
           <button
             type='button'
@@ -105,15 +93,12 @@ export default function AudioControls({
             onClick={next}
             aria-label='Next song'
           >
-            <svg
-              width='16'
-              height='16'
-              viewBox='0 0 24 24'
-              fill='currentColor'
+            <PhosphorIcon
+              as={SkipForwardIcon}
+              size='1.25rem'
+              weight='fill'
               aria-hidden='true'
-            >
-              <path d='M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8l-5.5 4zM16 6v12h2V6h-2z' />
-            </svg>
+            />
           </button>
         </div>
 
@@ -127,9 +112,10 @@ export default function AudioControls({
           type='button'
           onClick={onToggleList}
           aria-label={listOpen ? 'Close song list' : 'Open song list'}
+          aria-expanded={listOpen}
           className={`toggle-list${listOpen ? ' open' : ''}`}
         >
-          <PhosphorIcon as={PlaylistIcon} size={20} aria-hidden='true' />
+          <PhosphorIcon as={QueueIcon} size='1.625rem' aria-hidden='true' />
         </button>
       </div>
     </section>
