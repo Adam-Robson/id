@@ -120,7 +120,7 @@ export default async function AlbumPage({
                 alt={`Cover art for ${album.title} by LE FOG`}
                 width={COVER_SIZE}
                 height={COVER_SIZE}
-                sizes='(max-width: 639px) 100vw, 360px'
+                sizes='(max-width: 39.9375rem) 100vw, 22.5rem'
                 className='album-page-cover-img'
                 priority
               />
