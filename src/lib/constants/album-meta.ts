@@ -1,7 +1,4 @@
 import type { AlbumMeta } from '@/lib/types/album-meta';
-import type { SongMeta } from '@/lib/types/song-meta';
-import { groupByAlbum } from '@/lib/utils/group-by-album';
-import { titleCase } from '@/lib/utils/title-case';
 
 /**
  * Presentation metadata for each album, keyed by the album name that
@@ -70,72 +67,3 @@ export const ALBUM_META: Record<string, AlbumMeta> = {
     order: 1,
   },
 };
-
-const UNKNOWN_ALBUM_ORDER = 999;
-
-/** URL-safe segment for an album that has no entry in `ALBUM_META`. */
-function slugify(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-function metaFor(albumKey: string): AlbumMeta {
-  return (
-    ALBUM_META[albumKey] ?? {
-      key: albumKey,
-      title: titleCase(albumKey),
-      slug: slugify(albumKey),
-      catalog: 'LF-???',
-      order: UNKNOWN_ALBUM_ORDER,
-    }
-  );
-}
-
-/**
- * Resolves a URL segment back to its album. Returns undefined for an
- * unknown slug so the route can render a 404 rather than an empty shelf.
- */
-export function albumBySlug(slug: string): AlbumMeta | undefined {
-  return Object.values(ALBUM_META).find((album) => album.slug === slug);
-}
-
-/**
- * Newest release first. Albums without a known year fall back to their
- * manual `order` and sort after every dated album.
- */
-function byRelease(a: AlbumMeta, b: AlbumMeta): number {
-  const { year: ay } = a;
-  const { year: by } = b;
-  if (ay != null && by != null) {
-    if (ay !== by) return by - ay;
-    return a.order - b.order;
-  }
-  if (ay != null) return -1;
-  if (by != null) return 1;
-  return a.order - b.order;
-}
-
-/**
- * Every known album in shelf order, independent of R2. Used where the
- * discography is listed but track data isn't needed — the homepage
- * discography and the JSON-LD graph — so neither pays for a bucket read.
- */
-export function orderedAlbumMeta(): AlbumMeta[] {
-  return Object.values(ALBUM_META).sort(byRelease);
-}
-
-export interface AlbumWithSongs<T extends SongMeta = SongMeta> {
-  meta: AlbumMeta;
-  songs: T[];
-}
-
-/** Groups songs by album and sorts albums newest release first. */
-export function orderedAlbums<T extends SongMeta>(
-  songs: T[],
-): AlbumWithSongs<T>[] {
-  return Object.entries(groupByAlbum(songs))
-    .map(([key, albumSongs]) => ({ meta: metaFor(key), songs: albumSongs }))
-    .sort((a, b) => byRelease(a.meta, b.meta));
-}

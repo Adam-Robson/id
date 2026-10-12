@@ -1,5 +1,7 @@
+import type { IconSize } from '@/lib/types/icon-size';
+
 export type IconDefaults = {
-  size?: number;
+  size?: IconSize;
   weight?: string;
   className?: string;
 };

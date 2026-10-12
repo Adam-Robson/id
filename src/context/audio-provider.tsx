@@ -251,10 +251,10 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         aria-live='polite'
         style={{
           position: 'absolute',
-          width: '1px',
-          height: '1px',
+          width: '0.0625rem',
+          height: '0.0625rem',
           padding: 0,
-          margin: '-1px',
+          margin: '-0.0625rem',
           overflow: 'hidden',
           clip: 'rect(0,0,0,0)',
           whiteSpace: 'nowrap',

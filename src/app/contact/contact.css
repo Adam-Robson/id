@@ -1,67 +1,28 @@
-.contact-intro {
-  margin-block-end: 1.5rem;
-}
-
-.contact-inline-link,
-a.contact-value {
-  transition: text-decoration-color 0.2s;
-}
-
-.contact-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+.contact-inline-link {
+  transition:
+    color 0.2s var(--ease-out),
+    text-decoration-color 0.2s var(--ease-out);
 }
 
 .contact-label {
-  font-size: 0.75rem;
+  font-size: var(--label-size);
   font-weight: var(--label-weight);
   letter-spacing: var(--label-tracking);
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
-.contact-value {
-  font-size: 1rem;
-  font-weight: 300;
-}
-
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-block-start: 2rem;
+  gap: 2rem;
+  margin-block-start: 0.5rem;
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-}
-
-.form-input {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--text-muted);
-  border-radius: 0.5rem;
-  background-color: transparent;
-  color: var(--text);
-  font-size: 1rem;
-  font-weight: 300;
-  transition: border-color 0.2s;
-}
-
-.form-input::placeholder {
-  color: var(--text-muted);
-  opacity: 1;
-}
-
-.form-input:focus-visible {
-  border-color: var(--text);
-}
-
-.form-input[aria-invalid="true"] {
-  border-color: var(--danger);
+  gap: 0.25rem;
 }
 
 .form-textarea {
@@ -69,57 +30,25 @@ a.contact-value {
   resize: vertical;
 }
 
+/* Composes .button. */
 .form-submit {
   align-self: flex-start;
-  padding: 0.55rem 1.5rem;
-  border: 1px solid var(--text);
-  border-radius: 999px;
-  background-color: transparent;
-  color: var(--text);
-  font-size: 0.75rem;
-  font-weight: var(--label-weight);
-  letter-spacing: var(--label-tracking);
-  text-transform: uppercase;
-  transition: background-color 0.25s var(--ease-out);
-}
-
-.form-input:disabled,
-.form-submit:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .form-feedback {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
 }
 
 .form-feedback--error {
   color: var(--danger);
 }
 
-@media (hover: hover) {
-  .contact-inline-link:hover,
-  a.contact-value:hover {
-    text-decoration-color: var(--accent);
-  }
-
-  .form-submit:hover:not(:disabled) {
-    background-color: var(--hover-wash);
-  }
-}
-
-@media (pointer: coarse) {
-  .form-submit {
-    min-height: 2.75rem;
-  }
-}
-
 .form-honeypot {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0.0625rem;
+  height: 0.0625rem;
   padding: 0;
-  margin: -1px;
+  margin: -0.0625rem;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;

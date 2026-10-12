@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { sharedOgImage } from '@/components/shared-og-image';
+import { BACKGROUND_COLOUR } from '@/lib/constants/app-colours';
 import { SITE_URL } from '@/lib/constants/site-url';
 /**
- * Metadata configuration for the LE FOG website.
+ * Metadata configuration for the LE FOG website. The manifest link is added
+ * by Next from src/app/manifest.ts.
  */
 export const PageMetadata: Metadata = {
   applicationName: 'LE FOG',
-  manifest: '/manifest.json',
   title: {
     default: 'LE FOG',
     template: '%s — LE FOG',
@@ -78,7 +79,7 @@ export const PageMetadata: Metadata = {
     subject: 'LE FOG',
     rating: 'general',
     // MS Application tiles
-    'msapplication-TileColor': '#333333ff',
+    'msapplication-TileColor': BACKGROUND_COLOUR,
     'msapplication-square70x70logo': '/favicon/mstile-70x70.png',
     'msapplication-TileImage': '/favicon/mstile-144x144.png',
     'msapplication-square150x150logo': '/favicon/mstile-150x150.png',

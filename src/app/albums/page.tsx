@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import AlbumShelf from '@/components/album-shelf';
+import PageShell from '@/components/page-shell';
 import { sharedOgImage } from '@/components/shared-og-image';
-import SiteHeader from '@/components/site-header';
 import { getAccessLevel } from '@/lib/auth/get-access-level';
 import { listSongs } from '@/lib/db/r2/list-songs';
 import { toPlayableUrl } from '@/lib/utils/to-playable-url';
@@ -23,12 +23,11 @@ export default async function AlbumsPage() {
   const songs = accessLevel === 'guest' ? catalog : toPlayableUrl(catalog);
 
   return (
-    <div className='page-wrapper page-wrapper--interior'>
-      <SiteHeader variant='interior' />
-      <main className='interior-main'>
+    <PageShell pattern='poppies'>
+      <main className='page-content'>
         <h1 className='page-eyebrow'>Albums</h1>
         <AlbumShelf songs={songs} accessLevel={accessLevel} />
       </main>
-    </div>
+    </PageShell>
   );
 }

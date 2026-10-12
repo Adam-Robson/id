@@ -1,12 +1,14 @@
 /**
- * Build the Open Graph card from three portraits.
+ * Build the Open Graph card: the dahlias print beside the wordmark.
  *
  * The card is a committed asset rather than something rendered per request.
- * Rerun when portraits change: npm run og:build
+ * Rerun when the photo or the logo changes: npm run og:build
  */
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
+import { LOGO_GEOMETRY } from '../src/lib/constants/logo-geometry.ts';
+import { LOGO_ORBS } from '../src/lib/constants/logo-orbs.ts';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(ROOT, 'public/images/og-image.webp');
@@ -18,13 +20,15 @@ const H = 630;
 const INK = '#2e2a26';
 const PAPER = '#f6f2e9';
 
-const FRAME = 330;
-const GAP = 26;
+/** The photo fills a square on the left, inset by MARGIN on three sides. */
+const MARGIN = 50;
+const FRAME = H - 2 * MARGIN;
 const RADIUS = 18;
-/** middle image is lower */
-const DROP = 16;
 
-const PORTRAITS = ['facedeer', 'coffeecup', 'facestars'];
+const PHOTO = 'maybe_dahlias';
+
+/** Wordmark height; it is centred in the space right of the photo. */
+const MARK_HEIGHT = 120;
 
 /** Rounds an image's corners by masking it with a rounded rectangle. */
 async function roundedFrame(file) {
@@ -40,55 +44,59 @@ async function roundedFrame(file) {
 }
 
 /**
- * The wordmark ships as dark ink on transparency, so it would vanish against
- * the ink ground. Repaint it by filling a paper-coloured block and keeping
- * only the pixels the mark itself covers.
+ * The lettering is a shape only, so it is painted paper-coloured to read on
+ * the ink ground; the primary orb then sits beneath it, as on the site.
  */
 async function wordmark(height) {
-  const shape = await sharp(path.join(ROOT, 'public/images/logo.svg'), {
-    density: 400,
-  })
-    .trim()
+  const shape = await sharp(path.join(ROOT, 'public/images/logo/wordmark.svg'))
     .resize({ height })
     .toBuffer();
 
   const { width } = await sharp(shape).metadata();
+  const at = (pct, of) => Math.round((Number.parseFloat(pct) / 100) * of);
+  const { orb } = LOGO_GEOMETRY;
+
+  const letters = await sharp({
+    create: { width, height, channels: 4, background: PAPER },
+  })
+    .composite([{ input: shape, blend: 'dest-in' }])
+    .png()
+    .toBuffer();
+
+  const painted = await sharp(
+    path.join(ROOT, `public/images/logo/orb-${LOGO_ORBS[0]}.webp`),
+  )
+    .resize(at(orb.width, width), at(orb.height, height))
+    .toBuffer();
 
   return {
     width,
     buffer: await sharp({
-      create: {
-        width,
-        height,
-        channels: 4,
-        background: PAPER,
-      },
+      create: { width, height, channels: 4, background: '#0000' },
     })
-      .composite([{ input: shape, blend: 'dest-in' }])
+      .composite([
+        { input: painted, left: at(orb.left, width), top: at(orb.top, height) },
+        { input: letters },
+      ])
       .png()
       .toBuffer(),
   };
 }
 
-const row = PORTRAITS.length * FRAME + (PORTRAITS.length - 1) * GAP;
-const rowLeft = Math.round((W - row) / 2);
-const rowTop = 224;
-
-const mark = await wordmark(104);
+const mark = await wordmark(MARK_HEIGHT);
+const markArea = { left: MARGIN + FRAME, width: W - (MARGIN + FRAME) };
 
 const layers = [
   {
-    input: mark.buffer,
-    left: Math.round((W - mark.width) / 2),
-    top: 62,
+    input: await roundedFrame(path.join(ROOT, `public/images/${PHOTO}.webp`)),
+    left: MARGIN,
+    top: MARGIN,
   },
-  ...(await Promise.all(
-    PORTRAITS.map(async (name, i) => ({
-      input: await roundedFrame(path.join(ROOT, `public/images/${name}.webp`)),
-      left: rowLeft + i * (FRAME + GAP),
-      top: rowTop + (i === 1 ? DROP : 0),
-    })),
-  )),
+  {
+    input: mark.buffer,
+    left: markArea.left + Math.round((markArea.width - mark.width) / 2),
+    top: Math.round((H - MARK_HEIGHT) / 2),
+  },
 ];
 
 await mkdir(path.dirname(OUT), { recursive: true });
@@ -96,9 +104,9 @@ const info = await sharp({
   create: { width: W, height: H, channels: 3, background: INK },
 })
   .composite(layers)
-  .jpeg({ quality: 88, chromaSubsampling: '4:4:4' })
+  .webp({ quality: 88, smartSubsample: true })
   .toFile(OUT);
 
 console.log(
-  `og-image.jpg  ${info.width}x${info.height}  ${(info.size / 1024).toFixed(0)}KB`,
+  `og-image.webp  ${info.width}x${info.height}  ${(info.size / 1024).toFixed(0)}KB`,
 );

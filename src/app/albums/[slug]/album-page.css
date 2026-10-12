@@ -1,29 +1,13 @@
-.album-page {
-  max-width: 720px;
-}
-
-.album-page-back {
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
-  margin-bottom: 1.5rem;
-}
-
 .album-page-header {
   display: flex;
-  gap: 1.75rem;
-  align-items: flex-start;
-  margin-bottom: 2.5rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px dashed var(--border);
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .album-page-cover {
-  flex-shrink: 0;
-  width: 220px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--surface);
+  width: 100%;
+  max-width: 22.5rem;
+  background-color: var(--border);
 }
 
 .album-page-cover-img {
@@ -34,65 +18,53 @@
 
 .album-page-meta {
   min-width: 0;
-}
-
-.album-page-note {
-  font-size: 0.875rem;
-  color: var(--text-muted);
+  max-width: 40rem;
 }
 
 .album-page-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 6vw, 2.5rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
-  margin: 0 0 0.75rem;
+  margin-block-end: 1rem;
+  font-size: clamp(2.25rem, 1.25rem + 4vw, 4rem);
+  font-weight: 300;
+  line-height: 1;
   overflow-wrap: anywhere;
-  color: var(--text);
 }
 
 .album-page-facts {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 0.9rem;
-  margin: 0;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.72rem;
-  letter-spacing: var(--label-tracking);
-  text-transform: uppercase;
-  color: var(--text-muted);
+  gap: 0.4rem 1.25rem;
 }
 
 .album-page-blurb {
-  margin: 1rem 0 0;
-  font-size: 0.98rem;
+  margin-block-start: 1.25rem;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
   font-style: italic;
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--text-muted);
 }
 
+.album-page-note,
 .album-page-empty {
-  margin: 0;
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   color: var(--text-muted);
 }
 
-/* The shared tracklist styles come from album-shelf.css; on a detail page
-   it isn't inside a tape card, so it needs its own top rule. */
-.album-page .tape-card-tracks {
-  margin-top: 0;
-  border-top: 1px dashed var(--border);
+.album-page .track-list {
+  width: 100%;
+  max-width: 45rem;
+  margin-block-start: 0;
 }
 
-@media (max-width: 639px) {
+/* Cover beside the title once there's room for both. */
+@media (width >= 40rem) {
   .album-page-header {
-    flex-direction: column;
-    gap: 1.25rem;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
   }
 
   .album-page-cover {
-    width: 100%;
-    max-width: 320px;
+    flex: 0 0 clamp(14rem, 8rem + 14vw, 22.5rem);
   }
 }

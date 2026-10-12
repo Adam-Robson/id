@@ -27,46 +27,40 @@ export default function AlbumShelf({
       {albums.map(({ meta, songs: albumSongs }) => (
         <section
           key={meta.key}
-          className='tape-card'
+          className='album-tile'
           aria-labelledby={`album-${meta.key}`}
         >
-          <header className='tape-card-label'>
-            <span className='tape-card-catalog'>
-              {meta.catalog}
-              {meta.year ? ` · ${meta.year}` : ''}
-            </span>
-            <span className='tape-card-count'>{albumSongs.length} songs</span>
-          </header>
-
           {meta.cover && (
-            <div className='tape-card-cover'>
+            <div className='album-tile-cover'>
               <Image
                 src={meta.cover}
                 alt={`Cover art for ${meta.title} by LE FOG`}
                 fill
-                sizes='(max-width: 640px) 100vw, 420px'
-                className='tape-card-cover-img'
+                sizes='(max-width: 39.9375rem) 100vw, (max-width: 63.9375rem) 50vw, 25rem'
+                className='album-tile-cover-img'
               />
             </div>
           )}
 
-          <div className='tape-card-body'>
-            <h2 id={`album-${meta.key}`} className='tape-card-title'>
-              <Link
-                href={`/albums/${meta.slug}`}
-                className='tape-card-title-link'
-              >
-                {meta.title}
-              </Link>
-            </h2>
-            {meta.blurb && <p className='tape-card-blurb'>{meta.blurb}</p>}
+          <p className='album-tile-facts label'>
+            <span>
+              {meta.catalog}
+              {meta.year ? ` · ${meta.year}` : ''}
+            </span>
+            <span>{albumSongs.length} songs</span>
+          </p>
+          <h2 id={`album-${meta.key}`} className='album-tile-title'>
+            <Link href={`/albums/${meta.slug}`} className='album-tile-link'>
+              {meta.title}
+            </Link>
+          </h2>
+          {meta.blurb && <p className='album-tile-blurb'>{meta.blurb}</p>}
 
-            <TrackList
-              catalog={songs}
-              albumSongs={albumSongs}
-              accessLevel={accessLevel}
-            />
-          </div>
+          <TrackList
+            catalog={songs}
+            albumSongs={albumSongs}
+            accessLevel={accessLevel}
+          />
         </section>
       ))}
     </div>

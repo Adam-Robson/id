@@ -6,31 +6,37 @@
   z-index: 999;
 }
 
+/* The bar and the song list are one sheet, so they share one surface. */
 .audio-player-inner {
-  max-width: var(--bar-max);
-  margin: 0 auto;
-  border: 1px solid var(--dock-edge);
-  border-bottom: 0;
-  border-radius: 0.75rem 0.75rem 0 0;
   overflow: hidden;
-  /* One frosted pane for the list and the controls together: nested
-     backdrop-filters only see their parent, not the page beneath. */
-  background: color-mix(in oklab, var(--dock-surface) var(--dock-alpha), transparent);
-  backdrop-filter: var(--dock-blur);
-  -webkit-backdrop-filter: var(--dock-blur);
-  box-shadow: var(--dock-elevation);
+  border-top: 0.0625rem solid var(--border);
+  background: var(--surface);
 }
 
-@supports not (backdrop-filter: blur(1px)) {
-  .audio-player-inner {
-    background: var(--dock-surface);
+/* Frosted glass: the page shows through softly and blurred. Only where the
+   blur works, since an unblurred see-through sheet would leave song titles
+   sitting on top of the page's text; and not for people who have asked
+   their system for less transparency. */
+@supports (backdrop-filter: blur(1rem)) {
+  @media (prefers-reduced-transparency: no-preference) {
+    .audio-player-inner {
+      background: color-mix(in oklab, var(--surface) 72%, transparent);
+      backdrop-filter: blur(1.25rem) saturate(1.2);
+    }
   }
+}
+
+/* The bar spans the window; what's on it keeps to a readable width. */
+.audio-player-list,
+.audio-player-controls {
+  max-width: var(--bar-max);
+  margin-inline: auto;
 }
 
 @keyframes list-item-in {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(0.25rem);
   }
   to {
     opacity: 1;
@@ -39,7 +45,7 @@
 }
 
 .audio-player-list {
-  /* The frosted surface comes from .audio-player-inner. */
+  /* The surface comes from .audio-player-inner. */
   max-height: 0;
   overflow: hidden;
   padding: 0 1.5rem;
@@ -51,7 +57,7 @@
 }
 
 .audio-player-list.open + .audio-player-controls {
-  border-top-color: var(--dock-edge);
+  border-top-color: var(--border);
 }
 
 .audio-player-list.open {
@@ -64,7 +70,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 480px) {
+@media (width < 30rem) {
   .audio-player-list {
     padding: 0 1rem;
   }
@@ -84,11 +90,11 @@
 
 .audio-player-album-title {
   margin: 0 0 0.4rem;
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-family: var(--font-sans);
+  font-size: var(--label-size);
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
   color: var(--text-muted);
 }
 
@@ -104,14 +110,12 @@
   text-align: left;
   padding: 0.35rem 0.5rem 0.35rem 1.1rem;
   margin-bottom: 0.05rem;
-  border-radius: 0.25rem;
   background: transparent;
   color: var(--text);
-  font-size: 1rem;
+  font-size: var(--text-md);
   font-weight: 400;
   border: none;
   cursor: pointer;
-  letter-spacing: 0.02em;
   position: relative;
   transition:
     background 0.25s var(--ease-out),
@@ -138,16 +142,16 @@
 }
 
 .audio-player-controls {
-  border-top: 1px solid transparent;
+  border-top: 0.0625rem solid transparent;
   transition: border-color 0.3s var(--ease-out);
   /* The bar sits flush to the bottom edge, so its surface — not just the
      page's clearance — has to reach past the iOS home indicator. */
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0rem);
 }
 
 @media (pointer: coarse) {
   .audio-player-album-song {
-    min-height: 44px;
+    min-height: 2.75rem;
     display: flex;
     align-items: center;
   }

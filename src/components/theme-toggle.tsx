@@ -23,7 +23,7 @@ export default function ThemeToggle() {
     >
       <PhosphorIcon
         as={isDark ? SunIcon : MoonIcon}
-        size={16}
+        size='1rem'
         aria-hidden='true'
       />
     </button>
