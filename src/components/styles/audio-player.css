@@ -6,10 +6,24 @@
   z-index: 999;
 }
 
+/* The bar and the song list are one sheet, so they share one surface. */
 .audio-player-inner {
   overflow: hidden;
-  border-top: 1px solid var(--border);
+  border-top: 0.0625rem solid var(--border);
   background: var(--surface);
+}
+
+/* Frosted glass: the page shows through softly and blurred. Only where the
+   blur works, since an unblurred see-through sheet would leave song titles
+   sitting on top of the page's text; and not for people who have asked
+   their system for less transparency. */
+@supports (backdrop-filter: blur(1rem)) {
+  @media (prefers-reduced-transparency: no-preference) {
+    .audio-player-inner {
+      background: color-mix(in oklab, var(--surface) 72%, transparent);
+      backdrop-filter: blur(1.25rem) saturate(1.2);
+    }
+  }
 }
 
 /* The bar spans the window; what's on it keeps to a readable width. */
@@ -22,7 +36,7 @@
 @keyframes list-item-in {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(0.25rem);
   }
   to {
     opacity: 1;
@@ -56,7 +70,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 480px) {
+@media (width < 30rem) {
   .audio-player-list {
     padding: 0 1rem;
   }
@@ -98,7 +112,7 @@
   margin-bottom: 0.05rem;
   background: transparent;
   color: var(--text);
-  font-size: 0.95rem;
+  font-size: var(--text-md);
   font-weight: 400;
   border: none;
   cursor: pointer;
@@ -128,16 +142,16 @@
 }
 
 .audio-player-controls {
-  border-top: 1px solid transparent;
+  border-top: 0.0625rem solid transparent;
   transition: border-color 0.3s var(--ease-out);
   /* The bar sits flush to the bottom edge, so its surface — not just the
      page's clearance — has to reach past the iOS home indicator. */
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0rem);
 }
 
 @media (pointer: coarse) {
   .audio-player-album-song {
-    min-height: 44px;
+    min-height: 2.75rem;
     display: flex;
     align-items: center;
   }

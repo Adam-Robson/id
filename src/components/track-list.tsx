@@ -73,7 +73,7 @@ export default function TrackList({
               >
                 <PhosphorIcon
                   as={DownloadSimpleIcon}
-                  size={16}
+                  size='1.125rem'
                   aria-hidden='true'
                 />
               </Link>
