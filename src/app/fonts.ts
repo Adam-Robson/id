@@ -4,7 +4,7 @@ export const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-display-face',
   style: ['normal', 'italic'],
-  axes: ['SOFT', 'WONK', 'opsz'],
+  axes: ['opsz'],
 });
 
 export const dmSans = DM_Sans({
