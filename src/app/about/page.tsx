@@ -1,19 +1,30 @@
 import '@/app/about/about.css';
 import '@/components/styles/interior-pages.css';
-import type { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from 'next';
 import AboutGallery from '@/components/about-gallery';
 import PageShell from '@/components/page-shell';
-import { sharedOgImage } from '@/components/shared-og-image';
 
-export const metadata: Metadata = {
-  title: 'About',
-  openGraph: {
-    type: 'website',
-    title: 'About | LE FOG',
-    description: 'About page for LE FOG.',
-    images: sharedOgImage,
-  },
-};
+/**
+ * Setting openGraph here replaces the root's whole openGraph block, share
+ * image included, so the image Next builds from src/app/opengraph-image.jpg
+ * is carried over from the parent.
+ */
+export async function generateMetadata(
+  _props: unknown,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { openGraph } = await parent;
+
+  return {
+    title: 'About',
+    openGraph: {
+      type: 'website',
+      title: 'About | LE FOG',
+      description: 'About page for LE FOG.',
+      images: openGraph?.images,
+    },
+  };
+}
 
 export default function AboutPage() {
   return (
