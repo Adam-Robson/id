@@ -11,7 +11,7 @@ import { PATTERNS } from '@/lib/constants/patterns';
 // shell pairs a page with its print.
 vi.mock('@/components/site-header', () => ({ default: () => null }));
 
-const root = path.resolve(__dirname, '../..');
+const root = path.resolve(import.meta.dirname, '../..');
 
 describe('patterns', () => {
   // A key without an entry would render a plate with no print and no

@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import Logo from '@/components/logo';
 import { LOGO_ORBS } from '@/lib/constants/logo-orbs';
 
-const root = path.resolve(__dirname, '../..');
+const root = path.resolve(import.meta.dirname, '../..');
 
 const orbSources = (container: HTMLElement) =>
   [...container.querySelectorAll('img')].map((img) => img.getAttribute('src'));
@@ -49,8 +49,8 @@ describe('Logo', () => {
     expect(css).toContain(`orb-cycle ${LOGO_ORBS.length * 5}s`);
   });
 
-  // `npm run logo:build` writes these; a colourway named here without its
-  // file would render a broken image in the header.
+  // The orbs are static files; a colourway named here without its file
+  // would render a broken image in the header.
   it.each(LOGO_ORBS)('ships an orb image for %s', (name) => {
     const file = path.join(root, `public/images/logo/orb-${name}.webp`);
     expect(existsSync(file)).toBe(true);
