@@ -45,8 +45,6 @@ Open [localhost:3000](http://localhost:3000) to view the site.
 | `npm run lint`       | Biome lint and format check                 |
 | `npm run lint:ci`    | Biome check as run in CI                    |
 | `npm run format`     | Apply Biome formatting                      |
-| `npm run og:build`   | Build the Open Graph image natively in Node |
-| `npm run logo:build` | Build logo, orbs and icons from assets/logo |
 | `npm run test`       | Run the Vitest suite once                   |
 | `npm run test:watch` | Run Vitest in watch mode                    |
 
@@ -73,16 +71,14 @@ src/
     utils/        One utility per file
   proxy.ts        Request proxy (Clerk)
 tests/            Vitest suites grouped by feature, plus helpers
-scripts/          Node build scripts (logo/ holds the logo pipeline)
-assets/logo/      Designer logo exports, one per orb colourway (not served)
 ```
 
-The logo exports in `assets/logo` are large SVGs with the watercolour orb
-embedded at full resolution. `npm run logo:build` turns them into the light
-assets the site serves: `public/images/logo/` (lettering and one orb per
-colourway), every favicon and touch icon, and
-`src/lib/constants/logo-geometry.ts`. Rerun it whenever an export changes,
-then rerun `npm run og:build`.
+The logo is static files in `public/images/logo/`: `wordmark.svg`, the
+lettering, used as a CSS mask so it takes the theme's text colour, and one
+`orb-<colourway>.webp` per colour in `LOGO_ORBS`. The orb's place inside
+the wordmark is in `src/lib/constants/logo-geometry.ts`. Icons and the
+share image use Next's file conventions in `src/app/`, apart from the
+manifest's PNG icons in `public/favicon/`.
 
 ## Source Code Standards
 
