@@ -17,8 +17,16 @@ export function emptyErrors() {
 /** Stand-in for the `signIn` resource returned by Clerk's `useSignIn()`. */
 export function fakeSignIn() {
   return {
+    status: 'complete' as string,
+    supportedSecondFactors: [{ strategy: 'email_code' }] as {
+      strategy: string;
+    }[],
     password: vi.fn(ok),
     finalize: vi.fn(ok),
+    mfa: {
+      sendEmailCode: vi.fn(ok),
+      verifyEmailCode: vi.fn(ok),
+    },
   };
 }
 

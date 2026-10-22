@@ -1,15 +1,17 @@
 'use client';
-import Link from 'next/link';
-import AuthField from '@/components/auth/auth-field';
 import FormFeedback from '@/components/auth/form-feedback';
-import SubmitButton from '@/components/auth/submit-button';
+import SignInCredentialsForm from '@/components/auth/sign-in-credentials-form';
+import SignInVerifyForm from '@/components/auth/sign-in-verify-form';
 import useSignInFlow from '@/lib/hooks/use-sign-in-flow';
-import { readField } from '@/lib/utils/read-field';
 
+/**
+ * Picks the form for the current sign-in step. Each step is its own
+ * component, so React mounts a fresh form when the step changes instead of
+ * reusing one step's inputs for the next.
+ */
 export default function SignInForm() {
-  const { blocked, errors, submit, isSubmitting } = useSignInFlow({
-    redirectTo: '/',
-  });
+  const { step, email, blocked, errors, isSubmitting, submit, submitCode } =
+    useSignInFlow({ redirectTo: '/' });
 
   const feedback = (
     <>
@@ -19,54 +21,11 @@ export default function SignInForm() {
       ))}
     </>
   );
+  const shared = { errors, isSubmitting, feedback };
 
-  return (
-    <form
-      className='auth-form'
-      onSubmit={(e) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-        const email = readField(form, 'email');
-        const password = readField(form, 'password');
+  if (step === 'verify') {
+    return <SignInVerifyForm {...shared} email={email} onSubmit={submitCode} />;
+  }
 
-        submit({
-          emailAddress: email ?? '',
-          password: password ?? '',
-        });
-      }}
-      noValidate
-    >
-      <AuthField
-        id='email'
-        label='Email'
-        name='email'
-        type='email'
-        error={errors.fields.identifier ?? null}
-        autoComplete='email'
-        required
-        disabled={isSubmitting}
-      />
-
-      <AuthField
-        id='password'
-        label='Password'
-        name='password'
-        type='password'
-        autoComplete='current-password'
-        error={errors.fields.password ?? null}
-        required
-        disabled={isSubmitting}
-      />
-
-      {feedback}
-
-      <SubmitButton pending={isSubmitting} pendingLabel='Signing in…'>
-        Sign in
-      </SubmitButton>
-
-      <p className='auth-switch'>
-        No account? <Link href='/sign-up'>Create one for free</Link>
-      </p>
-    </form>
-  );
+  return <SignInCredentialsForm {...shared} onSubmit={submit} />;
 }
