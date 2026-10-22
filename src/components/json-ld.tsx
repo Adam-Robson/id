@@ -1,5 +1,5 @@
-import { sharedOgImage } from '@/components/shared-og-image';
 import { ARTIST_ID } from '@/lib/constants/artist-id';
+import { SHARE_IMAGE_URL } from '@/lib/constants/share-image-url';
 import { SITE_URL } from '@/lib/constants/site-url';
 import { orderedAlbumMeta } from '@/lib/utils/ordered-album-meta';
 /**
@@ -19,7 +19,7 @@ export default function JsonLd() {
         '@id': ARTIST_ID,
         name: 'LE FOG',
         url: SITE_URL,
-        image: sharedOgImage,
+        image: SHARE_IMAGE_URL,
         genre: ['Electronic', 'Ambient', 'Rock', 'Folk', 'Psychedelic'],
         foundingLocation: {
           '@type': 'Place',

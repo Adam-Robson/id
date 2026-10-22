@@ -10,10 +10,8 @@
     "lint": "biome check",
     "lint:ci": "biome ci .",
     "format": "biome format --write",
-    "og:build": "node scripts/build-og-image.mjs",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "logo:build": "node scripts/build-logo.mjs"
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1131.0",
