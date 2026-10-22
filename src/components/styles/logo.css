@@ -35,17 +35,18 @@
   opacity: 0;
 }
 
-/* Five colourways, 5s each: one 25s loop. Each orb holds for 20% of the
-   loop and takes 4% (1s) to fade, overlapping the next one's fade in. */
+/* Three colourways, 5s each: one 15s loop. Each orb holds for a third of
+   the loop and takes 6.667% (1s) to fade, overlapping the next one's fade
+   in. */
 @keyframes orb-cycle {
   0% {
     opacity: 0;
   }
-  4%,
-  20% {
+  6.667%,
+  33.333% {
     opacity: 1;
   }
-  24%,
+  40%,
   100% {
     opacity: 0;
   }
@@ -53,7 +54,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .logo--cycle .logo-orb:not(:first-child) {
-    animation: orb-cycle 25s ease-in-out infinite;
+    animation: orb-cycle 15s ease-in-out infinite;
     animation-delay: calc(var(--orb-index) * 5s);
   }
 }
