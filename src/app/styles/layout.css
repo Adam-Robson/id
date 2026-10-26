@@ -1,0 +1,36 @@
+/*----------Layout----------*/
+@layer components {
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100dvh;
+  }
+
+  /* The content column shared by every page: aligned to the same edges as
+     the header and the plate, with room at the foot for the docked bars. */
+  .page-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: calc(100% - 2 * var(--spacing-gutter));
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem) var(--bar-clearance);
+  }
+
+  /* Reading pages keep a single measured column. */
+  .page-content--text > * {
+    max-width: 65ch;
+  }
+
+  /* A small, tracked, uppercase label: captions, facts, form labels. */
+  .label {
+    font-family: var(--font-sans);
+    font-size: var(--label-size);
+    font-weight: var(--label-weight);
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+}

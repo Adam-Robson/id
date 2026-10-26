@@ -21,6 +21,10 @@ export interface AlbumMeta {
   cover?: string;
   /** One short line rendered under the title. */
   blurb?: string;
-  /** Position on the shelf. Lower numbers render first. */
+  /**
+   * Release sequence, counting up with each album (it matches the catalog
+   * number). Breaks ties between albums from the same year: higher is newer
+   * and sorts first.
+   */
   order: number;
 }

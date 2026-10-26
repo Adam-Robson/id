@@ -1,0 +1,37 @@
+/*----------Patterns----------
+  Each page sets data-pattern on its .page-wrapper. The print itself is drawn
+  by the page plate; all a pattern lends the rest of the page is one accent,
+  lifted onto :root with :has() so the docked player and sign-in bar outside
+  the wrapper take it too.
+
+  accent         deep shade of the print's loudest colour; AA on the light ground
+  accent-bright  the loud colour itself; AA on the dark ground */
+:root {
+  --p-accent: #8a3aa8;
+  --p-accent-bright: #dc9af3;
+}
+
+:root:has(.page-wrapper[data-pattern="electric-pink"]) {
+  --p-accent: #b0005f;
+  --p-accent-bright: #ff6fb5;
+}
+
+:root:has(.page-wrapper[data-pattern="poppies"]) {
+  --p-accent: #a8009f;
+  --p-accent-bright: #ffa64d;
+}
+
+:root:has(.page-wrapper[data-pattern="dahlias"]) {
+  --p-accent: #b8171a;
+  --p-accent-bright: #ff8a8f;
+}
+
+:root:has(.page-wrapper[data-pattern="peonies"]) {
+  --p-accent: #8f00a4;
+  --p-accent-bright: #ff9c80;
+}
+
+:root:has(.page-wrapper[data-pattern="little-flowers"]) {
+  --p-accent: #b52a35;
+  --p-accent-bright: #ff9499;
+}

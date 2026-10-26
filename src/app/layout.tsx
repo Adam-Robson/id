@@ -1,6 +1,7 @@
 import { ClerkProvider } from '@clerk/nextjs';
+import { Analytics } from '@vercel/analytics/react';
 import { cookies } from 'next/headers';
-import { ebGaramond, jetbrainsMono, karla } from '@/app/fonts';
+import { dmMono, dmSans, fraunces } from '@/app/fonts';
 import SignInPrompt from '@/components/auth/sign-in-prompt';
 import JsonLd from '@/components/json-ld';
 import GlobalProvider from '@/context/global-provider';
@@ -21,7 +22,7 @@ export default async function RootLayout({
   return (
     <html
       lang='en'
-      className={`${ebGaramond.variable} ${jetbrainsMono.variable} ${karla.variable} ${
+      className={`${fraunces.variable} ${dmMono.variable} ${dmSans.variable} ${
         theme === 'dark' ? 'dark' : theme === 'light' ? 'light' : ''
       }`}
     >
@@ -39,6 +40,7 @@ export default async function RootLayout({
             {accessLevel === 'guest' && <SignInPrompt />}
           </GlobalProvider>
         </ClerkProvider>
+        <Analytics />
       </body>
     </html>
   );

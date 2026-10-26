@@ -1,6 +1,7 @@
 import { useSignUp } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import type { SignUpDetails } from '@/lib/types/sign-up-details';
 import type { SignUpStep } from '@/lib/types/sign-up-step';
 import { describe } from '@/lib/utils/describe';
 /**
@@ -42,13 +43,7 @@ export default function useSignUpFlow({
     setStep('verify');
   }
 
-  async function submitDetails(details: {
-    email: string;
-    password: string;
-    username?: string;
-    firstName?: string;
-    lastName?: string;
-  }) {
+  async function submitDetails(details: SignUpDetails) {
     setBlocked('');
 
     const emailAddress = details.email;

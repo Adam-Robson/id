@@ -1,37 +1,16 @@
-.interior-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 40rem;
-  margin-inline: auto;
-  padding-block: var(--spacing-section) var(--bar-clearance);
-  padding-inline: var(--spacing-gutter);
-}
-
+/* The page title: light Fraunces, left-aligned on the content column and
+   ruled off beneath, like a section opening in a catalogue. */
 .page-eyebrow {
-  margin-block-end: 1rem;
+  padding-block-end: 1.5rem;
+  border-bottom: 0.0625rem solid var(--border);
   font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: 0.01em;
-  text-align: center;
+  font-size: var(--text-4xl);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
-.page-eyebrow::after {
-  content: "";
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  margin-block-start: 1rem;
-  margin-inline: auto;
-  background-color: var(--accent);
-}
-
 .page-body {
-  font-weight: 300;
-  line-height: 1.85;
+  line-height: 1.8;
 }

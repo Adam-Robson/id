@@ -1,17 +1,19 @@
-import { EB_Garamond, JetBrains_Mono, Karla } from 'next/font/google';
+import { DM_Mono, DM_Sans, Fraunces } from 'next/font/google';
 
-export const ebGaramond = EB_Garamond({
+export const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-display-face',
   style: ['normal', 'italic'],
+  axes: ['opsz'],
 });
 
-export const karla = Karla({
+export const dmSans = DM_Sans({
   subsets: ['latin'],
   variable: '--font-body-face',
 });
 
-export const jetbrainsMono = JetBrains_Mono({
+export const dmMono = DM_Mono({
   subsets: ['latin'],
   variable: '--font-mono-face',
+  weight: ['400', '500'],
 });

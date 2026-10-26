@@ -1,10 +1,10 @@
 import { useSignIn } from '@clerk/nextjs';
-import { act, render, renderHook, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { act, renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import SignInForm from '@/components/auth/sign-in-form';
+import { SIGN_IN_INCOMPLETE } from '@/lib/constants/sign-in-incomplete';
+import { SIGN_IN_STATUS_MESSAGES } from '@/lib/constants/sign-in-status-messages';
 import useSignInFlow from '@/lib/hooks/use-sign-in-flow';
-import { emptyErrors, fail, fakeSignIn } from '../helpers/clerk';
+import { emptyErrors, fail, fakeSignIn, ok } from '../helpers/clerk';
 
 const push = vi.fn();
 
@@ -27,18 +27,32 @@ beforeEach(() => {
 
 const CREDS = { emailAddress: 'fan@example.com', password: 'hunter22' };
 
+/** Clerk accepts the password but wants this device verified first. */
+function needsDeviceCode() {
+  signIn.status = 'needs_client_trust';
+  signIn.mfa.verifyEmailCode.mockImplementation(() => {
+    signIn.status = 'complete';
+    return ok();
+  });
+}
+
 describe('useSignInFlow', () => {
-  it('signs in, finalizes the session, then redirects', async () => {
-    const { result } = renderHook(() =>
-      useSignInFlow({ redirectTo: '/albums' }),
-    );
+  const setup = () => renderHook(() => useSignInFlow({ redirectTo: '/next' }));
+
+  it('starts at the credentials step', () => {
+    const { result } = setup();
+    expect(result.current.step).toBe('credentials');
+    expect(result.current.blocked).toBe('');
+  });
+
+  it('finalizes and redirects when the password completes sign-in', async () => {
+    const { result } = setup();
 
     await act(() => result.current.submit(CREDS));
 
     expect(signIn.password).toHaveBeenCalledWith(CREDS);
     expect(signIn.finalize).toHaveBeenCalledTimes(1);
-    expect(push).toHaveBeenCalledWith('/albums');
-    expect(result.current.blocked).toBe('');
+    expect(push).toHaveBeenCalledWith('/next');
   });
 
   it('redirects home by default', async () => {
@@ -49,7 +63,7 @@ describe('useSignInFlow', () => {
 
   it('stops and reports a rejected password', async () => {
     signIn.password.mockImplementation(() => fail('Password is incorrect.'));
-    const { result } = renderHook(() => useSignInFlow({}));
+    const { result } = setup();
 
     await act(() => result.current.submit(CREDS));
 
@@ -58,9 +72,89 @@ describe('useSignInFlow', () => {
     expect(push).not.toHaveBeenCalled();
   });
 
+  // Finalizing without a session throws inside Clerk instead of returning an
+  // error, so a new device must go through the emailed code first.
+  it.each(['needs_client_trust', 'needs_second_factor'])(
+    'emails a code instead of finalizing on %s',
+    async (status) => {
+      signIn.status = status;
+      const { result } = setup();
+
+      await act(() => result.current.submit(CREDS));
+
+      expect(signIn.finalize).not.toHaveBeenCalled();
+      expect(signIn.mfa.sendEmailCode).toHaveBeenCalledTimes(1);
+      expect(result.current.step).toBe('verify');
+      expect(result.current.email).toBe(CREDS.emailAddress);
+    },
+  );
+
+  it('verifies the code, finalizes and redirects', async () => {
+    needsDeviceCode();
+    const { result } = setup();
+    await act(() => result.current.submit(CREDS));
+
+    await act(() => result.current.submitCode('123456'));
+
+    expect(signIn.mfa.verifyEmailCode).toHaveBeenCalledWith({ code: '123456' });
+    expect(signIn.finalize).toHaveBeenCalledTimes(1);
+    expect(push).toHaveBeenCalledWith('/next');
+  });
+
+  it('does not finalize on a wrong code', async () => {
+    needsDeviceCode();
+    signIn.mfa.verifyEmailCode.mockImplementation(() => fail('Incorrect code'));
+    const { result } = setup();
+    await act(() => result.current.submit(CREDS));
+
+    await act(() => result.current.submitCode('000000'));
+
+    expect(signIn.finalize).not.toHaveBeenCalled();
+    expect(result.current.step).toBe('verify');
+  });
+
+  it('stays on credentials when the code cannot be sent', async () => {
+    signIn.status = 'needs_client_trust';
+    signIn.mfa.sendEmailCode.mockImplementation(() => fail('Rate limited'));
+    const { result } = setup();
+
+    await act(() => result.current.submit(CREDS));
+
+    expect(result.current.blocked).toBe('Rate limited');
+    expect(result.current.step).toBe('credentials');
+  });
+
+  // Only email codes have a form here; asking for any other factor would
+  // leave the user on a step they cannot finish.
+  it('explains a second factor without an email code', async () => {
+    signIn.status = 'needs_second_factor';
+    signIn.supportedSecondFactors = [{ strategy: 'totp' }];
+    const { result } = setup();
+
+    await act(() => result.current.submit(CREDS));
+
+    expect(signIn.mfa.sendEmailCode).not.toHaveBeenCalled();
+    expect(result.current.blocked).toBe(
+      SIGN_IN_STATUS_MESSAGES.needs_second_factor,
+    );
+  });
+
+  it.each([
+    ['needs_new_password', SIGN_IN_STATUS_MESSAGES.needs_new_password],
+    ['needs_protect_check', SIGN_IN_INCOMPLETE],
+  ])('explains why %s cannot finish', async (status, message) => {
+    signIn.status = status;
+    const { result } = setup();
+
+    await act(() => result.current.submit(CREDS));
+
+    expect(result.current.blocked).toBe(message);
+    expect(signIn.finalize).not.toHaveBeenCalled();
+  });
+
   it('does not redirect when finalizing the session fails', async () => {
     signIn.finalize.mockImplementation(() => fail('Session could not be set.'));
-    const { result } = renderHook(() => useSignInFlow({}));
+    const { result } = setup();
 
     await act(() => result.current.submit(CREDS));
 
@@ -70,63 +164,7 @@ describe('useSignInFlow', () => {
 
   it('reports submitting while Clerk is fetching', () => {
     fetchStatus = 'fetching';
-    const { result } = renderHook(() => useSignInFlow({}));
+    const { result } = setup();
     expect(result.current.isSubmitting).toBe(true);
-  });
-});
-
-describe('<SignInForm />', () => {
-  it('submits the entered credentials and redirects home', async () => {
-    const user = userEvent.setup();
-    render(<SignInForm />);
-
-    await user.type(screen.getByLabelText('Email'), CREDS.emailAddress);
-    await user.type(screen.getByLabelText('Password'), CREDS.password);
-    await user.click(screen.getByRole('button', { name: 'Sign in' }));
-
-    expect(signIn.password).toHaveBeenCalledWith(CREDS);
-    expect(push).toHaveBeenCalledWith('/');
-  });
-
-  it('shows a blocking error from Clerk', async () => {
-    signIn.password.mockImplementation(() =>
-      fail("Couldn't find your account."),
-    );
-    const user = userEvent.setup();
-    render(<SignInForm />);
-
-    await user.click(screen.getByRole('button', { name: 'Sign in' }));
-
-    expect(await screen.findByRole('alert')).toHaveTextContent(
-      "Couldn't find your account.",
-    );
-  });
-
-  it('shows field and global errors', () => {
-    errors.fields.password = { message: 'Password is too short' };
-    errors.global = [
-      { code: 'rate', message: 'short', longMessage: 'Too many attempts' },
-    ];
-    render(<SignInForm />);
-
-    const alerts = screen.getAllByRole('alert').map((a) => a.textContent);
-    expect(alerts).toContain('Password is too short');
-    expect(alerts).toContain('Too many attempts');
-  });
-
-  it('disables the form while signing in', () => {
-    fetchStatus = 'fetching';
-    render(<SignInForm />);
-
-    expect(screen.getByRole('button', { name: 'Signing in…' })).toBeDisabled();
-    expect(screen.getByLabelText('Email')).toBeDisabled();
-    expect(screen.getByLabelText('Password')).toBeDisabled();
-  });
-
-  it('links to sign up', () => {
-    render(<SignInForm />);
-    expect(
-      screen.getByRole('link', { name: 'Create one for free' }),
-    ).toHaveAttribute('href', '/sign-up');
   });
 });

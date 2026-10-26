@@ -27,18 +27,24 @@ export default function GlobalError({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#f6f2e9',
-          color: '#3c3730',
+          background: '#f6f4ef',
+          color: '#151515',
           fontFamily: 'system-ui, -apple-system, sans-serif',
           textAlign: 'center',
           padding: '1.5rem',
         }}
       >
         <main>
-          <h1 style={{ fontSize: '1.5rem', margin: '0 0 0.75rem' }}>
+          <h1
+            style={{
+              fontSize: '1.5rem',
+              fontWeight: 400,
+              margin: '0 0 0.75rem',
+            }}
+          >
             A temporary error has occurred.
           </h1>
-          <p style={{ margin: '0 0 1.5rem', color: '#736b61' }}>
+          <p style={{ margin: '0 0 1.5rem', color: '#6b6862' }}>
             Something went wrong loading the site. Please try again.
           </p>
           <button
@@ -47,10 +53,9 @@ export default function GlobalError({
             style={{
               font: 'inherit',
               padding: '0.55rem 1.4rem',
-              borderRadius: '0.5rem',
-              border: '1px solid rgba(46, 42, 38, 0.2)',
+              border: '0.0625rem solid #151515',
               background: 'transparent',
-              color: '#547084',
+              color: '#151515',
               cursor: 'pointer',
             }}
           >

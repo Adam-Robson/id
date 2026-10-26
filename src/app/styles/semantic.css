@@ -1,0 +1,47 @@
+/*----------Semantic References----------
+  A quiet gallery ground: warm off-white and near-black, the same on every
+  page. Only --accent changes with the page's print. */
+:root {
+  --bg: light-dark(#f6f4ef, #121211);
+  --surface: light-dark(#fbfaf7, #1a1a19);
+  --border: light-dark(#dcd8d0, #34322f);
+  --text: light-dark(#151515, #ebe8e2);
+  --text-muted: light-dark(#6b6862, #9a968e);
+  --accent: light-dark(var(--p-accent), var(--p-accent-bright));
+  --danger: light-dark(#a3253f, #ff9aac);
+  --hover-wash: color-mix(in oklab, var(--text) 5%, transparent);
+
+  /*----------Layout----------*/
+  --content-max: 75.625rem;
+  --bar-max: 56.25rem;
+  --bar-clearance: calc(9rem + env(safe-area-inset-bottom, 0rem));
+  --z-bar: 999;
+  --pattern-size: 26rem;
+
+  /*----------Interaction----------*/
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*----------Labels: small caps, quiet weight----------*/
+  --label-size: var(--text-xs);
+  --label-weight: 500;
+  --label-tracking: 0.14em;
+}
+
+@media (width >= 40rem) {
+  :root {
+    --pattern-size: 36rem;
+  }
+}
+
+@media (width >= 96rem) {
+  :root {
+    --pattern-size: 44rem;
+  }
+}
+
+/*----------Touch Layout Growth----------*/
+@media (pointer: coarse) {
+  :root {
+    --bar-clearance: calc(10.5rem + env(safe-area-inset-bottom, 0rem));
+  }
+}

@@ -269,9 +269,11 @@ describe('<SignUpForm />', () => {
     await user.click(screen.getByRole('button', { name: 'Continue' }));
 
     expect(signUp.update).toHaveBeenCalledWith({ username: 'fan' });
-    expect(
-      await screen.findByLabelText('Verification code'),
-    ).toBeInTheDocument();
+    // Each step is its own form, so the code field mounts fresh rather than
+    // React reusing the username input in its place. Reusing it would turn
+    // an uncontrolled input controlled, and skip autoFocus, which only runs
+    // when an input mounts.
+    expect(await screen.findByLabelText('Verification code')).toHaveFocus();
   });
 
   it('renders extra required fields up front and submits them', async () => {
