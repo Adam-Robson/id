@@ -36,17 +36,17 @@ Open [localhost:3000](http://localhost:3000) to view the site.
 
 ## Scripts
 
-| Command              | Purpose                                     |
-| -------------------- | ------------------------------------------- |
-| `npm run dev`        | Run the development server                  |
-| `npm run build`      | Create a production build                   |
-| `npm run start`      | Serve the production build                  |
-| `npm run typecheck`  | Generate route types, then run `tsc`        |
-| `npm run lint`       | Biome lint and format check                 |
-| `npm run lint:ci`    | Biome check as run in CI                    |
-| `npm run format`     | Apply Biome formatting                      |
-| `npm run test`       | Run the Vitest suite once                   |
-| `npm run test:watch` | Run Vitest in watch mode                    |
+| Command              | Purpose                              |
+| -------------------- | ------------------------------------ |
+| `npm run dev`        | Run the development server           |
+| `npm run build`      | Create a production build            |
+| `npm run start`      | Serve the production build           |
+| `npm run typecheck`  | Generate route types, then run `tsc` |
+| `npm run lint`       | Biome lint and format check          |
+| `npm run lint:ci`    | Biome check as run in CI             |
+| `npm run format`     | Apply Biome formatting               |
+| `npm run test`       | Run the Vitest suite once            |
+| `npm run test:watch` | Run Vitest in watch mode             |
 
 CI (`.github/workflows/node.js.yml`) runs typecheck, `lint:ci`, build
 and test on every push and pull request to `main` and `dev`.
@@ -83,7 +83,6 @@ manifest's PNG icons in `public/favicon/`.
 ## Source Code Standards
 
 The full standards live in `.claude/CLAUDE.md`. In short:
-
 - Files are capped at **200 lines**.
 - Single quotes in all JS/TS files; indentation is **2 spaces**.
 - The codebase follows **SOLID** principles. Actions, types, constants,
