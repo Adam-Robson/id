@@ -16,23 +16,23 @@ updates:
     groups:
       # Packages that must move in lockstep, including across majors.
       react:
-        patterns: ['react', 'react-dom', '@types/react', '@types/react-dom']
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
       aws-sdk:
-        patterns: ['@aws-sdk/*']
+        patterns: ["@aws-sdk/*"]
       tailwind:
-        patterns: ['tailwindcss', '@tailwindcss/*']
+        patterns: ["tailwindcss", "@tailwindcss/*"]
       # Everything else: one PR for runtime deps, one for tooling.
       # Majors are left out so each breaking change gets its own PR.
       production:
         dependency-type: production
-        update-types: ['minor', 'patch']
+        update-types: ["minor", "patch"]
       development:
         dependency-type: development
-        update-types: ['minor', 'patch']
+        update-types: ["minor", "patch"]
       # Batch security fixes into one PR instead of one per advisory.
       security:
         applies-to: security-updates
-        patterns: ['*']
+        patterns: ["*"]
 
   - package-ecosystem: github-actions
     directory: /
@@ -41,4 +41,4 @@ updates:
     open-pull-requests-limit: 2
     groups:
       actions:
-        patterns: ['*']
+        patterns: ["*"]
