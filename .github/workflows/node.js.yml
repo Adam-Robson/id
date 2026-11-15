@@ -10,16 +10,16 @@ jobs:
   ci:
     name: Type-check, Lint, Test, Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [26]
 
     steps:
       - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v7
         with:
-          node-version: {{ matrix.node-version }}
+          # Runs the CI workflow using the Node version in
+          # the .nvmrc file so that the Node version used to
+          # develop locally matches the version run in CI.
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
