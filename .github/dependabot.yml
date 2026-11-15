@@ -4,11 +4,41 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 10
+      interval: monthly
+    # Skip releases younger than this, so a broken or compromised publish is
+    # usually caught and yanked before it reaches the site. Security updates
+    # ignore cooldown and still arrive immediately.
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+    open-pull-requests-limit: 5
+    # Groups match top to bottom; a dependency joins the first group it fits.
+    groups:
+      # Packages that must move in lockstep, including across majors.
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
+      aws-sdk:
+        patterns: ["@aws-sdk/*"]
+      tailwind:
+        patterns: ["tailwindcss", "@tailwindcss/*"]
+      # Everything else: one PR for runtime deps, one for tooling.
+      # Majors are left out so each breaking change gets its own PR.
+      production:
+        dependency-type: production
+        update-types: ["minor", "patch"]
+      development:
+        dependency-type: development
+        update-types: ["minor", "patch"]
+      # Batch security fixes into one PR instead of one per advisory.
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
+      interval: monthly
+    open-pull-requests-limit: 2
+    groups:
+      actions:
+        patterns: ["*"]
