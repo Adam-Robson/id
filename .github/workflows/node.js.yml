@@ -10,6 +10,9 @@ jobs:
   ci:
     name: Type-check, Lint, Test, Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24, 26]
 
     steps:
       - uses: actions/checkout@v7
