@@ -83,6 +83,7 @@ manifest's PNG icons in `public/favicon/`.
 ## Source Code Standards
 
 The full standards live in `.claude/CLAUDE.md`. In short:
+
 - Files are capped at **200 lines**.
 - Single quotes in all JS/TS files; indentation is **2 spaces**.
 - The codebase follows **SOLID** principles. Actions, types, constants,
