@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main, dev]
 
+# A newer push to the same branch or PR cancels the run it supersedes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ci:
     name: Type-check, Lint, Test, Build
@@ -34,6 +39,16 @@ jobs:
       # than the one installed, which is why CI and local disagreed.
       - name: Lint & format
         run: npm run lint:ci
+
+      # CI is the build check for Dependabot branches, which Vercel no longer
+      # previews. Reusing Next's cache keeps these runs short.
+      - name: Restore Next.js build cache
+        uses: actions/cache@v6
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**') }}
+          restore-keys: |
+            next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
 
       - name: Build
         run: npm run build
