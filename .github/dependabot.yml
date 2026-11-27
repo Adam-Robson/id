@@ -21,13 +21,10 @@ updates:
         patterns: ["@aws-sdk/*"]
       tailwind:
         patterns: ["tailwindcss", "@tailwindcss/*"]
-      # Everything else: one PR for runtime deps, one for tooling.
+      # Everything else in one PR, so a month of updates costs one
+      # production build on Vercel instead of one per group.
       # Majors are left out so each breaking change gets its own PR.
-      production:
-        dependency-type: production
-        update-types: ["minor", "patch"]
-      development:
-        dependency-type: development
+      minor-and-patch:
         update-types: ["minor", "patch"]
       # Batch security fixes into one PR instead of one per advisory.
       security:
